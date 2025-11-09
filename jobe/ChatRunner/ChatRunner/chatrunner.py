@@ -13,8 +13,10 @@ def dumpSvardata(svar):
     svardata = Test(testName="svardata")
     svardata.addResult("gpt_svar", json.dumps(svar))
     return svardata
-def dumpResponse(svar_fetched):
+def dumpResponse(svar):
+
     testResults = []
+    svar_fetched = formatAnswer(svar)
 
     for test in json.loads(svar_fetched):
         try:
@@ -34,12 +36,10 @@ def dumpResponse(svar_fetched):
 
     return testResults
 
-def formatAnswer(response,sandbox={},debug=False):
+def extractAnswer(response,sandbox={},debug=False):
     """
     Extract the answer from the AI response.
-    Returns (svar, svar_fetched)
-    + svar is raw message contants from AI
-    + svar_fetched **TODO** explain
+    Returns the raw message contants from AI
     """
     api = sandbox.get( "API", "ollama" ).lower()
     svar = response.json()
@@ -53,7 +53,10 @@ def formatAnswer(response,sandbox={},debug=False):
     if debug:
        print( "== message content from AI ==" )
        print(svar)
+    return svar
 
+def formatAnswer(svar):
+    """Format the raw result produced by `extractAnswer()`"""
     svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
     if debug:
         print( "== fetched ==" )
@@ -158,7 +161,7 @@ class TestResults:
             self.testresults.append(test)
             test = Test()
          else:
-            self.other_output += line+"\n"
+            self.other_output += line + "\n"
       self.numTests = len(self.testresults)
       self.debug = debug
 
@@ -451,10 +454,10 @@ def queryAi(sandbox, ans, prompt, debug=False )
    """
    response = chatRequest(sandbox, ans, prompt )
 
-   svar, svar_fetched = formatAnswer(response, sandbox,debug=debug)
+   svar = extractAnswer(response, sandbox, debug=debug)
 
    svardata = dumpSvardata( svar )
-   testResults = dumpResponse( svar_fetched )
+   testResults = dumpResponse( svar )
    return svardata, testResults
 
 def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
