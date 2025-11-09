@@ -9,7 +9,11 @@ import subprocess, base64, json, re, os
 import requests
 import argparse
 
-def dumpResponse(svar,svar_fetched):
+def dumpSvardata(svar):
+    svardata = Test(testName="svardata")
+    svardata.addResult("gpt_svar", json.dumps(svar))
+    return svardata
+def dumpResponse(svar_fetched):
     testResults = []
 
     for test in json.loads(svar_fetched):
@@ -28,13 +32,14 @@ def dumpResponse(svar,svar_fetched):
                 test_obj.addResult(k,v)
         testResults.append(test_obj)
 
-    svardata = Test(testName="svardata")
-    svardata.addResult("gpt_svar", json.dumps(svar))
-    return svardata, testResults
+    return testResults
 
 def formatAnswer(response,sandbox={},debug=False):
     """
     Extract the answer from the AI response.
+    Returns (svar, svar_fetched)
+    + svar is raw message contants from AI
+    + svar_fetched **TODO** explain
     """
     api = sandbox.get( "API", "ollama" ).lower()
     svar = response.json()
@@ -42,16 +47,16 @@ def formatAnswer(response,sandbox={},debug=False):
        svar = svar[ "choices"][0]
        if debug: print( "== Using OpenAPI" )
     if debug:
-        print( "==svar==" )
+        print( "== complete «svar» from AI ==" )
         print(svar)
     svar = svar["message"]["content"]
     if debug:
-       print( "==svar==2==" )
+       print( "== message content from AI ==" )
        print(svar)
 
     svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
     if debug:
-        print( "==fetched==" )
+        print( "== fetched ==" )
         print(svar_fetched)
     return svar, svar_fetched
 
@@ -448,7 +453,8 @@ def queryAi(sandbox, ans, prompt, debug=False )
 
    svar, svar_fetched = formatAnswer(response, sandbox,debug=debug)
 
-   svardata, testResults = dumpResponse( svar, svar_fetched )
+   svardata = dumpSvardata( svar )
+   testResults = dumpResponse( svar_fetched )
    return svardata, testResults
 
 def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):

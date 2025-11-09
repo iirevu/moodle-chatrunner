@@ -5,7 +5,7 @@ This is the script run as a subprocess to sandbox any use
 of student input.
 """
 
-from ChatRunner.chatrunner import *
+from ChatRunner.chatrunner import queryAI
 import json, re
 import requests   # !!!
 
