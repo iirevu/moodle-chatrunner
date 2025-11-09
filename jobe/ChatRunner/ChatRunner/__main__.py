@@ -51,11 +51,6 @@ if __name__ == "__main__":
     if args.test:
         r = testProgram( prob, ans, lit, graderstate_string, sandboxparams )
         print( "== Output of testProgram ==" )
-        print( r )
-    else:
-        r = runAnswer( prob, ans, lit, graderstate_string, sandboxparams, debug=True ) 
-        print( "== Output of runAnswer ==" )
-        print( r )
         print( "Fraction:", r.get( "fraction" ) )
         print( r.get( "prologuehtml" ) )
         print( "== Test Results ==" )
@@ -63,3 +58,7 @@ if __name__ == "__main__":
         print( "== Graderstate ==" )
         print( r.get( "graderstate" ) )
         print( r.get( "epiloguehtml" ) )
+    else:
+        r = runAnswer( prob, ans, lit, graderstate_string, sandboxparams, debug=True ) 
+        print( "== Output of runAnswer ==" )
+        print( r )

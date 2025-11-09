@@ -422,7 +422,6 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
     if sandbox is None:
         raise Exception( "No sandbox received by runAnswer." )
 
-
     graderstate = getGraderstate(gs,studans)
 
     test_program = loadtestprogram(
@@ -504,7 +503,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     graderstate["step"] += 1
 
     # Format feedback for display
-    return testResults.getCodeRunnerOutput(
+    return testResults.getCodeRunnerResult(
         other_lines=True,
         graderstate=graderstate)
 
