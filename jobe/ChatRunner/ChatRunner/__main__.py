@@ -54,6 +54,7 @@ if __name__ == "__main__":
         print( "Fraction:", r.get( "fraction" ) )
         print( r.get( "prologuehtml" ) )
         print( "== Test Results ==" )
+        # Table coded as list of lists
         print( r.get( "testresults" ) )
         print( "== Graderstate ==" )
         print( r.get( "graderstate" ) )

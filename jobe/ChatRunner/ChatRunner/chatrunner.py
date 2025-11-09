@@ -153,7 +153,7 @@ class TestResults:
             self.testresults.append(test)
             test = Test()
          else:
-            self.other_output+= line+"\n"
+            self.other_output += line+"\n"
       self.numTests = len(self.testresults)
       self.debug = debug
 
@@ -287,7 +287,7 @@ class TestResults:
        if other_lines:
          prehtml = f"""<h2> Other output / error-messages from testgrader </h2>
          <p><br>
-         """+self.other_output.replace("\n", "<br>")+"""
+         """ + self.other_output.replace("\n", "<br>") + """
          </p></br>"""
        obj = { "fraction": self.frac,
                "testresults": self.resultstable,
