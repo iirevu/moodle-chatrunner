@@ -1,0 +1,12 @@
+certifi==2025.10.5
+charset-normalizer==3.4.4
+-e git+ssh://git@github.com/iirevu/moodle-coderunner-docker.git@9c4360deb82744aa389e97c3e6c6467c1e4f79b1#egg=ChatRunner&subdirectory=jobe/ChatRunner
+idna==3.11
+numpy==2.3.4
+pandas==2.3.3
+python-dateutil==2.9.0.post0
+pytz==2025.2
+requests==2.32.5
+six==1.17.0
+tzdata==2025.2
+urllib3==2.5.0
