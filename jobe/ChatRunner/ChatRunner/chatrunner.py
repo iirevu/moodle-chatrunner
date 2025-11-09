@@ -440,6 +440,17 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
           other_lines=True,
           graderstate=graderstate)
 
+def queryAi(sandbox, ans, prompt, debug=False )
+   """
+   Query the languagemodel.
+   """
+   response = chatRequest(sandbox, ans, prompt )
+
+   svar, svar_fetched = formatAnswer(response, sandbox,debug=debug)
+
+   svardata, testResults = dumpResponse( svar, svar_fetched )
+   return svardata, testResults
+
 def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
     """
     This function is supposed to be functionally identical to
@@ -450,15 +461,10 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     and the language models from the command line.
     """
 
-    if sandbox is None:
-        raise Exception( "No sandbox provided" )
-
     graderstate = getGraderstate(gs,studans)
     prompt = getPrompt(problem,literatur,gs)
-    response = chatRequest(sandbox,studans,prompt)
-    svar, svar_fetched = formatAnswer(response,sandbox,debug=True)
 
-    svardata, testResults = dumpResponse( svar, svar_fetched )
+    svardata, testResults = queryAI(sandbox, studans, prompt, debug=debug)
 
     if debug:
        print( "==== svardata ====" )
@@ -472,7 +478,6 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     output = svardata.dump() + "\n".join( [ x.dump() for x in testResults ] )
     testResults = TestResults(output)
     testResults.finalise()
-
 
     for test in testResults.testresults:
        if test.result["name"] == "svardata":

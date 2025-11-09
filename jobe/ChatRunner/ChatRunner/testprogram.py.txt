@@ -17,11 +17,7 @@ sandboxparams = {sandbox}
 if sandboxparams is None:
    raise Exception( "No sandbox received in test program." )
 
-response = chatRequest(sandboxparams,__student_answer__,__prompt__)
-
-svar, svar_fetched = formatAnswer(response,sandboxparams)
-
-svardata, testResults = dumpResponse( svar, svar_fetched )
+svardata, testResults = queryAI(sandboxparams, __student_answer__, __prompt__)
 
 print(svardata.dump())
     
