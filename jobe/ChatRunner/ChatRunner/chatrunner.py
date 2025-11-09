@@ -331,34 +331,16 @@ def getfn(fn):
     return( os.path.join( dir, fn ) )
 
 
-class CodeGrader:
-   """
-   The CodeGrader object is defines a test.  It can be instantiated
-   with a porticular test program.  The `runTest()` method runs the test
-   and returns a TestResults object.
-   """
-   def __init__(self,test_programs):
-      if type(test_programs) == list:
-         self.test_programs = test_programs
-      else:
-         self.test_programs = [test_programs]
-
-   def runTest(self, num=0, timeout=1.0):
+def runTest(prg, timeout=1.0):
       """
-      Run test program no. num, catching exceotions.  
+      Run the test program as a supprocess catching exceotions.  
       It produces a `TestResults` object, incorporating the test results,
       or appropriate error codes if the program fails.
       """
 
-      if not self.test_programs:
-         return TestResults(None, -1)
-
-      if num >= len(self.test_programs):
-         return TestResults(None,-2)
-
       try:
          with open("code.py", "w") as fout:
-             fout.write(self.test_programs[num])
+             fout.write( prg )
          sp = subprocess.run(['python3', 'code.py'],
              stderr = subprocess.STDOUT,
              universal_newlines=False,
@@ -433,11 +415,7 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
             pyfn="testprogram.py.txt",
             mdfn="prompt.md")
 
-    # Instantiate and run test
-    test = CodeGrader([test_program])
-    if debug: print( test )
-
-    testResults = test.runTest(num=0, timeout=40.0)
+    testResults = runTest( test_program, timeout=40.0)
     testResults.finalise(debug=debug)
 
     i = 1
