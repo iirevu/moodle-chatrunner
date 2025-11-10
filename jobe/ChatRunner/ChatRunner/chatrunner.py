@@ -10,7 +10,7 @@ from .query import Test, queryAI
 
 
 class TestResults:
-   def __init__(self, output, exitCode=0, name=None, debug=False):
+   def __init__(self, output, exitCode=0, debug=False):
       """
       output: Output fra testprogram
       exitCode: 0: OK, 1: Feil/kræsj, 2: timeout, -1: Ingen tester å kjøre, -2: Testnummer finnes ikke
@@ -21,7 +21,6 @@ class TestResults:
       self.other_output = ""
       self.exitCode = exitCode
       self.frac = 0
-      self.name = name
       self.tableHeader = None
       # self.tableRemap = None
       self.resultstable = None
@@ -100,8 +99,7 @@ class TestResults:
             "tableHeader": self.tableHeader,
             # "tableRemap": self.tableRemap,
             "resultstable": self.resultstable,
-            "frac": self.frac,
-            "name": self.name
+            "frac": self.frac
          }
       }
    def __repr__(self):
