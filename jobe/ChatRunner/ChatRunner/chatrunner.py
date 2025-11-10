@@ -472,6 +472,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     and the language models from the command line.
     """
 
+    print( "sandbox", sandbox )
     if sandbox is None:
         raise Exception( "No sandbox provided" )
 

@@ -1,5 +1,5 @@
 {
 "API": "ollama",
 "model": "llama3",
-"url": "http://localhost:11434/api/chat",
+"url": "http://localhost:11434/api/chat"
 }
