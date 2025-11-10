@@ -1,0 +1,6 @@
+{
+"API": "openai",
+"model": "openai/gpt-oss-120b",
+"url": "https://idun-llm.hpc.ntnu.no/api/chat/completions",
+"OPENAI_API_KEY": "<INSERT OWN KEY>"
+}
