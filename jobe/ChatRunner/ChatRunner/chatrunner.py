@@ -23,7 +23,7 @@ class TestResults:
       self.frac = 0
       self.name = name
       self.tableHeader = None
-      self.tableRemap = None
+      # self.tableRemap = None
       self.resultstable = None
       if exitCode != 0:
          self.results = { "failed":
@@ -49,19 +49,17 @@ class TestResults:
           print( "=== testResults ===" )
           print( self.contents() )
 
-      tableRemap = {"iscorrect": "passed",
-                  "Test": "name",
-                  "Beskrivelse": "description"}
       tableHeader = ["iscorrect", "Test", "Beskrivelse"]
     
-      self.makeResultTable(tableHeader,tableRemap)
+      self.makeResultTable( tableHeader )
       self.mark()
       if debug:
           print( "=== testResults (marked) ===" )
           print( self.contents() )
       # Format results
       return self
-   def makeResultTable(self, tableHeader, tableRemap):
+
+   def makeResultTable( self, tableHeader ):
       """
       This function creates the `resultstable` attribute by
       formatting the test results
@@ -69,14 +67,15 @@ class TestResults:
       self.tableHeader = tableHeader
       self.resultstable = [tableHeader]
 
-      if not tableRemap:
-         tableRemap = {k:k for k in tableHeader}
-      else:
-         for header in tableHeader:
-            if header not in tableRemap.keys():
-               tableRemap.update({header:header})
+      tableRemap = {"iscorrect": "passed",
+                  "Test": "name",
+                  "Beskrivelse": "description"}
 
-      self.tableRemap = tableRemap
+      for header in tableHeader:
+          if header not in tableRemap.keys():
+              tableRemap.update({header:header})
+
+      # self.tableRemap = tableRemap
       i = 1
       for test in self.testresults:
          if self.debug:
@@ -103,7 +102,7 @@ class TestResults:
             "testresults": self.testresults,
             "other_output": self.other_output,
             "tableHeader": self.tableHeader,
-            "tableRemap": self.tableRemap,
+            # "tableRemap": self.tableRemap,
             "resultstable": self.resultstable,
             "frac": self.frac,
             "name": self.name
@@ -146,6 +145,7 @@ class TestResults:
       return obj_read
 
    def mark(self):
+      """Compute the grade `frac` from the testResult."""
       total_marks = 0
       obtained_marks = 0
       for test in self.testresults:
@@ -192,6 +192,7 @@ class TestResults:
                prehtml,graderstate,other_lines)
        return json.dumps( obj, ensure_ascii=False )
    def mergeResults(self, merging_result):
+      raise Exception, "The `mergeResults() function in not supposed to be used."
       if self.resultstable == None:
          if merging_result.resultstable == None:
             pass
