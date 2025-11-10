@@ -124,6 +124,8 @@ class TestResults:
       return self.__repr__()
 
    def load(self, str_repr):
+      raise Exception, "Disabled TestResult.load(), assuming that is is never used."
+
       obj_read = False
       self.unencoded = ""
       for line in str_repr:
