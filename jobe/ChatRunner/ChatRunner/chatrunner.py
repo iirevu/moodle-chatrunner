@@ -46,7 +46,7 @@ class TestResults:
       """
       if debug:
           print( "=== testResults ===" )
-          print( self.contents() )
+          self.display()
 
       tableHeader = ["iscorrect", "Test", "Beskrivelse"]
     
@@ -54,7 +54,7 @@ class TestResults:
       self.mark()
       if debug:
           print( "=== testResults (marked) ===" )
-          print( self.contents() )
+          self.display()
       # Format results
       return self
 
@@ -89,35 +89,38 @@ class TestResults:
          if row != []:
             self.resultstable.append(row)
 
-   def contents(self):
+   def display(self):
       """
       Return the contents of the TestResults as a dictionary.
       """
-      return  { "TestResultsObj": {
-            "testresults": self.testresults,
-            "other_output": self.other_output,
-            "tableHeader": self.tableHeader,
-            # "tableRemap": self.tableRemap,
-            "resultstable": self.resultstable,
-            "frac": self.frac
-         }
-      }
+      print( self.testresults )
+      print( self.other_output )
+      print( self.tableHeader )
+      print( self.resultstable )
+      print( "Fraction:", self.frac )
    def __repr__(self):
       """
       Return the contents of the TestResults as a string.
       """
-      contents = self.contents()
-      contents["testresults"] = [ t.dump() for t in contents["testresults"] ]
+      contents = { "TestResultsObj": {
+            "testresults": [ t.dump() for t in self.testresults ]
+            "other_output": self.other_output,
+            "tableHeader": self.tableHeader,
+            "resultstable": self.resultstable,
+            "frac": self.frac
+         }
+      }
       return json.dumps(contents)
 
    def dump(self):
       """
       Return the contents of the TestResults as a string.
       """
+      raise Exception( "Is dump() used?" )
       return self.__repr__()
 
    def load(self, str_repr):
-      raise Exception, "Disabled TestResult.load(), assuming that is is never used."
+      raise Exception( "Disabled TestResult.load(), assuming that is is never used." )
 
       obj_read = False
       self.unencoded = ""
@@ -186,7 +189,7 @@ class TestResults:
                prehtml,graderstate,other_lines)
        return json.dumps( obj, ensure_ascii=False )
    def mergeResults(self, merging_result):
-      raise Exception, "The `mergeResults() function in not supposed to be used."
+      raise Exception( "The `mergeResults() function in not supposed to be used." )
       if self.resultstable == None:
          if merging_result.resultstable == None:
             pass
