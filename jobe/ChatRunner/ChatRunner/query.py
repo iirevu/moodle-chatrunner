@@ -81,7 +81,7 @@ def formatAnswer(svar,debug=False):
     if debug:
         print( "== fetched ==" )
         print(svar_fetched)
-    return svar, svar_fetched
+    return svar_fetched
 
 def chatRequest(sandbox,prompt,ans):
     """
