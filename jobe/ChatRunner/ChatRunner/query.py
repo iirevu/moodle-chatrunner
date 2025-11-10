@@ -12,6 +12,11 @@ def queryAI(sandbox, ans, prompt, debug=False ):
    """
    response = chatRequest(sandbox, ans, prompt )
 
+   status = response.status_code 
+   if status != 200:
+       print( response )
+       raise Exception( f"HTTP requests returns {status}." )
+
    svar = extractAnswer(response, sandbox, debug=debug)
 
    r = [ dumpSvardata( svar ) ]
