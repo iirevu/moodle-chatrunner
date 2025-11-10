@@ -11,6 +11,7 @@ dist
 test
 code.py
 __pycache__
-test.*
 output
 sandboxparams
+idun-*.json
+chatgpt-*.json

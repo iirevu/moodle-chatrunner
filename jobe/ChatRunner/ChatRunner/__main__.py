@@ -36,8 +36,8 @@ if __name__ == "__main__":
     else: lit = {}
     
     # Read AI configuration from JSON or from arguments 
-    if args.json:
-        with open("your_file.json", "r") as file:
+    if args.config:
+        with open( args.config, "r" ) as file:
             cfg = json.load(file)
     else:
         cfg = {}
