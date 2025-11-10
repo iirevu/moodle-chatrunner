@@ -4,9 +4,9 @@
 Module handling the correspondence with the large language model.
 """
 
-import requests
+import requests, re, json
 
-def queryAi(sandbox, ans, prompt, debug=False )
+def queryAI(sandbox, ans, prompt, debug=False ):
    """
    Query the languagemodel.  It retunrs a list of `Test` objects.
    """
@@ -27,6 +27,8 @@ def dumpResponse(svar):
     testResults = []
     svar_fetched = formatAnswer(svar)
 
+    print( "svar_fetched" )
+    print( svar_fetched )
     for test in json.loads(svar_fetched):
         try:
           test_obj = Test(testName=test.get( "testName", "Unnamed test" ))
@@ -53,7 +55,7 @@ def extractAnswer(response,sandbox={},debug=False):
     api = sandbox.get( "API", "ollama" ).lower()
     svar = response.json()
     if api in [ "openai", "openapi" ]:
-       svar = svar[ "choices"][0]
+       svar = svar["choices"][0]
        if debug: print( "== Using OpenAPI" )
     if debug:
         print( "== complete «svar» from AI ==" )
@@ -64,9 +66,13 @@ def extractAnswer(response,sandbox={},debug=False):
        print(svar)
     return svar
 
-def formatAnswer(svar):
+def formatAnswer(svar,debug=False):
     """Format the raw result produced by `extractAnswer()`"""
-    svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
+    try:
+       svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
+    except Exception as e:
+        print( "svar (crash):", svar )
+        raise e
     if debug:
         print( "== fetched ==" )
         print(svar_fetched)

@@ -5,7 +5,7 @@ This is the main library, defining the classes and auxiliary
 function for ChatRunner.
 """
 
-import subprocess, base64, json, re, os
+import subprocess, base64, json, os
 from .query import Test, queryAI
 
 
@@ -103,7 +103,7 @@ class TestResults:
       Return the contents of the TestResults as a string.
       """
       contents = { "TestResultsObj": {
-            "testresults": [ t.dump() for t in self.testresults ]
+            "testresults": [ t.dump() for t in self.testresults ],
             "other_output": self.other_output,
             "tableHeader": self.tableHeader,
             "resultstable": self.resultstable,

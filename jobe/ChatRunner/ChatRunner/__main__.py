@@ -7,6 +7,7 @@ and CodeRunner.
 
 from .chatrunner import *
 import json
+import argparse
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
