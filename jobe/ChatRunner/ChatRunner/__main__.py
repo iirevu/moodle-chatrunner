@@ -16,7 +16,7 @@ if __name__ == "__main__":
              epilog = '')
     parser.add_argument('problem',help="Problem file")
     parser.add_argument('answer',help="Answer file")
-    parser.add_argument('-m','--model',default="gpt-oss:20b",help="Model")
+    parser.add_argument('-m','--model',help="Model")
     parser.add_argument('-l','--literature',help="Literature file (json)")
     parser.add_argument('-u','--url',help="URL for the LLM OpenAPI.")
     parser.add_argument('-k','--api-key',dest="key",help="Key for API access.")
