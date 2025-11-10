@@ -76,13 +76,9 @@ class TestResults:
               tableRemap.update({header:header})
 
       # self.tableRemap = tableRemap
-      i = 1
-      for test in self.testresults:
-         if self.debug:
-            print( f"> test {i}" )
-            print(test)
-         i += 1
+      if self.debug: debugPrintResults(self.testresults)
 
+      for test in self.testresults:
          row = []
          for column in self.tableHeader:
             try:
@@ -286,15 +282,12 @@ def advanceGraderstate(gs,res,debug=False):
     """
     Advance the graderstate, adding the response from the AI.
     """
-    i = 1
+
+    if debug: debugPrintResults(res.testresults)
+
     for test in res.testresults:
        if test.result["name"] == "svardata":
           gs["svar"].append(test.result["gpt_svar"])
-       if debug:
-         print( f"=> test {i}" )
-         print(test)
-         i += 1
-
     gs["step"] += 1
 
 def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,subproc=True):
@@ -332,6 +325,14 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
           other_lines=True,
           graderstate=graderstate)
 
+def debugPrintResults(testResults):
+    """Print test results for debugging purposes."""
+    i = 1
+    for test in testResults:
+        print( f"==== test {i} ====" )
+        print(test)
+        i += 1
+
 def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
     """
     This function is supposed to be functionally identical to
@@ -347,12 +348,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
 
     testResults = queryAI(sandbox, studans, prompt, debug=debug)
 
-    if debug:
-       i = 1
-       for test in testResults:
-          print( f"==== test {i} ====" )
-          print(test)
-          i += 1
+    if debug: debugPrintResults(testResults)
 
     # Dump the result as a string and have `TestResults` reparse it,
     # in the way that is required for `subprocess` in `runAnswer()`.
