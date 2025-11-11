@@ -99,6 +99,11 @@ sh test.sh --config chatgpt.json --test
 At NTNU, you may be able to use Idun.  This also requires an API key,
 and sample config is `idun.json`.
 
+If you omit the `--test` option, the test is sandboxed as it would be
+in Moodle, and the output is as CodeRunner requires.  The `--test`
+option gives slightly more userfriendly output, although it is not yet
+satisfactory.
+
 This is work in progress, and we have not yet been able to format the
 output, which is intended to be parsed by CodeRunner, so that it is
 readable for human users in the command line interface.
