@@ -22,8 +22,10 @@ if __name__ == "__main__":
     parser.add_argument('-k','--api-key',dest="key",help="Key for API access.")
     parser.add_argument('-A','--api',help="The API to use for AI connection.")
     parser.add_argument('-C','--config',help="Config file (json).")
-    parser.add_argument('-T','--test',action="store_true",
-                        help="Debug mode, running without the sandbox.")
+    parser.add_argument('-M','--moodle',action="store_true",
+                        help="Moodle mode, running in the sandbox.")
+    parser.add_argument('-v','--verbose',action="store_true",
+                        help="Verbose/debug mode.")
     args = parser.parse_args()
 
     # Read support files
@@ -69,10 +71,10 @@ if __name__ == "__main__":
     graderstate_string = ""
 
     # Run the test
-    if args.test:
-        r = testProgram( prob, ans, lit, graderstate_string, cfg )
+    if args.moodle:
+        r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose ) 
+        print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=True ) 
-        print( "== Output of runAnswer ==" )
+        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose )
         print( r )

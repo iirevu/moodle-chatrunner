@@ -94,15 +94,14 @@ the module.
 To test against OpenAI/ChatGPT, you have to get an API key, and edit
 the config file `chatgpt.json` to use this key before running,
 ```sh
-sh test.sh --config chatgpt.json --test
+sh test.sh --config chatgpt.json
 ```
 At NTNU, you may be able to use Idun.  This also requires an API key,
 and sample config is `idun.json`.
 
-If you omit the `--test` option, the test is sandboxed as it would be
-in Moodle, and the output is as CodeRunner requires.  The `--test`
-option gives slightly more userfriendly output, although it is not yet
-satisfactory.
+There are two additional options to modify the test.
++ `--moodle` runs the test in the sandbox as used in moodle.
++ `--verbose` gives additional debug output
 
 This is work in progress, and we have not yet been able to format the
 output, which is intended to be parsed by CodeRunner, so that it is
