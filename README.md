@@ -92,10 +92,12 @@ This installs in editable mode, so that you can keep developing and testing
 the module.
 
 To test against OpenAI/ChatGPT, you have to get an API key, and edit
-the script (under jobe/ChatRunenr) to use this key before running,
+the config file `chatgpt.json` to use this key before running,
 ```sh
-sh chatgpttest.sh
+sh test.sh --config chatgpt.json --test
 ```
+At NTNU, you may be able to use Idun.  This also requires an API key,
+and sample config is `idun.json`.
 
 This is work in progress, and we have not yet been able to format the
 output, which is intended to be parsed by CodeRunner, so that it is
@@ -123,7 +125,7 @@ docker exec -it ollama ollama run llama3
 
 To test ChatRunner against ollama, you can run 
 ```sh
-sh ollamatest.sh
+sh test.sh --config ollama.json --test
 ```
 
 The main problem with ollama, is that the models available are inferior
