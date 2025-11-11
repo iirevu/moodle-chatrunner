@@ -65,9 +65,6 @@ class TestResults:
       Finalise the TestResults object, running makeResultTable()
       and mark().
       """
-      if debug:
-          print( "=== testResults ===" )
-          print( self.getMarkdownResult() )
 
       tableHeader = ["iscorrect", "Test", "Beskrivelse"]
     
@@ -157,13 +154,13 @@ class TestResults:
        tab = "# Results table\n\n" + self.resultstable.markdown()
        header = "# Assessment output\n\n"
        return gs + header + prehtml + tab + self.pmd() + f"\nFraction: {self.frac}\n"
-   def getCodeRunnerResult(self,
+   def getCodeRunnerOutput(self,
                            prehtml=None,
                            graderstate=None,
                            other_lines=False ):
        """
-       Return the test results as a dict suitable for JSON export
-       in the format used by CodeRunner.
+       Return the test results as used by CodeRunner.
+       This is string representation of a JSON object.
        """
        if other_lines:
          prehtml = f"""<h2> Other output / error-messages from testgrader </h2>
@@ -175,17 +172,6 @@ class TestResults:
                "prologuehtml": prehtml,
                "epiloguehtml": self.phtml(),
                "graderstate": graderstate }
-       return obj
-   def getCodeRunnerOutput(self,
-                           prehtml=None,
-                           graderstate=None,
-                           other_lines=False ):
-       """
-       Return the test results as used by CodeRunner.
-       This is string representation of a JSON object.
-       """
-       obj = self.getCodeRunnerResult(
-               prehtml,graderstate,other_lines)
        return json.dumps( obj, ensure_ascii=False )
 
    def phtml(self):
@@ -306,7 +292,8 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
     # Format feedback for display
     if debug:
         print( "=runAnswer in debug mode=" )
-        return testResults.getCodeRunnerResult(
+        # return testResults.getCodeRunnerResult(
+        return testResults.getMarkdownResult(
           other_lines=True,
           graderstate=graderstate)
     else:
