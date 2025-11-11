@@ -112,35 +112,6 @@ class TestResults:
       }
       return json.dumps(contents)
 
-   def dump(self):
-      """
-      Return the contents of the TestResults as a string.
-      """
-      raise Exception( "Is dump() used?" )
-      return self.__repr__()
-
-   def load(self, str_repr):
-      raise Exception( "Disabled TestResult.load(), assuming that is is never used." )
-
-      obj_read = False
-      self.unencoded = ""
-      for line in str_repr:
-         try:
-            data = json.loads(line)
-            obj = data["TestResultsObj"]
-            self.testresults = [Test() for res in obj["testresults"]]
-            self.testresults = list(map(Test.load, self.testresults))
-            self.other_output = obj["other_output"]
-            self.tableHeader = obj["tableHeader"]
-            self.tableRemap = obj["tableRemap"]
-            self.resultstable = obj["resultstable"]
-            self.frac = obj["frac"]
-            self.name = obj["name"]
-            obj_read = True
-         except:
-            self.unencoded += line + '\n'
-      return obj_read
-
    def mark(self):
       """Compute the grade `frac` from the testResult."""
       total_marks = 0
@@ -188,22 +159,7 @@ class TestResults:
        obj = self.getCodeRunnerResult(
                prehtml,graderstate,other_lines)
        return json.dumps( obj, ensure_ascii=False )
-   def mergeResults(self, merging_result):
-      raise Exception( "The `mergeResults() function in not supposed to be used." )
-      if self.resultstable == None:
-         if merging_result.resultstable == None:
-            pass
-         else:
-            self.resultstable=merging_result.resultstable
-            self.tableHeader = merging_result.tableHeader
-            self.tableRemap = merging_result.tableRemap
-      elif merging_result.resultstable == None:
-         pass
-      else:
-         self.resultstable = self.resultstable + merging_result.resultstable[1:]
 
-      self.other_output += merging_result.other_output
-      self.testresults = self.testresults+merging_result.testresults
    def phtml(self):
        rl = [ test.formatResult() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
