@@ -17,9 +17,7 @@ sandboxparams = {sandbox}
 if sandboxparams is None:
    raise Exception( "No sandbox received in test program." )
 
-svardata, testResults = queryAI(sandboxparams, __student_answer__, __prompt__)
+testResults = queryAI(sandboxparams, __student_answer__, __prompt__)
 
-print(svardata.dump())
-    
 for test in testResults:
        print(test.dump())

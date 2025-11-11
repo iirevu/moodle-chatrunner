@@ -79,6 +79,7 @@ if __name__ == "__main__":
         print( r.get( "testresults" ) )
         print( "== Graderstate ==" )
         print( r.get( "graderstate" ) )
+        print( "== Epilogue ==" )
         print( r.get( "epiloguehtml" ) )
     else:
         r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=True ) 
