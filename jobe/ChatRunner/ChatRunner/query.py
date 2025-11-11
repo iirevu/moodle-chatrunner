@@ -142,7 +142,18 @@ class Test:
 
    def dump(self):
       return self.__repr__()
+   def formatMarkdown(self):
+      """Return a string presenting the test result in Markdown."""
+      result = self.result
+      feedback = False
+      if result["passed"]:
+          header = f'## Passed: {result["name"]}\n'
+      elif "resultat" in result.keys():
+          header = f'## Failed: {result["name"]}\n'
+      else: return None
+      return ( header + f'\n{result["resultat"]}\n' )
    def formatResult(self):
+      """Return a string presenting the test result in HTML."""
       result = self.result
       feedback = False
       if result["passed"]:

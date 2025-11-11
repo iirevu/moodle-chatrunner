@@ -71,16 +71,7 @@ if __name__ == "__main__":
     # Run the test
     if args.test:
         r = testProgram( prob, ans, lit, graderstate_string, cfg )
-        print( "== Output of testProgram ==" )
-        print( "Fraction:", r.get( "fraction" ) )
-        print( r.get( "prologuehtml" ) )
-        print( "== Test Results ==" )
-        # Table coded as list of lists
-        print( r.get( "testresults" ) )
-        print( "== Graderstate ==" )
-        print( r.get( "graderstate" ) )
-        print( "== Epilogue ==" )
-        print( r.get( "epiloguehtml" ) )
+        print( r )
     else:
         r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=True ) 
         print( "== Output of runAnswer ==" )

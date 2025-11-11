@@ -8,6 +8,16 @@ function for ChatRunner.
 import subprocess, base64, json, os
 from .query import Test, queryAI
 
+class Table:
+    def __init__(self,lst,header):
+        self.header = header
+        self.contents = lst
+    def markdown(self):
+        h = "| " +  " | ".join( self.header ) + " |\n"
+        sep = "| " +  " | ".join( [ " :- " for _ in self.header ] ) + " |\n"
+        print(self.contents )
+        l = [  "| " +  " | ".join( str(x) ) + " |\n" for x in self.contents ]
+        return h + sep + "\n".join( l )
 
 class TestResults:
    def __init__(self, output, exitCode=0, debug=False):
@@ -46,7 +56,7 @@ class TestResults:
       """
       if debug:
           print( "=== testResults ===" )
-          self.display()
+          print( self.getMarkdownResult() )
 
       tableHeader = ["iscorrect", "Test", "Beskrivelse"]
     
@@ -54,7 +64,7 @@ class TestResults:
       self.mark()
       if debug:
           print( "=== testResults (marked) ===" )
-          self.display()
+          print( self.getMarkdownResult() )
       # Format results
       return self
 
@@ -89,15 +99,6 @@ class TestResults:
          if row != []:
             self.resultstable.append(row)
 
-   def display(self):
-      """
-      Return the contents of the TestResults as a dictionary.
-      """
-      print( self.testresults )
-      print( self.other_output )
-      print( self.tableHeader )
-      print( self.resultstable )
-      print( "Fraction:", self.frac )
    def __repr__(self):
       """
       Return the contents of the TestResults as a string.
@@ -129,6 +130,22 @@ class TestResults:
       else:
          self.frac = 0
 
+   def getMarkdownResult(self,
+                           prehtml=None,
+                           graderstate=None,
+                           other_lines=False ):
+       if other_lines:
+         prehtml = ( "# Other output / error-messages from testgrader\n\n" 
+                 + self.other_output + "\n" )
+       else: prehtml = ""
+       if graderstate:
+           gs = "# Graderstate\n" + json.dumps( graderstate )
+       else:
+           gs = ""
+       gs = "# Assessment output\n\n"
+       tab = "# Results table\n" + Table( self.resultstable, self.tableHeader ).markdown()
+       header = "# Assessment output\n\n"
+       return gs + header + prehtml + self.pmd() + f"Fraction: {self.frac}\n"
    def getCodeRunnerResult(self,
                            prehtml=None,
                            graderstate=None,
@@ -162,6 +179,10 @@ class TestResults:
 
    def phtml(self):
        rl = [ test.formatResult() for test in self.testresults ]
+       rl = [ x for x in rl if x is not None ]
+       return "\n".join( rl )
+   def pmd(self):
+       rl = [ test.formatMarkdown() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
 
@@ -316,7 +337,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     advanceGraderstate( graderstate, testResults, debug=debug )
 
     # Format feedback for display
-    return testResults.getCodeRunnerResult(
+    return testResults.getMarkdownResult(
         other_lines=True,
         graderstate=graderstate)
 
