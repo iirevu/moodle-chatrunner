@@ -31,6 +31,16 @@ class Table:
         return h + sep + "\n".join( l )
 
 class TestResults:
+   """Representation of the complete assessment result.
+   This includes a list of `Test` objects, representing individual test
+   criteria as determined by the AI model.
+
+   Output which cannot be represented as `Test` objects are provided
+   in as `other_output`.
+
+   The results table (`Table` object) is formatted from the `Test` objects.
+   A grade (`frac`) is calculated as the fraction of passed tests.
+   """
    def __init__(self, output, exitCode=0, debug=False):
       """
       output: Output fra testprogram
@@ -267,7 +277,7 @@ def advanceGraderstate(gs,res,debug=False):
 
 def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,subproc=True):
     """
-    Run the CodeGrader, with pre- and post-processing of data.
+    Run the CodeGrader in a sandbox, with pre- and post-processing of data.
     """
 
     if sandbox is None:
@@ -291,8 +301,7 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
 
     # Format feedback for display
     if debug:
-        print( "=runAnswer in debug mode=" )
-        # return testResults.getCodeRunnerResult(
+        print( "== runAnswer in debug mode ==" )
         return testResults.getMarkdownResult(
           other_lines=True,
           graderstate=graderstate)
@@ -302,7 +311,7 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
           graderstate=graderstate)
 
 def debugPrintResults(testResults):
-    """Print test results for debugging purposes."""
+    """Print a list of Test objects for debugging purposes."""
     i = 1
     for test in testResults:
         print( f"==== test {i} ====" )
