@@ -27,7 +27,6 @@ class Table:
         """Render the table in Markdown.  Returns a string."""
         h = "| " +  " | ".join( self.header ) + " |\n"
         sep = "| " +  " | ".join( [ " :- " for _ in self.header ] ) + " |\n"
-        print(self.contents )
         l = [  "| " +  " | ".join( map(str,x) ) + " |" for x in self.contents ]
         return h + sep + "\n".join( l )
 
@@ -155,7 +154,6 @@ class TestResults:
            gs = "# Graderstate\n" + json.dumps( graderstate )
        else:
            gs = ""
-       gs = "# Assessment output\n\n"
        tab = "# Results table\n\n" + self.resultstable.markdown()
        header = "# Assessment output\n\n"
        return gs + header + prehtml + tab + self.pmd() + f"\nFraction: {self.frac}\n"

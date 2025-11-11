@@ -43,7 +43,7 @@ def makeTest(test):
             ob.addResult(k,v)
     return ob
 
-def dumpResponse(svar,debug=True):
+def dumpResponse(svar,debug=False):
     testResults = []
     svar_fetched = formatAnswer(svar)
 
