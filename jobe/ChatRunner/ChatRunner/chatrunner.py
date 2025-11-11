@@ -14,6 +14,8 @@ class Table:
     def __init__(self,lst,header):
         self.header = header
         self.contents = lst
+    def __iter__(self):
+        return self.asList().__iter__()
     def asList(self):
         """
         Return the table and header as a list of list.
