@@ -9,14 +9,24 @@ import subprocess, base64, json, os
 from .query import Test, queryAI
 
 class Table:
+    """Representation of a table with header and a list of rows.
+    It provides rendering in Markdown."""
     def __init__(self,lst,header):
         self.header = header
         self.contents = lst
+    def asList(self):
+        """
+        Return the table and header as a list of list.
+        This is used for string dumps in other classes.
+        """
+        lst = [ self.header ] + self.contents
+        return lst
     def markdown(self):
+        """Render the table in Markdown.  Returns a string."""
         h = "| " +  " | ".join( self.header ) + " |\n"
         sep = "| " +  " | ".join( [ " :- " for _ in self.header ] ) + " |\n"
         print(self.contents )
-        l = [  "| " +  " | ".join( str(x) ) + " |\n" for x in self.contents ]
+        l = [  "| " +  " | ".join( map(str,x) ) + " |" for x in self.contents ]
         return h + sep + "\n".join( l )
 
 class TestResults:
@@ -74,7 +84,7 @@ class TestResults:
       formatting the test results
       """
       self.tableHeader = tableHeader
-      self.resultstable = [tableHeader]
+      resultstable = []
 
       tableRemap = {"iscorrect": "passed",
                   "Test": "name",
@@ -97,8 +107,9 @@ class TestResults:
                break
          if self.debug: print( i, row )
          if row != []:
-            self.resultstable.append(row)
+            resultstable.append(row)
 
+      self.resultstable = Table(resultstable,tableHeader)
    def __repr__(self):
       """
       Return the contents of the TestResults as a string.
@@ -107,7 +118,7 @@ class TestResults:
             "testresults": [ t.dump() for t in self.testresults ],
             "other_output": self.other_output,
             "tableHeader": self.tableHeader,
-            "resultstable": self.resultstable,
+            "resultstable": self.resultstable.asList(),
             "frac": self.frac
          }
       }
@@ -143,9 +154,9 @@ class TestResults:
        else:
            gs = ""
        gs = "# Assessment output\n\n"
-       tab = "# Results table\n" + Table( self.resultstable, self.tableHeader ).markdown()
+       tab = "# Results table\n\n" + self.resultstable.markdown()
        header = "# Assessment output\n\n"
-       return gs + header + prehtml + self.pmd() + f"\nFraction: {self.frac}\n"
+       return gs + header + prehtml + tab + self.pmd() + f"\nFraction: {self.frac}\n"
    def getCodeRunnerResult(self,
                            prehtml=None,
                            graderstate=None,
@@ -160,7 +171,7 @@ class TestResults:
          """ + self.other_output.replace("\n", "<br>") + """
          </p></br>"""
        obj = { "fraction": self.frac,
-               "testresults": self.resultstable,
+               "testresults": self.resultstable.asList(),
                "prologuehtml": prehtml,
                "epiloguehtml": self.phtml(),
                "graderstate": graderstate }
