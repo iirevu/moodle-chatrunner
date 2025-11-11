@@ -145,7 +145,7 @@ class TestResults:
        gs = "# Assessment output\n\n"
        tab = "# Results table\n" + Table( self.resultstable, self.tableHeader ).markdown()
        header = "# Assessment output\n\n"
-       return gs + header + prehtml + self.pmd() + f"Fraction: {self.frac}\n"
+       return gs + header + prehtml + self.pmd() + f"\nFraction: {self.frac}\n"
    def getCodeRunnerResult(self,
                            prehtml=None,
                            graderstate=None,

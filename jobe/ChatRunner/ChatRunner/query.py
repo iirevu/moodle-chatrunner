@@ -27,30 +27,32 @@ def dumpSvardata(svar):
     svardata = Test(testName="svardata")
     svardata.addResult("gpt_svar", json.dumps(svar))
     return svardata
-def dumpResponse(svar):
+def makeTest(test):
+    try:
+        ob = Test(testName=test.get( "testName", "Unnamed test" ))
+    except Exception as e:
+        print(test)
+        raise(e)
+    ob.addResult("mark", 1)
+    for k,v in test.items():
+        if k == 'iscorrect':
+            ob.pass_test(v)
+        elif k == "testName":
+            continue
+        else:
+            ob.addResult(k,v)
+    return ob
 
+def dumpResponse(svar,debug=True):
     testResults = []
     svar_fetched = formatAnswer(svar)
 
-    print( "svar_fetched" )
-    print( svar_fetched )
-    for test in json.loads(svar_fetched):
-        try:
-          test_obj = Test(testName=test.get( "testName", "Unnamed test" ))
-        except Exception as e:
-            print(test)
-            raise(e)
-        test_obj.addResult("mark", 1)
-        for k,v in test.items():
-             if k == 'iscorrect':
-                test_obj.pass_test(v)
-             elif k == "testName":
-                continue
-             else:
-                test_obj.addResult(k,v)
-        testResults.append(test_obj)
+    if debug:
+       print( "svar_fetched" )
+       print( svar_fetched )
+    testlist = json.loads(svar_fetched)
 
-    return testResults
+    return [ makeTest(test) for test in testlist ]
 
 def extractAnswer(response,sandbox={},debug=False):
     """
