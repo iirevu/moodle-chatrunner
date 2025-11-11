@@ -1,7 +1,11 @@
 # (C) 2025: Jonas Julius Harang, Hans Georg Schaathun <hasc@ntnu.no>
 
 """
-Module handling the correspondence with the large language model.
+Module handling the correspondence with the large language model LLM.
+
+It defines the `Test` class which represents an individual test defined
+by the LLM, as well as the query routine `queryAI()`.  Other definitions
+should be considered internal.
 """
 
 import requests, re, json
