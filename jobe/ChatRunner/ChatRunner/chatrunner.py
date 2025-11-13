@@ -160,6 +160,7 @@ class TestResults:
        else: prehtml = ""
        if graderstate:
            gs = "# Graderstate\n" + json.dumps( graderstate )
+           gs += "\n\n"
        else:
            gs = ""
        tab = "# Results table\n\n" + self.resultstable.markdown()
