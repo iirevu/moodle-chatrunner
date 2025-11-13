@@ -2,7 +2,7 @@
 
 # This should be copied into the CodeRunner question.
 
-from ChatRunner.chatrunner import *
+from ChatRunner.sandbox import runAnswer
 
 # Inputs from Moodle
 qid = {{ QUESTION.questionid }}

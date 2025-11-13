@@ -6,6 +6,7 @@ and CodeRunner.
 """
 
 from .chatrunner import *
+from .sandbox import runAnswer
 import json
 import argparse
 
