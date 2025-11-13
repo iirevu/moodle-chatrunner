@@ -70,7 +70,7 @@ class TestResults:
       self.numTests = len(self.testresults)
       self.debug = debug
 
-   def debugPrintResults: return debugPrintResults(self.testresults)
+   def debugPrintResults(): return debugPrintResults(self.testresults)
    def finalise(self,debug=False):
       """
       Finalise the TestResults object, running makeResultTable()
@@ -280,7 +280,7 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
     if sandbox is None:
         raise Exception( "No sandbox received by runAnswer." )
 
-    eng = SandboxEngine(problem,studans,literatur,gs,sandbox,qid,debug):
+    eng = SandboxEngine(problem,studans,literatur,gs,sandbox,qid,debug)
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
@@ -360,7 +360,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     and the language models from the command line.
     """
 
-    eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug):
+    eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug)
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
