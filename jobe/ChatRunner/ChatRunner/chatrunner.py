@@ -70,6 +70,7 @@ class TestResults:
       self.numTests = len(self.testresults)
       self.debug = debug
 
+   def debugPrintResults: return debugPrintResults(self.testresults)
    def finalise(self,debug=False):
       """
       Finalise the TestResults object, running makeResultTable()
@@ -103,7 +104,7 @@ class TestResults:
               tableRemap.update({header:header})
 
       # self.tableRemap = tableRemap
-      if self.debug: debugPrintResults(self.testresults)
+      if self.debug: self.debugPrintResults()
 
       for test in self.testresults:
          row = []
@@ -192,6 +193,13 @@ class TestResults:
        rl = [ test.formatMarkdown() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
+def debugPrintResults(testResults):
+    """Print a list of Test objects for debugging purposes."""
+    i = 1
+    for test in testResults:
+        print( f"==== test {i} ====" )
+        print(test)
+        i += 1
 
 def getfn(fn):
     dir = os.path.dirname(os.path.abspath(__file__))
@@ -263,17 +271,6 @@ def getGraderstate(gs,studans):
        graderstate = {"step": 0, "studans": [studans], "svar": []}
     return graderstate
 
-def advanceGraderstate(gs,res,debug=False):
-    """
-    Advance the graderstate, adding the response from the AI.
-    """
-
-    if debug: debugPrintResults(res.testresults)
-
-    for test in res.testresults:
-       if test.result["name"] == "svardata":
-          gs["svar"].append(test.result["gpt_svar"])
-    gs["step"] += 1
 
 def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,subproc=True):
     """
@@ -283,40 +280,75 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
     if sandbox is None:
         raise Exception( "No sandbox received by runAnswer." )
 
-    graderstate = getGraderstate(gs,studans)
-
-    test_program = loadtestprogram(
-            studans,
-            problem,
-            literatur,
-            graderstate,
-            sandbox=sandbox,
-            pyfn="testprogram.py.txt",
-            mdfn="prompt.md")
-
-    testResults = runTest( test_program, timeout=40.0)
-    testResults.finalise(debug=debug)
-
-    advanceGraderstate( graderstate, testResults, debug=debug )
+    eng = SandboxEngine(problem,studans,literatur,gs,sandbox,qid,debug):
+    testResults = eng.queryAI()
+    if debug: testResults.debugPrintResults()
+    eng.advanceGraderstate( )
+    return eng.getMarkdownResult( other_lines=True )
 
     # Format feedback for display
     if debug:
         print( "== runAnswer in debug mode ==" )
-        return testResults.getMarkdownResult(
-          other_lines=True,
-          graderstate=graderstate)
+        return eng.getMarkdownResult( other_lines=True )
     else:
-       return testResults.getCodeRunnerOutput(
-          other_lines=True,
-          graderstate=graderstate)
+       return eng.getCodeRunnerOutput( other_lines=True )
 
-def debugPrintResults(testResults):
-    """Print a list of Test objects for debugging purposes."""
-    i = 1
-    for test in testResults:
-        print( f"==== test {i} ====" )
-        print(test)
-        i += 1
+class SandboxEngine:
+    def queryAI(self,debug=None):
+        if debug is None: debug = self.debug
+        test_program = loadtestprogram(
+            self.studans,
+            self.problem,
+            self.literatur,
+            self.graderstate,
+            sandbox=self.sandbox,
+            pyfn="testprogram.py.txt",
+            mdfn="prompt.md")
+
+        testResults = runTest( test_program, timeout=40.0)
+        testResults.finalise()
+
+        self.testResults = testResults
+        return testResults
+class Engine:
+    def __init__(self,problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
+        self.graderstate = getGraderstate(gs,studans)
+        self.prompt = getPrompt(problem,literatur,gs)
+        self.literatur = literatur
+        self.studans = studans
+        self.sandbox = sandbox
+        self.debug = debug
+    def queryAI(self,debug=None):
+        if debug is None: debug = self.debug
+        response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
+        if debug: debugPrintResults(response)
+        # Dump the result as a string and have `TestResults` reparse it,
+        # in the way that is required for `subprocess` in `runAnswer()`.
+        output = "\n".join( [ x.dump() for x in response ] )
+        testResults = TestResults(output)
+        testResults.finalise()
+        self.testResults = testResults
+        return testResults
+    def advanceGraderstate(self,debug=None):
+        """
+        Advance the graderstate, adding the response from the AI.
+        """
+
+        if debug is None: debug = self.debug
+
+        gs = self.graderstate
+        res = self.testResults
+
+        for test in res.testresults:
+           if test.result["name"] == "svardata":
+              gs["svar"].append(test.result["gpt_svar"])
+        gs["step"] += 1
+        return gs
+    def getResult(self,debug=None):
+        return self.testResults
+    def getMarkdownResult(self,*arg,**kw):
+        return self.testResults.getMarkdownResult(*arg,**kw,graderstate=self.graderstate)
+
 
 def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
     """
@@ -328,23 +360,21 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     and the language models from the command line.
     """
 
-    graderstate = getGraderstate(gs,studans)
-    prompt = getPrompt(problem,literatur,gs)
+    eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug):
+    testResults = eng.queryAI()
+    if debug: testResults.debugPrintResults()
+    eng.advanceGraderstate( )
+    return eng.getMarkdownResult( other_lines=True )
 
-    testResults = queryAI(sandbox, studans, prompt, debug=debug)
-
-    if debug: debugPrintResults(testResults)
-
-    # Dump the result as a string and have `TestResults` reparse it,
-    # in the way that is required for `subprocess` in `runAnswer()`.
-    output = "\n".join( [ x.dump() for x in testResults ] )
-    testResults = TestResults(output)
-    testResults.finalise()
-
-    advanceGraderstate( graderstate, testResults, debug=debug )
-
-    # Format feedback for display
-    return testResults.getMarkdownResult(
-        other_lines=True,
-        graderstate=graderstate)
-
+class DumpEngine(Engine):
+    def queryAI(self,debug=None):
+        if debug is None: debug = self.debug
+        response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
+        if debug: debugPrintResults(response)
+        # Dump the result as a string and have `TestResults` reparse it,
+        # in the way that is required for `subprocess` in `runAnswer()`.
+        output = "\n".join( [ x.dump() for x in response ] )
+        testResults = TestResults(output)
+        testResults.finalise()
+        self.testResults = testResults
+        return testResults
