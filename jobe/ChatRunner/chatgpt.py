@@ -3,6 +3,7 @@
 # This should be copied into the CodeRunner question.
 
 from ChatRunner.sandbox import runAnswer
+import json
 
 # Inputs from Moodle
 qid = {{ QUESTION.questionid }}

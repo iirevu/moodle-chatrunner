@@ -70,7 +70,7 @@ class TestResults:
       self.numTests = len(self.testresults)
       self.debug = debug
 
-   def debugPrintResults(): return debugPrintResults(self.testresults)
+   def debugPrintResults(self): return debugPrintResults(self.testresults)
    def finalise(self,debug=False):
       """
       Finalise the TestResults object, running makeResultTable()
@@ -287,7 +287,10 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
-    return eng.getMarkdownResult( other_lines=True )
+    if debug:
+       return eng.getResult().getCodeRunnerOutput( other_lines=True )
+    else:
+       return eng.getMarkdownResult( other_lines=True )
 
 class DumpEngine(Engine):
     def queryAI(self,debug=None):

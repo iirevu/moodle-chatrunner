@@ -54,7 +54,7 @@ class SandboxEngine(Engine):
         self.testResults = testResults
         return testResults
 
-def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,subproc=True):
+def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False):
     """
     Run the CodeGrader in a sandbox, with pre- and post-processing of data.
     """
@@ -66,11 +66,9 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
-    return eng.getMarkdownResult( other_lines=True )
 
-    # Format feedback for display
     if debug:
         print( "== runAnswer in debug mode ==" )
         return eng.getMarkdownResult( other_lines=True )
     else:
-       return eng.getCodeRunnerOutput( other_lines=True )
+        return eng.getResult().getCodeRunnerOutput( other_lines=True )
