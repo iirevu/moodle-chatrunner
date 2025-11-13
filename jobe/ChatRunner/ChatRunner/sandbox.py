@@ -1,3 +1,13 @@
+
+"""
+This module provides the `runAnswer()` function which is used to run
+ChatRunner from Moodle.  This is similar to `chatrunner.testProgram()`,
+but runs the test in a sandbox.
+
+It is implemented by subclassign `Engine()` and overriding the
+`queryAI()` method to use the sandbox.  
+"""
+
 from .chatrunner import *
 
 def runTest(prg, timeout=1.0):
@@ -57,6 +67,8 @@ class SandboxEngine(Engine):
 def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False):
     """
     Run the CodeGrader in a sandbox, with pre- and post-processing of data.
+    It gives Markdown output if debug is True, and Moodle/CodeRunner output
+    by default.
     """
 
     if sandbox is None:
