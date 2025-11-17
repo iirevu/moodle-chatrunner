@@ -30,6 +30,17 @@ class Table:
         l = [  "| " +  " | ".join( map(str,x) ) + " |" for x in self.contents ]
         return h + sep + "\n".join( l )
 
+def parseTestResults(output):
+      testresults = []
+      other_output = ""
+      test = Test()
+      for line in output.splitlines():
+         if test.load(line):
+            testresults.append(test)
+            test = Test()
+         else:
+            other_output += line + "\n"
+      return testresults, other_output
 class TestResults:
    """Representation of the complete assessment result.
    This includes a list of `Test` objects, representing individual test
@@ -41,34 +52,32 @@ class TestResults:
    The results table (`Table` object) is formatted from the `Test` objects.
    A grade (`frac`) is calculated as the fraction of passed tests.
    """
-   def __init__(self, output, exitCode=0, debug=False):
+   def __init__(self, output=None, ob=None, exitCode=0, debug=False):
       """
       output: Output fra testprogram
       exitCode: 0: OK, 1: Feil/kræsj, 2: timeout, -1: Ingen tester å kjøre, -2: Testnummer finnes ikke
       name: this is never used in practice
       """
-      self.testresults = []
       self.output = output
-      self.other_output = ""
       self.exitCode = exitCode
       self.frac = 0
       self.tableHeader = None
       # self.tableRemap = None
       self.resultstable = None
+      self.debug = debug
+
       if exitCode != 0:
          self.results = { "failed":
               { "description": "CodeTester ran without loaded tests" } }
          return
+      if ( output is None ) != ( ob is None ):
+          raise Exception( "Either output or ob should be given." )
+      if output is None:
+          raise Exception( "Feature not yet implemented." )
+      else:
+          self.testresults, self.other_output = parseTestResults(output)
 
-      test = Test()
-      for line in output.splitlines():
-         if test.load(line):
-            self.testresults.append(test)
-            test = Test()
-         else:
-            self.other_output += line + "\n"
       self.numTests = len(self.testresults)
-      self.debug = debug
 
    def debugPrintResults(self): return debugPrintResults(self.testresults)
    def finalise(self,debug=False):
