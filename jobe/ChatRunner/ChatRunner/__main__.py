@@ -91,5 +91,5 @@ if __name__ == "__main__":
         print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, dumpmode=args.debug, markdown=args.markdown )
+        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, dumpmode=args.debug, markdown=args.markdown, outfile=args.outfile )
         print( r )

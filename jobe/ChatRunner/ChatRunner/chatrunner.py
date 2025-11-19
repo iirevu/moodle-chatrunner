@@ -284,7 +284,7 @@ class Engine:
         return self.testResults.getMarkdownResult(*arg,**kw,graderstate=self.graderstate)
 
 
-def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,dumpmode=False, markdown=False):
+def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,dumpmode=False, markdown=False, outfile=None):
     """
     This function is supposed to be functionally identical to
     `runAnswer()` without using the sandbox.  The code from 
@@ -301,6 +301,8 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
+    if outfile:
+        raise Exception( "Not implemented" )
     if markdown:
        return eng.getMarkdownResult( other_lines=True )
     else:
