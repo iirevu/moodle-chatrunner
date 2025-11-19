@@ -127,6 +127,9 @@ class Test:
    A `Test` object represents a single test assessed by the AI.
    It is used as the main constituent element in the `TestResults`
    class.
+
+   A `Test` may also contain the raw response from the LLM, in which
+   case it hqas name «gpt_svar».
    """
    def __init__(self, testName=None):
       self.result = {"name": testName, "passed": False}
