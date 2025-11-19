@@ -62,7 +62,6 @@ class TestResults:
       self.exitCode = exitCode
       self.frac = 0
       self.tableHeader = None
-      # self.tableRemap = None
       self.resultstable = None
       self.debug = debug
 
