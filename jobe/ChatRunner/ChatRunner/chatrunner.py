@@ -302,7 +302,8 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
     if outfile:
-        raise Exception( "Not implemented" )
+        with open(outfile, 'w') as f:
+             json.dump(eng.getResult(), f, indent=4) 
     if markdown:
        return eng.getMarkdownResult( other_lines=True )
     else:
