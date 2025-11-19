@@ -31,6 +31,9 @@ def queryAI(sandbox, ans, prompt, debug=False ):
    return r
 
 def dumpSvardata(svar):
+    """
+    Create a Test object containing the feedback from LLM.
+    """
     svardata = Test(testName="svardata")
     svardata.addResult("gpt_svar", json.dumps(svar))
     return svardata
@@ -51,21 +54,37 @@ def makeTest(test):
     return ob
 
 def dumpResponse(svar,debug=False):
-    testResults = []
-    svar_fetched = formatAnswer(svar)
+    """
+    Parse JSON list from the LLM and create Test objects.
+    """
 
+    # Extract JSON list, stripping leading and trailing characters.
+    try:
+       svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
+    except Exception as e:
+        print( "svar (crash):", svar )
+        raise Exception( "No JSON list found in response string." )
+
+    # Debug output
     if debug:
        print( "svar_fetched" )
        print( svar_fetched )
+
+    # Parse the JSON string
     testlist = json.loads(svar_fetched)
 
+    # Create Test objects and return
     return [ makeTest(test) for test in testlist ]
 
 def extractAnswer(response,sandbox={},debug=False):
     """
-    Extract the answer from the AI response.
-    Returns a list where each element is a dict representing
-    one test created by the LLM.
+    Extract the message content from the AI response.
+
+    It considers the API given by the sandbox, and handles OpenAI 
+    and Ollama differently.
+
+    Returns a string representing a JSON list, where each element
+    is an object representing a test as created by the LLM.
     """
     api = sandbox.get( "API", "ollama" ).lower()
     svar = response.json()
@@ -81,17 +100,6 @@ def extractAnswer(response,sandbox={},debug=False):
        print(svar)
     return svar
 
-def formatAnswer(svar,debug=False):
-    """Format the raw result produced by `extractAnswer()`"""
-    try:
-       svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
-    except Exception as e:
-        print( "svar (crash):", svar )
-        raise e
-    if debug:
-        print( "== fetched ==" )
-        print(svar_fetched)
-    return svar_fetched
 
 def chatRequest(sandbox,prompt,ans):
     """

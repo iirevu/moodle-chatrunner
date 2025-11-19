@@ -64,7 +64,7 @@ class SandboxEngine(Engine):
         self.testResults = testResults
         return testResults
 
-def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False):
+def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False, markdown=False):
     """
     Run the CodeGrader in a sandbox, with pre- and post-processing of data.
     It gives Markdown output if debug is True, and Moodle/CodeRunner output

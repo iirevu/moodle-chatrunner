@@ -3,6 +3,14 @@
 """
 This is a test program to test ChatRunner without going through Moodle
 and CodeRunner.
+
+Several modes of operation.
+- moodle mode runs through the sandbox (subprocess) as in CodeRunner
+- debug mode (implicit in moodle mode) dumps and reparses output, as 
+  required by the sandbox.
+- markdown mode provides feedback in Markdown, otherwise CodeRunner format
+  is used
+- verbose mode adds diagnostic output
 """
 
 from .chatrunner import *
@@ -27,6 +35,10 @@ if __name__ == "__main__":
                         help="Moodle mode, running in the sandbox.")
     parser.add_argument('-v','--verbose',action="store_true",
                         help="Verbose/debug mode.")
+    parser.add_argument('-p','--markdown',action="store_true",
+                        help="Markdown output.")
+    parser.add_argument('-D','--debug',action="store_true",
+                        help="Debug mode.")
     args = parser.parse_args()
 
     # Read support files
@@ -73,9 +85,9 @@ if __name__ == "__main__":
 
     # Run the test
     if args.moodle:
-        r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose ) 
+        r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose )
+        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, dumpmode=args.debug, markdown=args.markdown )
         print( r )

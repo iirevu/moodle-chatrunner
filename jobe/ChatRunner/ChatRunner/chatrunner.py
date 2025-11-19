@@ -32,14 +32,14 @@ class Table:
 
 def parseTestResults(output):
       testresults = []
-      other_output = ""
+      other_output = []
       test = Test()
       for line in output.splitlines():
          if test.load(line):
             testresults.append(test)
             test = Test()
          else:
-            other_output += line + "\n"
+            other_output.append( line )
       return testresults, other_output
 class TestResults:
    """Representation of the complete assessment result.
@@ -69,13 +69,16 @@ class TestResults:
       if exitCode != 0:
          self.results = { "failed":
               { "description": "CodeTester ran without loaded tests" } }
-         return
-      if output is None:
-          raise Exception( "Feature not yet implemented." )
-      elif ob is not None:
-          raise Exception( "Either output or ob should be given." )
-      else:
+         self.testresults = None
+      if output is not None:
+          if ob is not None:
+              raise Exception( "Either output or ob should be given, not both." )
           self.testresults, self.other_output = parseTestResults(output)
+      elif ob is not None:
+          self.testresults = ob
+          self.other_output = []
+      else:
+          raise Exception( "Either output or ob should be given." )
 
       self.numTests = len(self.testresults)
 
@@ -134,7 +137,7 @@ class TestResults:
       """
       contents = { "TestResultsObj": {
             "testresults": [ t.dump() for t in self.testresults ],
-            "other_output": self.other_output,
+            "other_output": "\n".join(self.other_output),
             "tableHeader": self.tableHeader,
             "resultstable": self.resultstable.asList(),
             "frac": self.frac
@@ -165,7 +168,7 @@ class TestResults:
                            other_lines=False ):
        if other_lines:
          prehtml = ( "# Other output / error-messages from testgrader\n\n" 
-                 + self.other_output + "\n" )
+                 + "\n".join(self.other_output) + "\n" )
        else: prehtml = ""
        if graderstate:
            gs = "# Graderstate\n" + json.dumps( graderstate )
@@ -174,7 +177,7 @@ class TestResults:
            gs = ""
        tab = "# Results table\n\n" + self.resultstable.markdown()
        header = "# Assessment output\n\n"
-       return gs + header + prehtml + tab + self.pmd() + f"\nFraction: {self.frac}\n"
+       return gs + header + prehtml + tab + "\n\n" + self.pmd() + f"\nFraction: {self.frac}\n"
    def getCodeRunnerOutput(self,
                            prehtml=None,
                            graderstate=None,
@@ -186,7 +189,7 @@ class TestResults:
        if other_lines:
          prehtml = f"""<h2> Other output / error-messages from testgrader </h2>
          <p><br>
-         """ + self.other_output.replace("\n", "<br>") + """
+         """ + "<br>".join( self.other_output ) + """
          </p></br>"""
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
@@ -256,8 +259,7 @@ class Engine:
         if debug: debugPrintResults(response)
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.
-        output = "\n".join( [ x.dump() for x in response ] )
-        testResults = TestResults(output)
+        testResults = TestResults(ob=response)
         testResults.finalise()
         self.testResults = testResults
         return testResults
@@ -282,7 +284,7 @@ class Engine:
         return self.testResults.getMarkdownResult(*arg,**kw,graderstate=self.graderstate)
 
 
-def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
+def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,dumpmode=False, markdown=False):
     """
     This function is supposed to be functionally identical to
     `runAnswer()` without using the sandbox.  The code from 
@@ -292,14 +294,17 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False)
     and the language models from the command line.
     """
 
-    eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug)
+    if dumpmode:
+       eng = DumpEngine(problem,studans,literatur,gs,sandbox,qid,debug)
+    else:
+       eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug)
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
-    if debug:
-       return eng.getResult().getCodeRunnerOutput( other_lines=True )
-    else:
+    if markdown:
        return eng.getMarkdownResult( other_lines=True )
+    else:
+       return eng.getResult().getCodeRunnerOutput( other_lines=True )
 
 class DumpEngine(Engine):
     def queryAI(self,debug=None):
