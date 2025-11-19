@@ -70,10 +70,10 @@ class TestResults:
          self.results = { "failed":
               { "description": "CodeTester ran without loaded tests" } }
          return
-      if ( output is None ) != ( ob is None ):
-          raise Exception( "Either output or ob should be given." )
       if output is None:
           raise Exception( "Feature not yet implemented." )
+      elif ob is not None:
+          raise Exception( "Either output or ob should be given." )
       else:
           self.testresults, self.other_output = parseTestResults(output)
 
