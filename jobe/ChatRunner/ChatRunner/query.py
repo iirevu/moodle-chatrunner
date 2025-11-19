@@ -22,6 +22,9 @@ def queryAI(sandbox, ans, prompt, debug=False ):
        raise Exception( f"HTTP requests returns {status}." )
 
    svar = extractAnswer(response, sandbox, debug=debug)
+   if debug:
+       print( "queryAI() svar:", type(svar) )
+       print( svar )
 
    r = [ dumpSvardata( svar ) ]
    r.extend( dumpResponse( svar ) )
@@ -61,7 +64,8 @@ def dumpResponse(svar,debug=False):
 def extractAnswer(response,sandbox={},debug=False):
     """
     Extract the answer from the AI response.
-    Returns the raw message contants from AI
+    Returns a list where each element is a dict representing
+    one test created by the LLM.
     """
     api = sandbox.get( "API", "ollama" ).lower()
     svar = response.json()
