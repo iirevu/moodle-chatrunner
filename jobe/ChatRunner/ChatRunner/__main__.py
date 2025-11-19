@@ -39,6 +39,8 @@ if __name__ == "__main__":
                         help="Markdown output.")
     parser.add_argument('-D','--debug',action="store_true",
                         help="Debug mode.")
+    parser.add_argument('-o','--outfile',
+                        help="Filename for JSON output.")
     args = parser.parse_args()
 
     # Read support files
