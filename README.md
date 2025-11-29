@@ -94,14 +94,20 @@ the module.
 To test against OpenAI/ChatGPT, you have to get an API key, and edit
 the config file `chatgpt.json` to use this key before running,
 ```sh
-sh test.sh --config chatgpt.json
+sh test.sh --config chatgpt.json --markdown
 ```
 At NTNU, you may be able to use Idun.  This also requires an API key,
 and sample config is `idun.json`.
 
-There are two additional options to modify the test.
-+ `--moodle` runs the test in the sandbox as used in moodle.
+There are two options to modify the output:
++ `--markdown` formats the output in markdown
 + `--verbose` gives additional debug output
+The default is the format used internally within Moodle.
+
+There are two options to test internal features:
++ `--moodle` runs the test in the sandbox as used in moodle.
++ `--debug` (implicit with --moodle) dumps and reparses the
+  output as is required by the sandbox.
 
 This is work in progress, and we have not yet been able to format the
 output, which is intended to be parsed by CodeRunner, so that it is
@@ -129,7 +135,7 @@ docker exec -it ollama ollama run llama3
 
 To test ChatRunner against ollama, you can run 
 ```sh
-sh test.sh --config ollama.json --test
+sh test.sh --config ollama.json --markdown
 ```
 
 The main problem with ollama, is that the models available are inferior
