@@ -143,3 +143,9 @@ to chatgpt and often produce syntactically unexpected output.  To make
 it work in practice, two things are required
 1.  Improved prompting to reduce the error frequency.
 2.  Improve error handling to manage the consequences of errors.
+
+## Overview of subdirectories
+
++ Docker images
+    + jobe runs jobe with ChatRunner from the working copy
+    + jobe-production runs jobe with the latest release of ChatRunner
