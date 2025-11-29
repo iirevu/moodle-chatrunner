@@ -11,6 +11,10 @@ authors = [
 ]
 description = 'Feedback from Large Language Models in Moodle'
 readme = "README.md"
+dependencies = [
+   "requests"
+   ]
+
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -22,8 +26,8 @@ license-files = ["LICENSE.txt"]
 keywords=[ 'elearning', 'artifical intelligence', 'large language models', 'automatedassessment' ]
 
 [project.urls]
-Homepage = "N/A"
-Issues = "N/A"
+Homepage = "https://github.com/iirevu/moodle-chatrunner"
+Issues = "https://github.com/iirevu/moodle-chatrunner/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = [ "ChatRunner" ]
