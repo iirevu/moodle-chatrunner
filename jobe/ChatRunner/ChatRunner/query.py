@@ -37,7 +37,7 @@ def dumpSvardata(svar,ans=None):
     svardata = Test(testName="svardata")
     svardata.addResult("gpt_svar", json.dumps(svar))
     if ans is not None:
-       svardata.addResult("studans", json.dumps(ans))
+       svardata.addResult("studans", ans)
     return svardata
 def makeTest(test):
     try:
