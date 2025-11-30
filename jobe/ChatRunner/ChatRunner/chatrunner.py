@@ -252,6 +252,16 @@ class Engine:
         self.studans = studans
         self.sandbox = sandbox
         self.debug = debug
+    def getHistory(self,debug=None):
+        gs = self.graderstate
+        ans = [ { "role": "user", "content": x } for x in gs["studans"] ]
+        res = [ { "role": "assistant", "content": x } for x in gs["svar"] ]
+        if len(ans) != len(res) + 1:
+            raise Exception("Should have had feedback for all but last student answer")
+        r = ans + res
+        r[::2] = ans
+        r1[::2] = res
+        return r
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)

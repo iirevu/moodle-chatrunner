@@ -26,18 +26,16 @@ def queryAI(sandbox, ans, prompt, debug=False ):
        print( "queryAI() svar:", type(svar) )
        print( svar )
 
-   r = [ dumpSvardata( svar, ans ) ]
+   r = [ dumpSvardata( svar ) ]
    r.extend( dumpResponse( svar ) )
    return r
 
-def dumpSvardata(svar,ans=None):
+def dumpSvardata(svar):
     """
     Create a Test object containing the feedback from LLM.
     """
     svardata = Test(testName="svardata")
     svardata.addResult("gpt_svar", json.dumps(svar))
-    if ans is not None:
-       svardata.addResult("studans", ans)
     return svardata
 def makeTest(test):
     try:
