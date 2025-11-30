@@ -25,10 +25,13 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - './moodle:/var/www/html'
+      - 'moodledata:/var/www/moodledata'
     depends_on:
       - mariadb
   jobe:
     build: jobe/
 volumes:
   mariadb_data:
+    driver: local
+  moodledata:
     driver: local
