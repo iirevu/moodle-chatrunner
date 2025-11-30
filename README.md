@@ -149,3 +149,19 @@ it work in practice, two things are required
 + Docker images
     + jobe runs jobe with ChatRunner from the working copy
     + jobe-production runs jobe with the latest release of ChatRunner
+
+## Development
+
+We have not found a good way to test continuous development within moodle.
+It is necessary to shut docker compose down, delete the jobe image, and 
+restart docker compose, whenever ChatRunner is edited; i.e.
+
+```bash
+docker compose down
+docker rmi moodle-coderunner-docker-jobe
+docker compose up -d
+```
+
+We tried installing ChatRunner in editable mode and mount the ChatRunner
+directory from the host, but it seems that changes to the module do not
+affect jobe.
