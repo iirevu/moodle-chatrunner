@@ -10,11 +10,21 @@ should be considered internal.
 
 import requests, re, json
 
-def queryAI(sandbox, ans, prompt, debug=False ):
+def queryAI(sandbox, ans=None, prompt=None, graderstate=None, debug=False ):
    """
    Query the languagemodel.  It retunrs a list of `Test` objects.
    """
-   response = chatRequest(sandbox, ans, prompt )
+
+   if prompt is None: raise Exception( "prompt is required" )
+
+   if ans is None:
+       if graderstater is None:
+           raise Exception( "Either student answer or graderstate must be given" )
+       raise Exception( "Not implemented" )
+   else:
+       if graderstater is not None:
+           raise Exception( "Only one of student answer or graderstate can be given" )
+       response = chatRequest(sandbox, ans, prompt )
 
    status = response.status_code 
    if status != 200:

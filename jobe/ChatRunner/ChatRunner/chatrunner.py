@@ -244,6 +244,16 @@ def getGraderstate(gs,studans):
        graderstate = {"step": 0, "studans": [studans], "svar": []}
     return graderstate
 
+def getHistory(gs,debug=None):
+    ans = [ { "role": "user", "content": x } for x in gs["studans"] ]
+    res = [ { "role": "assistant", "content": x } for x in gs["svar"] ]
+    if len(ans) != len(res) + 1:
+            raise Exception("Should have had feedback for all but last student answer")
+    r = ans + res
+    r[::2] = ans
+    r1[::2] = res
+    return r
+
 class Engine:
     def __init__(self,problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
         self.graderstate = getGraderstate(gs,studans)
@@ -253,15 +263,7 @@ class Engine:
         self.sandbox = sandbox
         self.debug = debug
     def getHistory(self,debug=None):
-        gs = self.graderstate
-        ans = [ { "role": "user", "content": x } for x in gs["studans"] ]
-        res = [ { "role": "assistant", "content": x } for x in gs["svar"] ]
-        if len(ans) != len(res) + 1:
-            raise Exception("Should have had feedback for all but last student answer")
-        r = ans + res
-        r[::2] = ans
-        r1[::2] = res
-        return r
+        return getHistory( self.graderstate )
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
