@@ -117,8 +117,8 @@ def chatRequest(sandbox,prompt,ans):
              "model": sandbox.get( 'model', "gpt-4o" ),
              "format" : "json",
              "stream" : False,
-             "messages": [ { "role": "assistant", "content": prompt },
-                         { "role": "user", "content": ans } ]
+             "messages": [ { "role": "system", "content": prompt },
+                           { "role": "user", "content": ans } ]
            }
     return requests.post(openai_url, headers=headers, json=data)
 
