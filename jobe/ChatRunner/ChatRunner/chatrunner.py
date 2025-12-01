@@ -286,7 +286,7 @@ class Engine:
         return self.graderstate.getHistory()
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
+        response = queryAI(self.sandbox, self.prompt, self.studans, debug=debug)
         if debug: debugPrintResults(response)
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.
@@ -318,7 +318,7 @@ class Engine:
 class DumpEngine(Engine):
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
+        response = queryAI(self.sandbox, self.prompt, self.studans, debug=debug)
         if debug: debugPrintResults(response)
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.
