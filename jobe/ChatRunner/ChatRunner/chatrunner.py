@@ -233,6 +233,45 @@ def getPrompt(problem,literatur,gs,mdfn=getfn("prompt.md")):
                            )
     return prompt
 
+class GraderState:
+    def __init__(self,gs="",studans=None):
+        if isinstance( gs, dict ):
+            self.graderstate = gs
+        elif not isinstance( gs, str ):
+            raise Exception("GraderState should be string or dict.")
+        elif (not gs in ['null', '""', "''", '', '[]']):
+          graderstate = json.loads(gs)
+        else:
+          graderstate = {"step": 0, "studans": [], "svar": []}
+        step = graderstate["step"]
+        nans = len(graderstate["studans"]) 
+        nfb = len(graderstate["svar"]) 
+        if nans != step:
+           raise Exception(
+             f"Wrong number of student answers ({nans} ansers at step {step}.")
+        if nfb != step:
+           raise Exception(
+             f"Wrong number of feedback items ({nfb} at step {step}.")
+        self.graderstate = graderstate
+        if studans is not None:
+           self.addAnswer(studans)
+    def addAnswer(self,studans):
+       self.graderstate["studans"].append(studans)
+    def addFeedback(self,svar):
+       self.graderstate["svar"].append(svar)
+       self.graderstate["step"] += 1
+    def getHistory(self,debug=None):
+        gs = self.graderstate
+        ans = [ { "role": "user", "content": x } for x in gs["studans"] ]
+        res = [ { "role": "assistant", "content": x } for x in gs["svar"] ]
+        if len(ans) != len(res) + 1:
+                raise Exception("Should have had feedback for all but last student answer")
+        r = ans + res
+        r[::2] = ans
+        r[1::2] = res
+        return r
+
+
 def getGraderstate(gs,studans):
     # Interpret graderstate
     step = 0
@@ -251,7 +290,7 @@ def getHistory(gs,debug=None):
             raise Exception("Should have had feedback for all but last student answer")
     r = ans + res
     r[::2] = ans
-    r1[::2] = res
+    r[1::2] = res
     return r
 
 class Engine:
