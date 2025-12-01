@@ -277,19 +277,20 @@ class GraderState:
 class Engine:
     def __init__(self,problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
         self.graderstate = GraderState(gs,studans)
-        self.prompt = getPrompt(problem,literatur,gs)
         self.literatur = literatur
         self.studans = studans
         self.sandbox = sandbox
         self.debug = debug
+        self.problem = problem
+    def getPrompt(self,debug=None):
+        return getPrompt(self.problem,self.literatur,self.graderstate)
     def getHistory(self,debug=None):
         return self.graderstate.getHistory()
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.prompt, self.studans, debug=debug)
+        response = queryAI(self.sandbox, self.getPrompt(), self.studans, debug=debug)
         if debug: debugPrintResults(response)
-        # Dump the result as a string and have `TestResults` reparse it,
-        # in the way that is required for `subprocess` in `runAnswer()`.
+
         testResults = TestResults(ob=response)
         testResults.finalise()
         self.testResults = testResults
@@ -315,10 +316,29 @@ class Engine:
     def getMarkdownResult(self,*arg,**kw):
         return self.testResults.getMarkdownResult(*arg,**kw,graderstate=self.graderstate)
 
+class NewEngine(Engine):
+    def getPrompt(self,debug=None):
+        with open(mdfn, 'r') as file:
+            template = file.read()
+        sys = prompt.format( problem=problem, literatur=literatur )
+        prompt = [ { "role" : "system",  "content" : sys } ]
+        prompt.extend( self.getHistory() )
+        return prompt
+
+    def queryAI(self,debug=None):
+        if debug is None: debug = self.debug
+        response = queryAI(self.sandbox, self.getPrompt(), debug=debug)
+        if debug: debugPrintResults(response)
+
+        testResults = TestResults(ob=response)
+        testResults.finalise()
+        self.testResults = testResults
+        return testResults
+
 class DumpEngine(Engine):
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.prompt, self.studans, debug=debug)
+        response = queryAI(self.sandbox, self.getPrompt(), self.studans, debug=debug)
         if debug: debugPrintResults(response)
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.

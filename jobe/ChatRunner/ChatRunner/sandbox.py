@@ -53,7 +53,7 @@ class SandboxEngine(Engine):
         if debug is None: debug = self.debug
         test_program = loadtestprogram(
             self.studans,
-            self.prompt,
+            self.getPrompt(),
             sandbox=self.sandbox,
             pyfn="testprogram.py.txt",
             mdfn="prompt.md")
