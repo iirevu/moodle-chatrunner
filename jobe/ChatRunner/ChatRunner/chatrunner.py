@@ -299,7 +299,7 @@ def getHistory(gs,debug=None):
 
 class Engine:
     def __init__(self,problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
-        self.graderstate = getGraderstate(gs,studans)
+        self.graderstate = GraderState(gs,studans)
         self.prompt = getPrompt(problem,literatur,gs)
         self.literatur = literatur
         self.studans = studans
@@ -327,15 +327,30 @@ class Engine:
         gs = self.graderstate
         res = self.testResults
 
-        for test in res.testresults:
-           if test.result["name"] == "svardata":
-              gs["svar"].append(test.result["gpt_svar"])
-        gs["step"] += 1
+        xs = [ test for test in res.testresults if test.result["name"] == "svardata" ]
+        if len(xs) == 0:
+            raise Exception( "No feedback" )
+        if len(xs) > 1:
+            raise Exception( "Multiple feedback entries" )
+        gs.addFeedback(xs[0].result["gpt_svar"])
         return gs
     def getResult(self,debug=None):
         return self.testResults
     def getMarkdownResult(self,*arg,**kw):
         return self.testResults.getMarkdownResult(*arg,**kw,graderstate=self.graderstate)
+
+class DumpEngine(Engine):
+    def queryAI(self,debug=None):
+        if debug is None: debug = self.debug
+        response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
+        if debug: debugPrintResults(response)
+        # Dump the result as a string and have `TestResults` reparse it,
+        # in the way that is required for `subprocess` in `runAnswer()`.
+        output = "\n".join( [ x.dump() for x in response ] )
+        testResults = TestResults(output)
+        testResults.finalise()
+        self.testResults = testResults
+        return testResults
 
 
 def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,dumpmode=False, markdown=False, outfile=None):
@@ -362,16 +377,3 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,
        return eng.getMarkdownResult( other_lines=True )
     else:
        return eng.getResult().getCodeRunnerOutput( other_lines=True )
-
-class DumpEngine(Engine):
-    def queryAI(self,debug=None):
-        if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
-        if debug: debugPrintResults(response)
-        # Dump the result as a string and have `TestResults` reparse it,
-        # in the way that is required for `subprocess` in `runAnswer()`.
-        output = "\n".join( [ x.dump() for x in response ] )
-        testResults = TestResults(output)
-        testResults.finalise()
-        self.testResults = testResults
-        return testResults
