@@ -286,6 +286,8 @@ class Engine:
         return getPrompt(self.problem,self.literatur,self.graderstate)
     def getHistory(self,debug=None):
         return self.graderstate.getHistory()
+    def getGraderState(self,debug=None):
+        return self.graderstate
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.getPrompt(), self.studans, debug=debug)
@@ -370,6 +372,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
+    if debug: print( eng.getGraderState() )
     if outfile:
         with open(outfile, 'w') as f:
              json.dump(eng.getResult(), f, indent=4) 
