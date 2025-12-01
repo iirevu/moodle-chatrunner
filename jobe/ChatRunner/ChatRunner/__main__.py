@@ -41,6 +41,8 @@ if __name__ == "__main__":
                         help="Debug mode.")
     parser.add_argument('-o','--outfile',
                         help="Filename for JSON output.")
+    parser.add_argument('-E','--mode',default="baseline",
+                        help="Engine mode (baseline/dump/new).")
     args = parser.parse_args()
 
     # Read support files
@@ -85,11 +87,18 @@ if __name__ == "__main__":
     # Support for graderstate is currently not implemented; use a blank.
     graderstate_string = ""
 
-    # Run the test
+    if args.debug:
+        mode = "dump"
     if args.moodle:
+        mode = "moodle"
+    else:
+        mode = args.mode
+
+    # Run the test
+    if mode == "moodle":
         r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, dumpmode=args.debug, markdown=args.markdown, outfile=args.outfile )
+        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
         print( r )

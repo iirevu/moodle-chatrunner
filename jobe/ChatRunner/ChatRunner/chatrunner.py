@@ -349,7 +349,7 @@ class DumpEngine(Engine):
         return testResults
 
 
-def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,dumpmode=False, markdown=False, outfile=None):
+def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,mode="baseline", markdown=False, outfile=None):
     """
     This function is supposed to be functionally identical to
     `runAnswer()` without using the sandbox.  The code from 
@@ -359,10 +359,14 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,
     and the language models from the command line.
     """
 
-    if dumpmode:
-       eng = DumpEngine(problem,studans,literatur,gs,sandbox,qid,debug)
-    else:
+    if mode == "baseline":
        eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug)
+    elif mode == "new":
+        eng = NewEngine(problem,studans,literatur,gs,sandbox,qid,debug)
+    elif mode == "dump":
+        eng = DumpEngine(problem,studans,literatur,gs,sandbox,qid,debug)
+    else:
+        raise Exception( f"Unknown mode {mode}." )
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
