@@ -10,21 +10,14 @@ should be considered internal.
 
 import requests, re, json
 
-def queryAI(sandbox, ans=None, prompt=None, graderstate=None, debug=False ):
+def queryAI(sandbox, ans=None, prompt=None, debug=False ):
    """
    Query the languagemodel.  It retunrs a list of `Test` objects.
    """
 
    if prompt is None: raise Exception( "prompt is required" )
 
-   if ans is None:
-       if graderstater is None:
-           raise Exception( "Either student answer or graderstate must be given" )
-       raise Exception( "Not implemented" )
-   else:
-       if graderstater is not None:
-           raise Exception( "Only one of student answer or graderstate can be given" )
-       response = chatRequest(sandbox, ans, prompt )
+   response = chatRequest(sandbox, prompt, ans )
 
    status = response.status_code 
    if status != 200:
@@ -111,7 +104,7 @@ def extractAnswer(response,sandbox={},debug=False):
     return svar
 
 
-def chatRequest(sandbox,prompt,ans=None,gs=None):
+def chatRequest(sandbox,prompt,ans=None):
     """
     Make the request to the LLM, using connection parameters
     from sandbox, and the given prompt and student answer ans.
@@ -123,15 +116,15 @@ def chatRequest(sandbox,prompt,ans=None,gs=None):
     headers = { "Content-Type": "application/json" }
     if 'OPENAI_API_KEY' in sandbox:
          headers["Authorization"] = f"Bearer {sandbox['OPENAI_API_KEY']}"
-    if gs is None:
-        if ans is None:
-            raise Exception( "Student answer or graderstate required." )
+    if ans is not None:
+        if not isinstance( ans, str ):
+            raise Exception( f"Student answer should be a string, not {type(ans)}." )
         msg = [ { "role": "system", "content": prompt },
                 { "role": "user", "content": ans } ]
-    elif ans is not None:
-        raise Exception( "Only one of student answer and graderstate should be given." )
     else:
-        raise Exception( "Not implemented" )
+        if not isinstance( prompt, dict ):
+            raise Exception( f"Student answer should be a string, not {type(ans)}." )
+        msg = prompt
     data = { 
              "model": sandbox.get( 'model', "gpt-4o" ),
              "format" : "json",
