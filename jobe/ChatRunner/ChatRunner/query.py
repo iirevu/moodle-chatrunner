@@ -24,7 +24,7 @@ def queryAI(sandbox, prompt, ans=None, debug=False ):
        if not isinstance( prompt, str ):
            raise Exception( "Prompt should be string." )
 
-   response = chatRequest(sandbox, prompt, ans )
+   response = chatRequest(sandbox, prompt, ans, debug=debug )
 
    status = response.status_code 
    if status != 200:
@@ -111,7 +111,7 @@ def extractAnswer(response,sandbox={},debug=False):
     return svar
 
 
-def chatRequest(sandbox,prompt,ans=None):
+def chatRequest(sandbox,prompt,ans=None,debug=False):
     """
     Make the request to the LLM, using connection parameters
     from sandbox, and the given prompt and student answer ans.
@@ -138,6 +138,8 @@ def chatRequest(sandbox,prompt,ans=None):
              "stream" : False,
              "messages": msg
            }
+    if debug:
+        print( json.dumps( data, indent=2 ) )
     return requests.post(openai_url, headers=headers, json=data)
 
 class Test:
