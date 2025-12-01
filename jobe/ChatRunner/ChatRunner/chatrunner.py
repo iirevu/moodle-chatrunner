@@ -240,19 +240,18 @@ class GraderState:
         elif not isinstance( gs, str ):
             raise Exception("GraderState should be string or dict.")
         elif (not gs in ['null', '""', "''", '', '[]']):
-          graderstate = json.loads(gs)
+            self.graderstate = json.loads(gs)
         else:
-          graderstate = {"step": 0, "studans": [], "svar": []}
-        step = graderstate["step"]
-        nans = len(graderstate["studans"]) 
-        nfb = len(graderstate["svar"]) 
+            self.graderstate = {"step": 0, "studans": [], "svar": []}
+        step = self.graderstate["step"]
+        nans = len(self.graderstate["studans"]) 
+        nfb = len(self.graderstate["svar"]) 
         if nans != step:
            raise Exception(
              f"Wrong number of student answers ({nans} ansers at step {step}.")
         if nfb != step:
            raise Exception(
              f"Wrong number of feedback items ({nfb} at step {step}.")
-        self.graderstate = graderstate
         if studans is not None:
            self.addAnswer(studans)
     def __str__(self):
@@ -275,28 +274,6 @@ class GraderState:
         r[1::2] = res
         return r
 
-
-def getGraderstate(gs,studans):
-    # Interpret graderstate
-    step = 0
-    if (not gs in ['null', '""', "''", '', '[]']):
-       graderstate = json.loads(gs)
-       step = graderstate["step"]
-       graderstate["studans"].append(studans)
-    else:
-       graderstate = {"step": 0, "studans": [studans], "svar": []}
-    return graderstate
-
-def getHistory(gs,debug=None):
-    ans = [ { "role": "user", "content": x } for x in gs["studans"] ]
-    res = [ { "role": "assistant", "content": x } for x in gs["svar"] ]
-    if len(ans) != len(res) + 1:
-            raise Exception("Should have had feedback for all but last student answer")
-    r = ans + res
-    r[::2] = ans
-    r[1::2] = res
-    return r
-
 class Engine:
     def __init__(self,problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
         self.graderstate = GraderState(gs,studans)
@@ -306,7 +283,7 @@ class Engine:
         self.sandbox = sandbox
         self.debug = debug
     def getHistory(self,debug=None):
-        return getHistory( self.graderstate )
+        return self.graderstate.getHistory()
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.studans, self.prompt, debug=debug)
@@ -324,7 +301,6 @@ class Engine:
 
         if debug is None: debug = self.debug
 
-        gs = self.graderstate
         res = self.testResults
 
         xs = [ test for test in res.testresults if test.result["name"] == "svardata" ]
@@ -332,8 +308,8 @@ class Engine:
             raise Exception( "No feedback" )
         if len(xs) > 1:
             raise Exception( "Multiple feedback entries" )
-        gs.addFeedback(xs[0].result["gpt_svar"])
-        return gs
+        self.graderstate.addFeedback(xs[0].result["gpt_svar"])
+        return self.graderstate
     def getResult(self,debug=None):
         return self.testResults
     def getMarkdownResult(self,*arg,**kw):

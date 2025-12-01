@@ -111,7 +111,7 @@ def extractAnswer(response,sandbox={},debug=False):
     return svar
 
 
-def chatRequest(sandbox,prompt,ans):
+def chatRequest(sandbox,prompt,ans=None,gs=None):
     """
     Make the request to the LLM, using connection parameters
     from sandbox, and the given prompt and student answer ans.
@@ -123,12 +123,20 @@ def chatRequest(sandbox,prompt,ans):
     headers = { "Content-Type": "application/json" }
     if 'OPENAI_API_KEY' in sandbox:
          headers["Authorization"] = f"Bearer {sandbox['OPENAI_API_KEY']}"
+    if gs is None:
+        if ans is None:
+            raise Exception( "Student answer or graderstate required." )
+        msg = [ { "role": "system", "content": prompt },
+                { "role": "user", "content": ans } ]
+    elif ans is not None:
+        raise Exception( "Only one of student answer and graderstate should be given." )
+    else:
+        raise Exception( "Not implemented" )
     data = { 
              "model": sandbox.get( 'model', "gpt-4o" ),
              "format" : "json",
              "stream" : False,
-             "messages": [ { "role": "system", "content": prompt },
-                           { "role": "user", "content": ans } ]
+             "messages": msg
            }
     return requests.post(openai_url, headers=headers, json=data)
 
