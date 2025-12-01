@@ -255,6 +255,10 @@ class GraderState:
         self.graderstate = graderstate
         if studans is not None:
            self.addAnswer(studans)
+    def __str__(self):
+       return json.dumps( self.graderstate, indent=2 )
+    def __repr__(self):
+       return json.dumps( self.graderstate, indent=2 )
     def addAnswer(self,studans):
        self.graderstate["studans"].append(studans)
     def addFeedback(self,svar):
