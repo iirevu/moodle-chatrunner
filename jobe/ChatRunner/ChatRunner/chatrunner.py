@@ -234,7 +234,14 @@ def getPrompt(problem,literatur,gs,mdfn=getfn("prompt.md")):
     return prompt
 
 class GraderState:
+    """The GraderState class wraps a graderstate object from Moodle.
+    The constructor parses JSON from a string or creates an empty
+    graderstate if empty, and other methods support updating the state.  
+    """
     def __init__(self,gs="",studans=None):
+        """Parse the graderstrate from the string `gs` and add the student
+        answer if given.
+        """
         if isinstance( gs, dict ):
             self.graderstate = gs
         elif not isinstance( gs, str ):
@@ -266,6 +273,7 @@ class GraderState:
        self.graderstate["svar"].append(svar)
        self.graderstate["step"] += 1
     def getHistory(self,debug=None):
+        """Return the feedback history as a conversation for OpenAI API."""
         gs = self.graderstate
         ans = [ { "role": "user", "content": x } for x in gs["studans"] ]
         res = [ { "role": "assistant", "content": x } for x in gs["svar"] ]
