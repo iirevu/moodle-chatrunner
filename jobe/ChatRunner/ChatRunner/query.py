@@ -18,11 +18,11 @@ def queryAI(sandbox, ans=None, prompt=None, graderstate=None, debug=False ):
    if prompt is None: raise Exception( "prompt is required" )
 
    if ans is None:
-       if graderstater is None:
+       if graderstate is None:
            raise Exception( "Either student answer or graderstate must be given" )
        raise Exception( "Not implemented" )
    else:
-       if graderstater is not None:
+       if graderstate is not None:
            raise Exception( "Only one of student answer or graderstate can be given" )
        response = chatRequest(sandbox, ans, prompt )
 
