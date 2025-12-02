@@ -170,7 +170,7 @@ class TestResults:
                  + "\n".join(self.other_output) + "\n" )
        else: prehtml = ""
        if graderstate:
-           gs = "# Graderstate\n" + json.dumps( graderstate )
+           gs = "# Graderstate\n\n" + str(graderstate)
            gs += "\n\n"
        else:
            gs = ""
@@ -254,6 +254,8 @@ class GraderState:
              f"Wrong number of feedback items ({nfb} at step {step}.")
         if studans is not None:
            self.addAnswer(studans)
+    def json(self):
+       return json.dumps( self.graderstate )
     def __str__(self):
        return json.dumps( self.graderstate, indent=2 )
     def __repr__(self):
