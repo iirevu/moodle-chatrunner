@@ -30,6 +30,7 @@ def queryAI(sandbox, prompt, ans=None, debug=False ):
    status = response.status_code 
    if status != 200:
        print( response )
+       print( response.content )
        raise Exception( f"HTTP requests returns {status}." )
 
    svar = extractAnswer(response, sandbox, debug=debug)

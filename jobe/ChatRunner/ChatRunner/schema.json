@@ -15,7 +15,7 @@
           "description": "Beskrivelse av testkriteriet."
         },
         "iscorrect": {
-          "type": "bool",
+          "type": "boolean",
           "description": "Er testen bestått?"
         },
         "resultat": {
