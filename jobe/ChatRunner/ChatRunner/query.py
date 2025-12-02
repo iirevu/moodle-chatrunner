@@ -129,8 +129,8 @@ def chatRequest(sandbox,prompt,ans=None,debug=False):
         msg = [ { "role": "system", "content": prompt },
                 { "role": "user", "content": ans } ]
     else:
-        if not isinstance( prompt, dict ):
-            raise Exception( f"Student answer should be a string, not {type(ans)}." )
+        if not isinstance( prompt, list ):
+            raise Exception( f"Prompt should be a dict, not {type(prompt)}." )
         msg = prompt
     data = { 
              "model": sandbox.get( 'model', "gpt-4o" ),
