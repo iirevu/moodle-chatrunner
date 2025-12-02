@@ -9,6 +9,7 @@ should be considered internal.
 """
 
 import requests, re, json
+from .helper import getfn
 
 def queryAI(sandbox, prompt, ans=None, debug=False ):
    """
@@ -136,8 +137,12 @@ def chatRequest(sandbox,prompt,ans=None,debug=False):
              "model": sandbox.get( 'model', "gpt-4o" ),
              "format" : "json",
              "stream" : False,
-             "messages": msg
+             "messages": msg,
            }
+    if ans is None:
+        with open(getfn("schema.json"), 'r') as file:
+            schema = json.load( file )
+            data["response_format"] = { "type": "json_schema", "json_schema": schema } 
     if debug:
         print( json.dumps( data, indent=2 ) )
     return requests.post(openai_url, headers=headers, json=data)

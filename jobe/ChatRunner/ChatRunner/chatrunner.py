@@ -7,6 +7,7 @@ function for ChatRunner.
 
 import subprocess, base64, json, os
 from .query import Test, queryAI
+from .helper import getfn
 
 class Table:
     """Representation of a table with header and a list of rows.
@@ -212,11 +213,6 @@ def debugPrintResults(testResults):
         print( f"==== test {i} ====" )
         print(test)
         i += 1
-
-def getfn(fn):
-    dir = os.path.dirname(os.path.abspath(__file__))
-    return( os.path.join( dir, fn ) )
-
 
 
 def getPrompt(problem,literatur,gs,mdfn=getfn("prompt.md")):
