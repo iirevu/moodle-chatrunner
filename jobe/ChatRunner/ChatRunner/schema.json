@@ -1,0 +1,30 @@
+{
+  "name": "ChatRunnerSchema",
+  "strict": true,
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "testName": {
+          "type": "string",
+          "description": "Kort og deskriptivt navn på testen"
+        },
+        "descroption": {
+          "type": "string",
+          "description": "Beskrivelse av testkriteriet."
+        },
+        "iscorrect": {
+          "type": "bool",
+          "description": "Er testen bestått?"
+        },
+        "resultat": {
+          "type": "string",
+          "description": "Formative tilbakemelding som hjelper studenten til å gi mer presise og utfyllende svar i fremtiden.  Formatet skal være HTML og MathJax-notasjon kan brukes."
+	} 
+      },
+      "required": [ "testName", "description", "iscorrect", "resultat" ]
+    }
+  }
+}
+
