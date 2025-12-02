@@ -14,6 +14,13 @@ from .helper import getfn
 def queryAI(sandbox, prompt, ans=None, debug=False ):
    """
    Query the languagemodel.  It retunrs a list of `Test` objects.
+
+   It has two different modes.  If `ans=None`, the `prompt` should be
+   a list of role/content objects, including a system prompt and the
+   conversation history from the graderstate.
+
+   Otherwise, `prompt` should be a template text for the system prompt
+   and `ans` should be just the last student answer.
    """
 
    if ans is None:
