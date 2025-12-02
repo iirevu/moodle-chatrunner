@@ -10,7 +10,7 @@
           "type": "string",
           "description": "Kort og deskriptivt navn på testen"
         },
-        "descroption": {
+        "description": {
           "type": "string",
           "description": "Beskrivelse av testkriteriet."
         },
