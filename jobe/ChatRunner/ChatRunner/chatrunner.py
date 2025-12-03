@@ -198,6 +198,8 @@ class TestResults:
                "graderstate": graderstate }
        return json.dumps( obj, ensure_ascii=False )
 
+   def getDict(self):
+       return self.testResult
    def phtml(self):
        rl = [ test.formatResult() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
@@ -388,7 +390,7 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,
     if debug: print( eng.getGraderState() )
     if outfile:
         with open(outfile, 'w') as f:
-             json.dump(eng.getResult(), f, indent=4) 
+             json.dump(eng.getResult().getDict(), f, indent=4) 
     if markdown:
        return eng.getMarkdownResult( other_lines=True )
     else:
