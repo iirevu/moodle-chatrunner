@@ -1,0 +1,8 @@
+
+
++ Dataset
+    + N questions
+    + M answers per question
++ 3 models
++ 2 modes (baseline + new)
++ X prompt designs
