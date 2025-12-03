@@ -42,6 +42,7 @@ def parseTestResults(output):
          else:
             other_output.append( line )
       return testresults, other_output
+
 class TestResults:
    """Representation of the complete assessment result.
    This includes a list of `Test` objects, representing individual test
@@ -56,7 +57,14 @@ class TestResults:
    def __init__(self, output=None, ob=None, exitCode=0, debug=False):
       """
       output: Output fra testprogram
-      exitCode: 0: OK, 1: Feil/kræsj, 2: timeout, -1: Ingen tester å kjøre, -2: Testnummer finnes ikke
+
+      exitCode: 
+      + 0: OK
+      + 1: Feil/kræsj
+      + 2: timeout
+      + -1: Ingen tester å kjøre
+      + -2: Testnummer finnes ikke
+
       name: this is never used in practice
       """
       self.output = output
@@ -198,8 +206,8 @@ class TestResults:
                "graderstate": graderstate }
        return json.dumps( obj, ensure_ascii=False )
 
-   def getDict(self):
-       return self.testResult
+   def asdict(self):
+       return [ x.asdict() for x in self.testresults ]
    def phtml(self):
        rl = [ test.formatResult() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
@@ -208,6 +216,7 @@ class TestResults:
        rl = [ test.formatMarkdown() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
+
 def debugPrintResults(testResults):
     """Print a list of Test objects for debugging purposes."""
     i = 1
@@ -390,7 +399,8 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,
     if debug: print( eng.getGraderState() )
     if outfile:
         with open(outfile, 'w') as f:
-             json.dump(eng.getResult().getDict(), f, indent=4) 
+            tr = eng.getResult().asdict()
+            json.dump(tr, f, indent=4) 
     if markdown:
        return eng.getMarkdownResult( other_lines=True )
     else:

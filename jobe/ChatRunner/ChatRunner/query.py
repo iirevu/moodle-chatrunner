@@ -180,6 +180,8 @@ class Test:
    def pass_test(self, passed):
       self.result["passed"] = passed
 
+   def asdict(self):
+      return self.result
    def __str__(self):
       return json.dumps(self.result, indent=4)
 
