@@ -31,17 +31,6 @@ class Table:
         l = [  "| " +  " | ".join( map(str,x) ) + " |" for x in self.contents ]
         return h + sep + "\n".join( l )
 
-def parseTestResults(output):
-      testresults = []
-      other_output = []
-      test = Test()
-      for line in output.splitlines():
-         if test.load(line):
-            testresults.append(test)
-            test = Test()
-         else:
-            other_output.append( line )
-      return testresults, other_output
 
 class TestResults:
    """Representation of the complete assessment result.
@@ -81,10 +70,10 @@ class TestResults:
       if output is not None:
           if ob is not None:
               raise Exception( "Either output or ob should be given, not both." )
-          self.testresults, self.other_output = parseTestResults(output)
+          self.testresults = [ Test(content=line)
+                              for line in output.splitlines() ]
       elif ob is not None:
           self.testresults = ob
-          self.other_output = []
       else:
           raise Exception( "Either output or ob should be given." )
 
@@ -139,13 +128,16 @@ class TestResults:
             resultstable.append(row)
 
       self.resultstable = Table(resultstable,tableHeader)
+   def getOtherOutput(self):
+       return [ x["content"] for x in self.testresults 
+                if x.testType() == "nontest" ]
    def __repr__(self):
       """
       Return the contents of the TestResults as a string.
       """
       contents = { "TestResultsObj": {
             "testresults": [ t.dump() for t in self.testresults ],
-            "other_output": "\n".join(self.other_output),
+            "other_output": self.getOtherOutput(),
             "tableHeader": self.tableHeader,
             "resultstable": self.resultstable.asList(),
             "frac": self.frac
@@ -170,13 +162,11 @@ class TestResults:
       else:
          self.frac = 0
 
-   def getMarkdownResult(self,
-                           prehtml=None,
-                           graderstate=None,
-                           other_lines=False ):
-       if other_lines:
-         prehtml = ( "# Other output / error-messages from testgrader\n\n" 
-                 + "\n".join(self.other_output) + "\n" )
+   def getMarkdownResult(self, graderstate=None):
+       ol = self.getOtherOutput()
+       if ol:
+           prehtml = ( "# Other output / error-messages from testgrader\n\n"
+              + "\n".join(ol) + "\n" )
        else: prehtml = ""
        if graderstate:
            gs = "# Graderstate\n\n" + str(graderstate)
@@ -187,7 +177,6 @@ class TestResults:
        header = "# Assessment output\n\n"
        return gs + header + prehtml + tab + "\n\n" + self.pmd() + f"\nFraction: {self.frac}\n"
    def getCodeRunnerOutput(self,
-                           prehtml=None,
                            graderstate=None,
                            other_lines=False ):
        """
@@ -195,10 +184,14 @@ class TestResults:
        This is string representation of a JSON object.
        """
        if other_lines:
-         prehtml = f"""<h2> Other output / error-messages from testgrader </h2>
+          ol = self.getOtherOutput()
+       else: ol = []
+       if ol:
+              prehtml = f"""<h2>Other output / error-messages from testgrader </h2>
          <p><br>
-         """ + "<br>".join( self.other_output ) + """
+         {"<br>".join( self.other_output )}
          </p></br>"""
+       else: prehtml = ""
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
                "prologuehtml": prehtml,
@@ -209,10 +202,12 @@ class TestResults:
    def asdict(self):
        return [ x.asdict() for x in self.testresults ]
    def phtml(self):
+       """Return freeform feedback in HTML."""
        rl = [ test.formatResult() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
    def pmd(self):
+       """Return freeform feedback in Markdown."""
        rl = [ test.formatMarkdown() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
@@ -402,6 +397,6 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,
             tr = eng.getResult().asdict()
             json.dump(tr, f, indent=4) 
     if markdown:
-       return eng.getMarkdownResult( other_lines=True )
+       return eng.getMarkdownResult( )
     else:
        return eng.getResult().getCodeRunnerOutput( other_lines=True )

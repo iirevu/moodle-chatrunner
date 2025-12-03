@@ -81,6 +81,6 @@ def runAnswer(problem,studans,literatur={},gs="",sandbox=None,qid=0,debug=False,
 
     if debug:
         print( "== runAnswer in debug mode ==" )
-        return eng.getMarkdownResult( other_lines=True )
+        return eng.getMarkdownResult( )
     else:
         return eng.getResult().getCodeRunnerOutput( other_lines=True )

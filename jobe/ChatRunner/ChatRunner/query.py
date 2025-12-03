@@ -164,8 +164,10 @@ class Test:
    A `Test` may also contain the raw response from the LLM, in which
    case it hqas name «gpt_svar».
    """
-   def __init__(self, testName=None):
+   def __init__(self, testName=None, content=None):
       self.result = {"name": testName, "passed": False}
+      if content:
+          self.load( content )
 
    def addResult(self, field_name, field_data):
       """
@@ -179,6 +181,8 @@ class Test:
 
    def pass_test(self, passed):
       self.result["passed"] = passed
+   def testType(self):
+       return self.result.get("type","test")
 
    def asdict(self):
       return self.result
@@ -192,9 +196,13 @@ class Test:
       try:
          obj = json.loads(str_repr)
          self.result = obj["Testobject"]
-         return True
       except:
-         return False
+         self.result = {
+                 "name" : "nontest",
+                 "type" : "nontest",
+                 "content" : str_repr
+                 }
+      print( self )
 
    def dump(self):
       return self.__repr__()
