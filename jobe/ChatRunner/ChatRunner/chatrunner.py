@@ -281,7 +281,9 @@ class GraderState:
         return r
 
 class Engine:
-    def __init__(self,problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False):
+    def __init__(self,problem,studans,
+                 literatur={},gs="",sandbox={},qid=0,
+                 debug=False):
         self.graderstate = GraderState(gs,studans)
         self.literatur = literatur
         self.studans = studans
@@ -344,6 +346,10 @@ class NewEngine(Engine):
         return testResults
 
 class DumpEngine(Engine):
+    """DumpEngine tests the extra step of dumping and reparsing
+    the response, as is required with the `SandboxEngine` but
+    without using the sandbox (subprocess).
+    """
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.getPrompt(), self.studans, debug=debug)
@@ -357,7 +363,8 @@ class DumpEngine(Engine):
         return testResults
 
 
-def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,debug=False,mode="baseline", markdown=False, outfile=None):
+def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,
+                debug=False,mode="baseline", markdown=False, outfile=None):
     """
     This function is supposed to be functionally identical to
     `runAnswer()` without using the sandbox.  The code from 
