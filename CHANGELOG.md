@@ -11,7 +11,7 @@
 
 + Use JSON schema in the OpenAI API to force the correct JSON format.
 + Use conversation history in the OpenAI API to give previous answers and feedback.
-+ Refactoring: GraderState class
++ Refactoring: GraderState class, some simplifications
 
 ### Fixed
 
