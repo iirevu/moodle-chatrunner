@@ -20,12 +20,12 @@ import argparse
 
 import toml
 
-def batchprocess( qalist, lit, count, outfile, **kw ):
+def batchprocess( qalist, lit, count, **kw ):
     for q in qalist["questions"]:
         prob = q["question"]
         for a in q["answers"]:
             ans = a["ans"]
-            a["feedback"] = [ testProgram( prob, ans, lit, **kw ) for _ in range(count) ]
+            a["feedback"] = [ testProgram( prob, ans, lit, markdown=True **kw ) for _ in range(count) ]
     return qalist
 
 if __name__ == "__main__":
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
     # Run the test
     if args.batch:
-        r = batchprocess( qalist, lit, count=int(args.count), outfile, **kw )
+        r = batchprocess( qalist, lit, count=int(args.count), outfile=args.outfile, lit, graderstate_string, mode=mode )
         with open(args.batch, "wb") as f:
              toml.dumo(qalist,f)
     elif mode == "moodle":
