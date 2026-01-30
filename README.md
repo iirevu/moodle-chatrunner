@@ -104,10 +104,10 @@ There are two options to modify the output:
 + `--verbose` gives additional debug output
 The default is the format used internally within Moodle.
 
-There are two options to test internal features:
-+ `--moodle` runs the test in the sandbox as used in moodle.
-+ `--debug` (implicit with --moodle) dumps and reparses the
-  output as is required by the sandbox.
+There are different modes to test different internal features.
+Use the `--mode` option with
++ `moodle (alt. `--moodle`) runs the test in the sandbox as used in moodle.
++ `dump` (alt. `--debug`)  dumps and reparses the output as is required by the sandbox.
 
 This is work in progress, and we have not yet been able to format the
 output, which is intended to be parsed by CodeRunner, so that it is
