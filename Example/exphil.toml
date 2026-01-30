@@ -1,11 +1,11 @@
-[[question]]
+[[questions]]
 question = """
 Hva er en dyd, og hva har dydene med god moralsk handling å gjøre,
 ifølge dydsetikken? Gi eksempler på dyder som ikke står i
 *Tenk!*-boken. 
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 Dyder er ikke bare positive egenskaper. En dyd er gode
 karaktertrekk som former den man er og hvordan man handler.
@@ -22,7 +22,7 @@ vennen hvordan de har det og lyttet etter det vedkommende har på
 hjertet. 
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 «Dyd er positive karaktertrekk eller egenskaper som disponerer
 oss til å handle på bestemte måter» (Antonsen et al.s.265). I
@@ -38,7 +38,7 @@ situasjon kan det være en dyd å ikke si fra dersom noen stjeler.
 Alt etter hva handlingen fører til. (Antonsen et al.s.265). 
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 En dyd er et positivt karaktertrekk som anses som moralsk
 verdifullt, som fører til at vi handler på en viss måte (1, s.
@@ -47,12 +47,12 @@ ignorert eller gjort narr av, viser de både mot og
 rettferdighet.
 """
 
-[[question]]
+[[questions]]
 question = """
 Hva er forholdet mellom dyd og lykke, ifølge dydsetikk? 
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 Et vesentlig trekk ved dydsetikken er at vi ikke bare bør strebe
 etter å være dydige fordi det får oss til å handle riktig i møte
@@ -64,7 +64,7 @@ relasjoner og bruke tiden sin på meningsfulle aktiviteter.
 (Antonsen et al., 2025, s. 264)
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 Ifølge dydsetikken vil man kunne oppnå eudaimonia, det gode liv,
 dersom man lever et dydig liv (1, s. 264). Man vil altså ifølge
@@ -73,7 +73,7 @@ på å leve best mulig, og bli den beste mulige versjonen av seg
 selv ved å handle dydig.
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
     c)  Lykke (eudaimonia) er målet og formålet med alt vi gjør.
         Begrepet Aristoteles bruker når han skriver om dette er
@@ -85,13 +85,13 @@ ans = """
         2023, s. 264).
 """
 
-[[question]]
+[[questions]]
 question = """
 Enkelte har innvendt mot dydsetikken at den er vanskelig å anvende i
 praksis. Er du enig i innvendingen? 
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 Jeg kan forstå at det kan være vanskelig å forholde seg til
 dydsetikken i praksis, men jeg mener at dydsetikken gir en god
@@ -108,7 +108,7 @@ et la., 2023, s. 265). Ut ifra disse dydsreglene, så har vi fått
 en form for handlingsveiledning fra dydsetikken.  
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 Ja, noen ganger kan dydige handlinger sette oss i vanskelig
 situasjoner. F.eks Nelson Mandela som utviste stort mot gjennom
@@ -119,7 +119,7 @@ mellom dyd å lykke kan derfor virke kontraintuitiv. (Antonsen et
 al., 2025, s. 264)
 """
 
-[[question.answers]]
+[[questions.answers]]
 ans = """
 Jeg er nokså enig i denne innvendingen. Dydsetikken gir nemlig
 ingen fasit på akkurat hva som er ansett som dydig i en

@@ -18,6 +18,16 @@ from .sandbox import runAnswer
 import json
 import argparse
 
+import toml
+
+def batchprocess( qalist, lit, outfile, **kw ):
+    for q in qalist["questions"]:
+        prob = q["question"]
+        for a in q["answers"]:
+            ans = a["ans"]
+            a["feedback"] = testProgram( prob, ans, lit, **kw )
+    return qalist
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
     prog = 'chatrunner',
@@ -43,13 +53,19 @@ if __name__ == "__main__":
                         help="Filename for JSON output.")
     parser.add_argument('-E','--mode',default="baseline",
                         help="Engine mode (baseline/dump/new).")
+    parser.add_argument('-b','--batch',
+                        help="Question/answer set for batch ruin (toml file).")
     args = parser.parse_args()
 
-    # Read support files
-    with open(args.problem, 'r') as file:
-        prob = file.read()
-    with open(args.answer, 'r') as file:
-        ans = file.read()
+    if args.batch:
+        with open(args.batch, "rb") as f:
+             qalist = toml.load(f)
+    else:
+        # Read support files
+        with open(args.problem, 'r') as file:
+            prob = file.read()
+        with open(args.answer, 'r') as file:
+            ans = file.read()
     if args.literature:
         with open(args.literature, 'r') as file:
             lit = file.read()
@@ -95,7 +111,11 @@ if __name__ == "__main__":
         mode = args.mode
 
     # Run the test
-    if mode == "moodle":
+    if args.batch:
+        r = batchprocess( qalist, lit, outfile, **kw )
+        with open(args.batch, "wb") as f:
+             toml.dumo(qalist,f)
+    elif mode == "moodle":
         r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
         print( r )
