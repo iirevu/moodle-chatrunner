@@ -6,6 +6,8 @@ Tilbakemeldingen skal være en JSON-streng med en liste der hver
 studentens svar blir vurdert opp mot hver test.
 Målet er formativ vurdering som hjelper studenten på vei.
 
+{criteria}
+
 Under følger et sammensetning/sammendrag fra relevante deler av studentenes pensumliteratur.
 Du kan refere til sidetall her om det behøves
 {literatur}

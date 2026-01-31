@@ -1,0 +1,58 @@
+[[questions]]
+question = """
+```html
+<h3> Mikroskopet </h3>
+<p>
+Forklar oppbyggingen og virkemåten til et optisk mikroskop. <br>
+Grei ut om de ulike delene og forklar kort hva de gjør.
+</p>
+<p>
+Du skal gå litt mer i detalj på det optiske oppsettet:
+<ul>
+     <li> Hvordan skjer forstørringen i et mikroskop? </li>
+     <li> Hvorfor bruker vi flere linser? </li>
+</ul>
+Til eksamen ville det her være viktig å tegne en skisse av hvordan forstørring foregår, her kan du heller oppgi en link til et bilde du synes forklarer linseoppsettet godt.
+</p>
+```
+"""
+
+[[questions.answers]]
+ans = """
+Mikroskopet består av mange linser for å forstørre bildet.
+Det bruker lys under objektet, for å gi et klart bilde.
+"""
+
+
+[[questions]]
+question = """
+```html
+<h4>Transducere i spektroskopiske instrument</h4>
+<ol type="a">
+  <li>Hva er transducerens oppgave i et optisk instrument?</li>
+  <li>Hvilke egenskaper er viktige for en transducer?</li>
+  <li>Gi et eksempel på en transducer og hvordan den fungerer</li>
+</ol>
+```
+"""
+
+criteria = """
+En god besvarelse inneholder flere av disse punktene:
+* Hva en transducer er og gjør
+  - Gjør om energien i lysintensiteten om til et elektrisk signal
+* Hva som er viktig for en transducer
+  - Sensitivitet - lite støy, og høyt signal-til-støy forhold
+  - Lik sensitivitet for de relevante delene av strålingsspekteret
+  - Lineæritet, signal bør være proporsjonalt med innfallende intensitet
+* En grei forklaring av fotomultiplikator, fotocelle eller fotodiodearray
+  - Dersom studenten velger fotomultiplikatoren, bør det nevnes at den har høyere sensitivitet enn fotocellen, eller den sammenlignes med fotocelle på en annen måte
+  - Dersom studenten velger fotodiodearray bør det kommer frem hvordan dette lar oss måle intensitet for ulike bølgelengder nesten samtidig
+
+Du har ellers mandat til, og oppfordres til, å gi det som måtte passe av 
+tilbakemeldinger og vurderinger, så lenge det fremmer læring hos studenten
+"""
+
+[[questions.answers]]
+ans = """
+Jeg har rett og slett ikke peiling.
+"""
