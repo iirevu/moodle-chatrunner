@@ -21,14 +21,31 @@ import argparse
 import toml
 import helper
 
-def batchprocess( qalist, lit, count, **kw ):
+def batchfeedback( *a, config={}, **kw ):
+    r = { "model" : config["model"]
+        , "feedback" : testProgram( prob, ans, lit, config, criteria, markdown=True, **kw )
+        }
+    return r
+
+def batchprocess( qalist, lit, cfg, count, **kw ):
+    modellist = cfg["model"]
+    try:
+        _ = iter(modellist)
+    except:
+        modellist = [ modellist ]
+    config = []
+    for m in modellist:
+        c = cfg.copy()
+        c["model"] = m
+        config.append( c )
     for q in qalist["questions"]:
         prob = q["question"]
         for a in q["answers"]:
             ans = a["ans"]
             criteria = a.get( "criteria", "" )
-            a["feedback"] = [ testProgram( prob, ans, lit, criteria, markdown=True, **kw ) 
-                              for _ in range(count) ]
+            a["feedback"] = [ batchfeedback( prob, ans, lit
+                            , config=config, criteria=criteria, **kw ) 
+                            for _ in range(count) ]
     return qalist
 
 if __name__ == "__main__":
@@ -126,7 +143,7 @@ if __name__ == "__main__":
 
     # Run the test
     if args.batch:
-        r = batchprocess( qalist, lit, count=int(args.count), gs=graderstate_string, mode=mode )
+        r = batchprocess( qalist, lit, count=int(args.count), gs=graderstate_string, cfg, mode=mode )
         with open(args.outfile, "wb") as f:
              toml.dumo(qalist,f)
     elif mode == "moodle":
