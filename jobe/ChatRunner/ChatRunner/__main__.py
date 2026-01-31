@@ -19,6 +19,7 @@ import json
 import argparse
 
 import toml
+import helper
 
 def batchprocess( qalist, lit, count, **kw ):
     for q in qalist["questions"]:
@@ -87,8 +88,7 @@ if __name__ == "__main__":
     
     # Read AI configuration from JSON or from arguments 
     if args.config:
-        with open( args.config, "r" ) as file:
-            cfg = json.load(file)
+        cfg = helper.readobject( args.config )
     else:
         cfg = {}
 
