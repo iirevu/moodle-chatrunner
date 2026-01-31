@@ -25,7 +25,9 @@ def batchprocess( qalist, lit, count, **kw ):
         prob = q["question"]
         for a in q["answers"]:
             ans = a["ans"]
-            a["feedback"] = [ testProgram( prob, ans, lit, markdown=True **kw ) for _ in range(count) ]
+            criteria = a.get( "criteria", "" )
+            a["feedback"] = [ testProgram( prob, ans, lit, criteria, markdown=True, **kw ) 
+                              for _ in range(count) ]
     return qalist
 
 if __name__ == "__main__":
@@ -73,6 +75,11 @@ if __name__ == "__main__":
             prob = file.read()
         with open(args.answer, 'r') as file:
             ans = file.read()
+        if args.criteria:
+            with open(args.criteria, 'r') as file:
+                criteria = file.read()
+        else:
+            args.criteria = ""
     if args.literature:
         with open(args.literature, 'r') as file:
             lit = file.read()
@@ -123,9 +130,9 @@ if __name__ == "__main__":
         with open(args.outfile, "wb") as f:
              toml.dumo(qalist,f)
     elif mode == "moodle":
-        r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
+        r = runAnswer( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
+        r = testProgram( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
         print( r )
