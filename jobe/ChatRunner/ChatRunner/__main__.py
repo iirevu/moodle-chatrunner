@@ -33,8 +33,9 @@ if __name__ == "__main__":
     prog = 'chatrunner',
     description = 'Get AI feedback on a student answer',
              epilog = '')
-    parser.add_argument('problem',help="Problem file")
-    parser.add_argument('answer',help="Answer file")
+    parser.add_argument('problem',help="Problem file",nargs="?")
+    parser.add_argument('answer',help="Answer file",nargs="?")
+    parser.add_argument('criteria',help="Answer file",nargs="?")
     parser.add_argument('-m','--model',help="Model")
     parser.add_argument('-l','--literature',help="Literature file (json)")
     parser.add_argument('-u','--url',help="URL for the LLM OpenAPI.")
@@ -56,7 +57,7 @@ if __name__ == "__main__":
     parser.add_argument('-b','--batch',
                         help="Question/answer set for batch ruin (toml file).")
     parser.add_argument('-n','--count',default=1,
-                        help="Numer of repetition of the batch test."
+                        help="Numer of repetition of the batch test.")
     args = parser.parse_args()
 
     if args.batch:
@@ -64,6 +65,10 @@ if __name__ == "__main__":
              qalist = toml.load(f)
     else:
         # Read support files
+        if args.problem is None:
+            raise Exception("Needs problem and answer arguments.")
+        if args.answer is None:
+            raise Exception("Needs answer argument.")
         with open(args.problem, 'r') as file:
             prob = file.read()
         with open(args.answer, 'r') as file:
@@ -114,8 +119,8 @@ if __name__ == "__main__":
 
     # Run the test
     if args.batch:
-        r = batchprocess( qalist, lit, count=int(args.count), outfile=args.outfile, lit, graderstate_string, mode=mode )
-        with open(args.batch, "wb") as f:
+        r = batchprocess( qalist, lit, count=int(args.count), gs=graderstate_string, mode=mode )
+        with open(args.outfile, "wb") as f:
              toml.dumo(qalist,f)
     elif mode == "moodle":
         r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
