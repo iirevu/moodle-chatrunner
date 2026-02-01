@@ -19,11 +19,11 @@ import json
 import argparse
 
 import toml
-import helper
+from . import helper
 
 def batchfeedback( *a, config={}, **kw ):
     r = { "model" : config["model"]
-        , "feedback" : testProgram( prob, ans, lit, config, criteria, markdown=True, **kw )
+        , "feedback" : testProgram( *a, config=config, **kw )
         }
     return r
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
             with open(args.criteria, 'r') as file:
                 criteria = file.read()
         else:
-            args.criteria = ""
+            criteria = ""
     if args.literature:
         with open(args.literature, 'r') as file:
             lit = file.read()
@@ -143,7 +143,8 @@ if __name__ == "__main__":
 
     # Run the test
     if args.batch:
-        r = batchprocess( qalist, lit, count=int(args.count), gs=graderstate_string, cfg, mode=mode )
+        r = batchprocess( qalist, lit, cfg=cfg, count=int(args.count)
+                        , gs=graderstate_string, mode=mode )
         with open(args.outfile, "wb") as f:
              toml.dumo(qalist,f)
     elif mode == "moodle":
