@@ -22,7 +22,7 @@ import toml
 from . import helper
 
 def batchfeedback( *a, config={}, **kw ):
-    r = testProgram( *a, sandbox=config, obj=True, **kw ).getFeedbackObject()
+    r = testProgram( *a, sandbox=config, raw=True, **kw ).getFeedbackObject()
     r["model"] = config["model"]
     return r
 

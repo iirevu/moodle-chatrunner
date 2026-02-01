@@ -3,52 +3,244 @@ question = "Hva er en dyd, og hva har dydene med god moralsk handling å gjøre,
 [[questions.answers]]
 ans = "Dyder er ikke bare positive egenskaper. En dyd er gode\nkaraktertrekk som former den man er og hvordan man handler.\nMoral er noe vi lærer gjennom erfaring, og som innebærer at vi\nutvikler dydige karaktertrekk over tid. Et sentralt poeng for\ndydsetikken er at spørsmålet om gode handlinger må ses i\nsammenheng med den moralske aktørens liv og situasjon (Antonsen\net al., 2023, s. 258). Det vil si at handlinger som er i samsvar\nmed dydene vil være moralsk riktige og gode eller dårlig og\ngalt.xa0Et eksempel på en dyd kan være medfølelse. Et eksempel på\ndette i praksis- at man legger merke til at en venn har det\ndårlig og kan virke nedfor. En god dyd ville da vært å spurt\nvennen hvordan de har det og lyttet etter det vedkommende har på\nhjertet.xa0\n"
 [[questions.answers.feedback]]
-fraction = 0.6666666666666666
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dyd", "Definerer hva dyd er innen dydsetikken.",], [ true, "Dydsetikkens fokus på moralsk aktør og situasjon", "Gjør rede for hvordan dydsetikken vurderer god handling i lys av aktørens liv og situasjon.",], [ false, "Eksempel på en dyd utenfor pensum", "Gir eksempel på en dyd som ikke er nevnt i pensumboken.",],]
+fraction = 0.5
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Forståelse av hva en dyd er i dydsetikken.",], [ true, "Dydenes rolle i moralsk handling", "Sammenhengen mellom dyder og moralsk riktige handlinger i dydsetikken.",], [ false, "Eksempler fra dydsetikken", "Bruk av eksempel for å illustrere en dyd.",], [ false, "Eksempler på dyder", "Gi eksempler på dyder utenom de nevnte i *Tenk!*.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forståelse av dyd\n\nDu gir en god forklaring på hva en dyd er som positive karaktertrekk og deres relevans for moral.\n", "## Passed: Dydsetikkens fokus på moralsk aktør og situasjon\n\nBra! Du stiller det filosofiske spørsmålet om hvordan gode handlinger må ses i sammenheng med den moralske aktørens liv og situasjon.\n", "## Failed: Eksempel på en dyd utenfor pensum\n\nDu glemmer å oppgi et eksempel på en dyd som ikke er nevnt i pensumboken. Forsøk å tenke på dyder som er mindre nevnt, som ydmykhet eller tålmodighet.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Definisjon av dyd\\\",\\n        \\\"description\\\": \\\"Forst\\u00e5else av hva en dyd er i dydsetikken.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Bra! Du har forklart at dyder er gode karaktertrekk som former hvordan vi handler, noe som er i tr\\u00e5d med dydsetikken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydenes rolle i moralsk handling\\\",\\n        \\\"description\\\": \\\"Sammenhengen mellom dyder og moralsk riktige handlinger i dydsetikken.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Godt gjort! Du har nevnt at moralske handlinger m\\u00e5 ses i sammenheng med dydene og akt\\u00f8rens liv og situasjon, noe som er sentralt i dydsetikken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler fra dydsetikken\\\",\\n        \\\"description\\\": \\\"Bruk av eksempel for \\u00e5 illustrere en dyd.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Det er flott at du inkluderer medf\\u00f8lelse som eksempel p\\u00e5 en dyd! For \\u00e5 styrke argumentet ditt, kunne du ha nevnt flere dyder, for eksempel integritet, mot eller t\\u00e5lmodighet som ikke er nevnt i *Tenk!* boken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler p\\u00e5 dyder\\\",\\n        \\\"description\\\": \\\"Gi eksempler p\\u00e5 dyder utenom de nevnte i *Tenk!*.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Du nevner medf\\u00f8lelse, men beskriv gjerne flere eksempler p\\u00e5 dyder som ikke st\\u00e5r i *Tenk!*-boken, som ydmykhet eller ansvarlighet, for \\u00e5 vise bredere forst\\u00e5else.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Definisjon av dyd"
+passed = true
+mark = 1
+description = "Forståelse av hva en dyd er i dydsetikken."
+resultat = "Bra! Du har forklart at dyder er gode karaktertrekk som former hvordan vi handler, noe som er i tråd med dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydenes rolle i moralsk handling"
+passed = true
+mark = 1
+description = "Sammenhengen mellom dyder og moralsk riktige handlinger i dydsetikken."
+resultat = "Godt gjort! Du har nevnt at moralske handlinger må ses i sammenheng med dydene og aktørens liv og situasjon, noe som er sentralt i dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler fra dydsetikken"
+passed = false
+mark = 1
+description = "Bruk av eksempel for å illustrere en dyd."
+resultat = "Det er flott at du inkluderer medfølelse som eksempel på en dyd! For å styrke argumentet ditt, kunne du ha nevnt flere dyder, for eksempel integritet, mot eller tålmodighet som ikke er nevnt i *Tenk!* boken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler på dyder"
+passed = false
+mark = 1
+description = "Gi eksempler på dyder utenom de nevnte i *Tenk!*."
+resultat = "Du nevner medfølelse, men beskriv gjerne flere eksempler på dyder som ikke står i *Tenk!*-boken, som ydmykhet eller ansvarlighet, for å vise bredere forståelse."
+
 
 [[questions.answers.feedback]]
-fraction = 0.6666666666666666
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Definere hva en dyd er.",], [ true, "Dydsetikkens sammenheng med moralsk handling", "Forklare sammenhengen mellom dyder og moralsk handling i dydsetikken.",], [ false, "Eksempel på dyd", "Gi eksempel på dygd som ikke er i 'Tenk!'-boken.",],]
+fraction = 1.0
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dyd", "Forståelse av hva en dyd er",], [ true, "Moral og erfaring", "Forståelse av moral som læres gjennom erfaring",], [ true, "Dydenes rolle i moralsk handling", "Hvordan dyder relaterer til god moralsk handling",], [ true, "Eksempel på dyd", "Gi eksempel på en dyd ikke nevnt i Tenk-boka",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Definisjon av dyd\n\nDu har nevnt at dyder er positive egenskaper og kan forme hvem vi er og hvordan vi handler. Dette er riktig og en god generell beskrivelse av dyder.\n", "## Passed: Dydsetikkens sammenheng med moralsk handling\n\nDu har forklart at handlinger som samsvarer med dyder vil være moralsk riktige i dydsetikken, og har nevnt at dette vurderes i sammenheng med den moralske aktørens liv og situasjon. Dette er en god forståelse av hvordan dydsetikken fungerer.\n", "## Failed: Eksempel på dyd\n\nDu har gitt et eksempel på medfølelse som en dyd, som vanligvis finnes i mange tekster om dyder/etikk. For å gi et nytt eksempel som ikke er i 'Tenk!', kan du vurdere andre dyder som nysgjerrighet, fleksibilitet eller berekraftsansvar. Prøv å skrive hvor disse dydene også spiller en avgjørende rolle.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"[{\\\"testName\\\": \\\"Forst\\u00e5else av dyd\\\", \\\"description\\\": \\\"Forst\\u00e5else av hva en dyd er\\\", \\\"iscorrect\\\": true, \\\"resultat\\\": \\\"Bra! Du har en god forst\\u00e5else av hva en dyd er ved \\u00e5 omtale det som gode karaktertrekk som former handlinger.\\\"}, {\\\"testName\\\": \\\"Moral og erfaring\\\", \\\"description\\\": \\\"Forst\\u00e5else av moral som l\\u00e6res gjennom erfaring\\\", \\\"iscorrect\\\": true, \\\"resultat\\\": \\\"Godt forklart! Du har trukket frem at moral l\\u00e6res gjennom erfaring, noe som er en viktig del av dydsetikken.\\\"}, {\\\"testName\\\": \\\"Dydenes rolle i moralsk handling\\\", \\\"description\\\": \\\"Hvordan dyder relaterer til god moralsk handling\\\", \\\"iscorrect\\\": true, \\\"resultat\\\": \\\"Bra jobbet! Du har forklart at handlinger i samsvar med dydene anses som moralsk riktige.\\\"}, {\\\"testName\\\": \\\"Eksempel p\\u00e5 dyd\\\", \\\"description\\\": \\\"Gi eksempel p\\u00e5 en dyd ikke nevnt i Tenk-boka\\\", \\\"iscorrect\\\": true, \\\"resultat\\\": \\\"Du har gitt et eksempel p\\u00e5 en dyd, medf\\u00f8lelse, og hvordan det kan brukes i praksis. For ytterligere utdypning, kan du ogs\\u00e5 vurdere andre dyder, som tillit eller t\\u00e5lmodighet, som heller ikke er nevnt i Tenk-boka.\\\"}]\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av dyd"
+passed = true
+mark = 1
+description = "Forståelse av hva en dyd er"
+resultat = "Bra! Du har en god forståelse av hva en dyd er ved å omtale det som gode karaktertrekk som former handlinger."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Moral og erfaring"
+passed = true
+mark = 1
+description = "Forståelse av moral som læres gjennom erfaring"
+resultat = "Godt forklart! Du har trukket frem at moral læres gjennom erfaring, noe som er en viktig del av dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydenes rolle i moralsk handling"
+passed = true
+mark = 1
+description = "Hvordan dyder relaterer til god moralsk handling"
+resultat = "Bra jobbet! Du har forklart at handlinger i samsvar med dydene anses som moralsk riktige."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempel på dyd"
+passed = true
+mark = 1
+description = "Gi eksempel på en dyd ikke nevnt i Tenk-boka"
+resultat = "Du har gitt et eksempel på en dyd, medfølelse, og hvordan det kan brukes i praksis. For ytterligere utdypning, kan du også vurdere andre dyder, som tillit eller tålmodighet, som heller ikke er nevnt i Tenk-boka."
+
 
 
 [[questions.answers]]
 ans = "«Dyd er positive karaktertrekk eller egenskaper som disponerer\noss til å handle på bestemte måter» (Antonsen et al.s.265). I\ndydsetikken så legger man ikke vekt på moralske regler og\nkonsekvenser, men man handler ut fra «hvilken person jeg ønsker\nå være». Man tar altså ikke i betraktning hva som er den\nmoralske etikken når vi tenker på dydsetikk, men heller hva som\ner riktig handling i den ebstemte situasjonen.xa0Eksempel på dyder\ner for eksempel å være en omsorgsfull person og en generøs\nperson. Det er å handle riktig ut fra situasjon. For eksempel\nkan det være en dyd å si fra om noen stjeler. Men i en annen\nsituasjon kan det være en dyd å ikke si fra dersom noen stjeler.\nAlt etter hva handlingen fører til. (Antonsen et al.s.265).xa0\n"
 [[questions.answers.feedback]]
 fraction = 0.75
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Studenten forklarer hva en dyd er ifølge dydsetikken.",], [ true, "Dydsetikkens fokus", "Studenten forklarer hvordan dydsetikken skiller seg ved å fokusere på hva slags person man ønsker å være.",], [ true, "Riktig handling i situasjonen", "Studenten forklarer hvordan dydsetikken vurderer handlinger basert på situasjonen.",], [ false, "Eksempler på dyder", "Studenten gir eksempler på dyder, inkludert de som ikke er nevnt i teksten.",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Studenten forklarer hva en dyd er.",], [ false, "Forholdet mellom dydsetikk og moralske regler", "Studenten beskriver hvordan dydsetikken skiller seg fra fokus på moralske regler.",], [ true, "Eksempler på dyder", "Studenten gir eksempler på dyder.",], [ true, "Situasjonsbasert handling", "Studenten forklarer betydningen av kontekst i dydsetikk.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Definisjon av dyd\n\nBra! Du beskriver en dyd som et positivt karaktertrekk, noe som er i tråd med dydsetikken. Dydene er ment å føre til god handling uten nødvendigvis å følge faste regler.\n", "## Passed: Dydsetikkens fokus\n\nMeget bra! Du angir at dydsetikken legger vekt på hvilken type person man ønsker å være, i stedet for å fokusere utelukkende på regler og konsekvenser.\n", "## Passed: Riktig handling i situasjonen\n\nGod forståelse av hvordan dydsetikk vurderer hva som er riktig handling i en gitt situasjon. Dette er i tråd med dydsetikkens fleksible tilnærming til moral. Bra!\n", "## Failed: Eksempler på dyder\n\nDu har listet omsorgsfull og generøs som eksempler på dyder, men du gir ingen nye eksempler utenfor pensumlitteraturen. Forsøk å inkludere flere dyder som for eksempel tålmodighet eller ydmykhet.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Definisjon av dyd\\\",\\n        \\\"description\\\": \\\"Studenten forklarer hva en dyd er.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"God forklaring av dyd som positive karaktertrekk som disponerer oss til \\u00e5 handle p\\u00e5 bestemte m\\u00e5ter.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Forholdet mellom dydsetikk og moralske regler\\\",\\n        \\\"description\\\": \\\"Studenten beskriver hvordan dydsetikken skiller seg fra fokus p\\u00e5 moralske regler.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Du skriver at dydsetikken ikke tar i betraktning hva som er den moralske etikken og fokuserer p\\u00e5 hvordan vi vil v\\u00e6re som personer. Dette kan forbedres ved \\u00e5 tydeligere skille mellom dydsetikkens fokus p\\u00e5 \\u00e5 utvikle gode karaktertrekk i stedet for \\u00e5 f\\u00f8lge spesifikke regler eller fokusere p\\u00e5 konsekvenser.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler p\\u00e5 dyder\\\",\\n        \\\"description\\\": \\\"Studenten gir eksempler p\\u00e5 dyder.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Eksemplene p\\u00e5 omsorgsfullhet og gener\\u00f8sitet er relevante dyder. Husk \\u00e5 inkludere flere eksempler som ikke er fra pensum.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Situasjonsbasert handling\\\",\\n        \\\"description\\\": \\\"Studenten forklarer betydningen av kontekst i dydsetikk.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du nevner eksempler p\\u00e5 hvordan handling kan variere basert p\\u00e5 kontekst, slik som \\u00e5 si fra eller ikke si fra n\\u00e5r noen stjeler. Dette er en god demonstrasjon av dydsetikkens vekt p\\u00e5 \\u00e5 handle ut fra situasjonen.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Definisjon av dyd"
+passed = true
+mark = 1
+description = "Studenten forklarer hva en dyd er."
+resultat = "God forklaring av dyd som positive karaktertrekk som disponerer oss til å handle på bestemte måter."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forholdet mellom dydsetikk og moralske regler"
+passed = false
+mark = 1
+description = "Studenten beskriver hvordan dydsetikken skiller seg fra fokus på moralske regler."
+resultat = "Du skriver at dydsetikken ikke tar i betraktning hva som er den moralske etikken og fokuserer på hvordan vi vil være som personer. Dette kan forbedres ved å tydeligere skille mellom dydsetikkens fokus på å utvikle gode karaktertrekk i stedet for å følge spesifikke regler eller fokusere på konsekvenser."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler på dyder"
+passed = true
+mark = 1
+description = "Studenten gir eksempler på dyder."
+resultat = "Eksemplene på omsorgsfullhet og generøsitet er relevante dyder. Husk å inkludere flere eksempler som ikke er fra pensum."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Situasjonsbasert handling"
+passed = true
+mark = 1
+description = "Studenten forklarer betydningen av kontekst i dydsetikk."
+resultat = "Du nevner eksempler på hvordan handling kan variere basert på kontekst, slik som å si fra eller ikke si fra når noen stjeler. Dette er en god demonstrasjon av dydsetikkens vekt på å handle ut fra situasjonen."
+
 
 [[questions.answers.feedback]]
-fraction = 0.75
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Forklarer hva en dyd er ifølge dydsetikken.",], [ true, "Betydning av dyder i moralsk handling", "Beskriver hvordan dyder påvirker moralske handlinger i dydsetikken.",], [ false, "Eksempler på dyder", "Gir eksempler på dyder, inkludert noen som ikke står i pensumboken.",], [ true, "Konseptet med situasjonsavhengighet", "Forstår hvordan dydsetikk kan være situasjonsavhengig.",],]
+fraction = 0.6
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Svarer studenten på hva en dyd er ifølge dydsetikken?",], [ true, "Dydsetikkens fokus", "Har studenten forstått at dydsetikken fokuserer på personlig utvikling fremfor regler eller konsekvenser?",], [ true, "Dyd og situasjonsavhengighet", "Har studenten forstått at dydsetikken er situasjonsavhengig?",], [ false, "Eksempler på dyder", "Gir studenten nye eksempler på dyder, ikke nevnt i Tenk!-boken?",], [ false, "Feilaktig linking av konsekvenser", "Har studenten unngått å feilaktig koble dydsetikken til konsekvensetikk?",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Definisjon av dyd\n\nBra, du har forstått at en dyd er et positivt karaktertrekk eller egenskap som disponerer oss til å handle på bestemte måter.\n", "## Passed: Betydning av dyder i moralsk handling\n\nRiktig, i dydsetikken fokuseres det på 'hvilken person jeg ønsker å være' fremfor å følge faste moralske regler eller vurdere konsekvenser.\n", "## Failed: Eksempler på dyder\n\nSvarene dine fokuserer primært på eksempler som omsorgsfull og generøs som er vanlige. Prøv å inkludere noen unike eller mindre vanlige eksempler på dyder som for eksempel 'ydmykhet' eller 'beskjedenhet'.\n", "## Passed: Konseptet med situasjonsavhengighet\n\nKorrekt, du viser en god forståelse for at dydsetikk kan variere basert på situasjonen, for eksempel at det kan være en dyd å varsle om tyveri i en situasjon, men i en annen ikke.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Definisjon av dyd\\\",\\n        \\\"description\\\": \\\"Svarer studenten p\\u00e5 hva en dyd er if\\u00f8lge dydsetikken?\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Bra! Du har korrekt forklart at en dyd er et positivt karaktertrekk eller egenskap som disponerer til handling p\\u00e5 bestemte m\\u00e5ter.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydsetikkens fokus\\\",\\n        \\\"description\\\": \\\"Har studenten forst\\u00e5tt at dydsetikken fokuserer p\\u00e5 personlig utvikling fremfor regler eller konsekvenser?\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Godt jobbet! Du har f\\u00e5tt med deg at dydsetikken handler om \\u00e5 bli den personen man \\u00f8nsker \\u00e5 v\\u00e6re, ikke bare om regler eller konsekvenser.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dyd og situasjonsavhengighet\\\",\\n        \\\"description\\\": \\\"Har studenten forst\\u00e5tt at dydsetikken er situasjonsavhengig?\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Riktig! Du har fanget opp at det som er riktig \\u00e5 gj\\u00f8re ut fra dydsetikken kan variere fra situasjon til situasjon.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler p\\u00e5 dyder\\\",\\n        \\\"description\\\": \\\"Gir studenten nye eksempler p\\u00e5 dyder, ikke nevnt i Tenk!-boken?\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Selv om du har forklart dydsetikken godt, har du nevnt dyder som kanskje allerede finnes i pensum. For \\u00e5 styrke svaret ytterligere, kan du gi eksempler p\\u00e5 dyder som ikke er nevnt i Tenk!-boken, som for eksempel mod, lojalitet eller t\\u00e5lmodighet.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Feilaktig linking av konsekvenser\\\",\\n        \\\"description\\\": \\\"Har studenten unng\\u00e5tt \\u00e5 feilaktig koble dydsetikken til konsekvensetikk?\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Her ser det ut som du har koblet dydsetikken til konsekvensetikk ved \\u00e5 nevne hva handlingen f\\u00f8rer til. Dydsetikken fokuserer heller p\\u00e5 den handlende persons karakter og intensjon, uavhengig av konsekvensene. Pr\\u00f8v \\u00e5 klargj\\u00f8re denne distinksjonen i ditt svar.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Definisjon av dyd"
+passed = true
+mark = 1
+description = "Svarer studenten på hva en dyd er ifølge dydsetikken?"
+resultat = "Bra! Du har korrekt forklart at en dyd er et positivt karaktertrekk eller egenskap som disponerer til handling på bestemte måter."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydsetikkens fokus"
+passed = true
+mark = 1
+description = "Har studenten forstått at dydsetikken fokuserer på personlig utvikling fremfor regler eller konsekvenser?"
+resultat = "Godt jobbet! Du har fått med deg at dydsetikken handler om å bli den personen man ønsker å være, ikke bare om regler eller konsekvenser."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dyd og situasjonsavhengighet"
+passed = true
+mark = 1
+description = "Har studenten forstått at dydsetikken er situasjonsavhengig?"
+resultat = "Riktig! Du har fanget opp at det som er riktig å gjøre ut fra dydsetikken kan variere fra situasjon til situasjon."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler på dyder"
+passed = false
+mark = 1
+description = "Gir studenten nye eksempler på dyder, ikke nevnt i Tenk!-boken?"
+resultat = "Selv om du har forklart dydsetikken godt, har du nevnt dyder som kanskje allerede finnes i pensum. For å styrke svaret ytterligere, kan du gi eksempler på dyder som ikke er nevnt i Tenk!-boken, som for eksempel mod, lojalitet eller tålmodighet."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Feilaktig linking av konsekvenser"
+passed = false
+mark = 1
+description = "Har studenten unngått å feilaktig koble dydsetikken til konsekvensetikk?"
+resultat = "Her ser det ut som du har koblet dydsetikken til konsekvensetikk ved å nevne hva handlingen fører til. Dydsetikken fokuserer heller på den handlende persons karakter og intensjon, uavhengig av konsekvensene. Prøv å klargjøre denne distinksjonen i ditt svar."
+
 
 
 [[questions.answers]]
 ans = "En dyd er et positivt karaktertrekk som anses som moralsk\nverdifullt, som fører til at vi handler på en viss måte (1, s.\n262). Dersom en person står opp for og støtter noen de ser blir\nignorert eller gjort narr av, viser de både mot og\nrettferdighet.\n"
 [[questions.answers.feedback]]
-fraction = 0.6666666666666666
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Forklarer hva en dyd er.",], [ true, "Forholdet mellom dyder og moralsk handling", "Forklarer hvordan dyder påvirker moralske handlinger.",], [ false, "Eksempler på dyder", "Gir eksempler på dyder som ikke står i pensumboken.",],]
+fraction = 0.75
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd", "Beskriver en dyd som et positivt karaktertrekk.",], [ true, "Dydens rolle i moralsk handling", "Forklarer hvordan dyder påvirker moralsk handling.",], [ true, "Eksempler på dyder", "Gir eksempler på dyder som mot og rettferdighet.",], [ false, "Eksempler på nye dyder", "Gir nye eksempler på dyder som ikke står i *Tenk!*-boken.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Definisjon av dyd\n\nDu har klart å definere en dyd som et positivt karaktertrekk som anses som moralsk verdifullt. Bra!\n", "## Passed: Forholdet mellom dyder og moralsk handling\n\nDu har vist forståelse for hvordan dyder som mot og rettferdighet kan føre til moralske handlinger, som å stå opp for andre.\n", "## Failed: Eksempler på dyder\n\nDu har gitt eksempler på dyder som mot og rettferdighet. For å forbedre svaret ditt, kan du vurdere å inkludere andre eksempler på dyder som ikke er nevnt i pensumboken. Dyder som ærlighet, tålmodighet eller ydmykhet kan være relevante å nevne.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Definisjon av dyd\\\",\\n        \\\"description\\\": \\\"Beskriver en dyd som et positivt karaktertrekk.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Svaret beskriver en dyd som et positivt karaktertrekk, som ogs\\u00e5 er i tr\\u00e5d med dydsetikkens syn p\\u00e5 dyder. Dette viser en god forst\\u00e5else av hva en dyd er.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydens rolle i moralsk handling\\\",\\n        \\\"description\\\": \\\"Forklarer hvordan dyder p\\u00e5virker moralsk handling.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Svaret beskriver at dyder f\\u00f8rer til at vi handler p\\u00e5 en viss m\\u00e5te, slik dydsetikken beskriver hvordan dyder p\\u00e5virker v\\u00e5re handlinger. Eksempelet med \\u00e5 st\\u00e5 opp for noen viser hvordan dyder som mot og rettferdighet kan lede til god moralsk handling.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler p\\u00e5 dyder\\\",\\n        \\\"description\\\": \\\"Gir eksempler p\\u00e5 dyder som mot og rettferdighet.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Eksemplene p\\u00e5 dyder, som mot og rettferdighet, er relevante og illustrerer hvordan dyder kan manifestere seg i handling. For en mer fyldig besvarelse kan det inkluderes eksempler p\\u00e5 dyder som ikke er nevnt i *Tenk!*-boken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler p\\u00e5 nye dyder\\\",\\n        \\\"description\\\": \\\"Gir nye eksempler p\\u00e5 dyder som ikke st\\u00e5r i *Tenk!*-boken.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Selv om svaret gir gode eksempler p\\u00e5 dyder som mot og rettferdighet, mangler det eksempler p\\u00e5 dyder som ikke er nevnt i *Tenk!*-boken. Fors\\u00f8k \\u00e5 inkludere noen mindre vanlige dyder for en mer komplett oppgavebesvarelse.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Definisjon av dyd"
+passed = true
+mark = 1
+description = "Beskriver en dyd som et positivt karaktertrekk."
+resultat = "Svaret beskriver en dyd som et positivt karaktertrekk, som også er i tråd med dydsetikkens syn på dyder. Dette viser en god forståelse av hva en dyd er."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydens rolle i moralsk handling"
+passed = true
+mark = 1
+description = "Forklarer hvordan dyder påvirker moralsk handling."
+resultat = "Svaret beskriver at dyder fører til at vi handler på en viss måte, slik dydsetikken beskriver hvordan dyder påvirker våre handlinger. Eksempelet med å stå opp for noen viser hvordan dyder som mot og rettferdighet kan lede til god moralsk handling."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler på dyder"
+passed = true
+mark = 1
+description = "Gir eksempler på dyder som mot og rettferdighet."
+resultat = "Eksemplene på dyder, som mot og rettferdighet, er relevante og illustrerer hvordan dyder kan manifestere seg i handling. For en mer fyldig besvarelse kan det inkluderes eksempler på dyder som ikke er nevnt i *Tenk!*-boken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler på nye dyder"
+passed = false
+mark = 1
+description = "Gir nye eksempler på dyder som ikke står i *Tenk!*-boken."
+resultat = "Selv om svaret gir gode eksempler på dyder som mot og rettferdighet, mangler det eksempler på dyder som ikke er nevnt i *Tenk!*-boken. Forsøk å inkludere noen mindre vanlige dyder for en mer komplett oppgavebesvarelse."
+
 
 [[questions.answers.feedback]]
-fraction = 0.3333333333333333
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Beskrivelse av dyd", "Definere hva en dyd er.",], [ false, "Dydenes rolle i moralsk handling", "Forklare hvordan dyder påvirker moralsk handling.",], [ false, "Eksempler på dyder utenfor pensum", "Gi eksempler på andre dyder enn de som står i Tenk!-boken.",],]
+fraction = 0.6666666666666666
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dyd i dydsetikken", "Beskriver dyder som positive karaktertrekk.",], [ true, "Forholdet mellom dyder og moralsk handling", "Beskriver hvordan dyder påvirker handling.",], [ false, "Eksempler på dyder utenfor boken 'Tenk!'", "Gir eksempler på dyder ikke nevnt i pensum.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Beskrivelse av dyd\n\nDu har gitt en god definisjon av hva en dyd er ved å beskrive det som et positivt karaktertrekk som anses som moralsk verdifullt. Dette viser forståelse av grunnbegrepet i dydsetikken.\n", "## Failed: Dydenes rolle i moralsk handling\n\nDu har gitt et eksempel på hvordan mot og rettferdighet kan komme til uttrykk i handling, men det kunne vært bedre forklart hvordan disse dydene fører til at vi handler moralsk godt. Dydene fungerer som veiledere for moralsk handling ved å forme ens karakter og beslutninger. Prøv å utdype dette litt mer.\n", "## Failed: Eksempler på dyder utenfor pensum\n\nDu har ikke inkludert eksempler på andre dyder som ikke står i Tenk!-boken. Tenk på dyder som tålmodighet, ydmykhet eller pålitelighet som også kan være relevante og interessante å diskutere.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Forst\\u00e5else av dyd i dydsetikken\\\",\\n        \\\"description\\\": \\\"Beskriver dyder som positive karaktertrekk.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"God jobb! Du har korrekt identifisert en dyd som et positivt karaktertrekk som anses som moralsk verdifullt.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Forholdet mellom dyder og moralsk handling\\\",\\n        \\\"description\\\": \\\"Beskriver hvordan dyder p\\u00e5virker handling.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Bra! Du har klart \\u00e5 forklare hvordan dyder p\\u00e5virker moralsk handling ved \\u00e5 gi et eksempel p\\u00e5 mot og rettferdighet.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempler p\\u00e5 dyder utenfor boken 'Tenk!'\\\",\\n        \\\"description\\\": \\\"Gir eksempler p\\u00e5 dyder ikke nevnt i pensum.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Du har ikke nevnt noen eksempler p\\u00e5 dyder som ikke er med i 'Tenk!'-boken. Fors\\u00f8k \\u00e5 finne andre dyder som kan inkludere for eksempel t\\u00e5lmodighet, ydmykhet eller kreativitet.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av dyd i dydsetikken"
+passed = true
+mark = 1
+description = "Beskriver dyder som positive karaktertrekk."
+resultat = "God jobb! Du har korrekt identifisert en dyd som et positivt karaktertrekk som anses som moralsk verdifullt."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forholdet mellom dyder og moralsk handling"
+passed = true
+mark = 1
+description = "Beskriver hvordan dyder påvirker handling."
+resultat = "Bra! Du har klart å forklare hvordan dyder påvirker moralsk handling ved å gi et eksempel på mot og rettferdighet."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempler på dyder utenfor boken 'Tenk!'"
+passed = false
+mark = 1
+description = "Gir eksempler på dyder ikke nevnt i pensum."
+resultat = "Du har ikke nevnt noen eksempler på dyder som ikke er med i 'Tenk!'-boken. Forsøk å finne andre dyder som kan inkludere for eksempel tålmodighet, ydmykhet eller kreativitet."
+
 
 
 
@@ -58,51 +250,229 @@ question = "Hva er forholdet mellom dyd og lykke, ifølge dydsetikk?\n"
 ans = "Et vesentlig trekk ved dydsetikken er at vi ikke bare bør strebe\netter å være dydige fordi det får oss til å handle riktig i møte\nmed andre, men fordi dydene bidrar til at vi fungerer godt og\nlever gode liv. (Antonsen et al., 2025, s. 264). Spørsmålet på\nhva som utgjør et vellykket liv, er vanskelig å svare på, men vi\nkan se for oss at det for eksempel handler om å ha gode\nrelasjoner og bruke tiden sin på meningsfulle aktiviteter.\n(Antonsen et al., 2025, s. 264)\n"
 [[questions.answers.feedback]]
 fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Dydens rolle i lykkens oppnåelse", "Utdyper hvordan dydene bidrar til et lykkelig liv.",], [ true, "Dyd og relasjoner", "Forholdet mellom dyd, gode relasjoner og lykke.",], [ true, "Dyd og meningsfulle aktiviteter", "Hvordan dyd relaterer til meningsfulle aktiviteter.",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "dydens bidrag til å leve et godt liv", "Forståelse av hvordan dydene bidrar til et godt liv ifølge dydsetikken",], [ true, "definisjon av et vellykket liv", "Forholdet mellom dyd og lykkelige liv i dydsetikken",], [ true, "dyder og handling", "Hvorfor bør man strebe etter å være dydig i dydsetikk",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Dydens rolle i lykkens oppnåelse\n\nGodt jobbet! Du har forklart hvordan dydsetikken knytter sammen det å være dydig med å leve et lykkelig og godt liv. Dydene blir sett på som en vei til å fungere godt og leve et tilfredsstillende liv. Du kan videre utforske hva som menes med 'funksjon' i denne konteksten, og hvordan ulike dyder bidrar til det som regnes som et godt liv.\n", "## Passed: Dyd og relasjoner\n\nBra! Din beskrivelse involverer også at dyd kan bidra til gode relasjoner, som er en del av et godt liv. Dette er et kjernemoment i dydsetikken. Kanskje kan du spesifisere hvilke dyder som er mest relevante i slike kontekster?\n", "## Passed: Dyd og meningsfulle aktiviteter\n\nFlott! Du nevner at meningsfulle aktiviteter er elementer i et godt liv, noe som harmonerer med dydsetiske perspektiver. Et spørsmål du kan utforske videre er hvordan spesifikke dyder kan fremme meningsfulle aktiviteter.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"[\\n    { \\n        \\\"testName\\\": \\\"dydens bidrag til \\u00e5 leve et godt liv\\\", \\n        \\\"description\\\": \\\"Forst\\u00e5else av hvordan dydene bidrar til et godt liv if\\u00f8lge dydsetikken\\\", \\n        \\\"iscorrect\\\": true, \\n        \\\"resultat\\\": \\\"Bra! Du har forst\\u00e5tt at dydene bidrar til v\\u00e5r evne til \\u00e5 leve et vellykket og godt liv, ikke bare \\u00e5 handle riktig overfor andre.\\\" \\n    },\\n    { \\n        \\\"testName\\\": \\\"definisjon av et vellykket liv\\\", \\n        \\\"description\\\": \\\"Forholdet mellom dyd og lykkelige liv i dydsetikken\\\", \\n        \\\"iscorrect\\\": true, \\n        \\\"resultat\\\": \\\"Godt jobbet! Du omtaler hvordan gode relasjoner og meningsfulle aktiviteter kan v\\u00e6re sentrale aspekter av et vellykket liv, som er i tr\\u00e5d med dydsetikkens fokus.\\\" \\n    },\\n    { \\n        \\\"testName\\\": \\\"dyder og handling\\\", \\n        \\\"description\\\": \\\"Hvorfor b\\u00f8r man strebe etter \\u00e5 v\\u00e6re dydig i dydsetikk\\\", \\n        \\\"iscorrect\\\": true, \\n        \\\"resultat\\\": \\\"Korrekt! Du har anerkjent at dydsetikken legger vekt p\\u00e5 dyder som gir oss evnen til \\u00e5 h\\u00e5ndtere situasjoner godt og leve et harmonisk liv.\\\" \\n    }\\n]\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "dydens bidrag til å leve et godt liv"
+passed = true
+mark = 1
+description = "Forståelse av hvordan dydene bidrar til et godt liv ifølge dydsetikken"
+resultat = "Bra! Du har forstått at dydene bidrar til vår evne til å leve et vellykket og godt liv, ikke bare å handle riktig overfor andre."
+
+[[questions.answers.feedback.testfeedback]]
+name = "definisjon av et vellykket liv"
+passed = true
+mark = 1
+description = "Forholdet mellom dyd og lykkelige liv i dydsetikken"
+resultat = "Godt jobbet! Du omtaler hvordan gode relasjoner og meningsfulle aktiviteter kan være sentrale aspekter av et vellykket liv, som er i tråd med dydsetikkens fokus."
+
+[[questions.answers.feedback.testfeedback]]
+name = "dyder og handling"
+passed = true
+mark = 1
+description = "Hvorfor bør man strebe etter å være dydig i dydsetikk"
+resultat = "Korrekt! Du har anerkjent at dydsetikken legger vekt på dyder som gir oss evnen til å håndtere situasjoner godt og leve et harmonisk liv."
+
 
 [[questions.answers.feedback]]
-fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forhold mellom dyd og lykke i dydsetikk", "Beskriver forholdet mellom dyd og lykke i dydsetikk.",], [ true, "Mangfoldige aspekter av et vellykket liv", "Identifierer ulike aspekter ved hva et vellykket liv kan innebære ifølge dydsetikk.",],]
+fraction = 0.75
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Definisjon av dyd og lykke", "Forstå at dyd og lykke er sentrale begreper i dydsetikk.",], [ true, "Forholdet mellom dyder og å leve et godt liv", "Forstå at dydene bidrar til å fungere godt og leve godt.",], [ true, "Hva et vellykket liv innebærer", "Ha et perspektiv på hva et vellykket liv kan innebære.",], [ false, "Dydsetikkens nevnte pensummål", "Identifiser dydsetikkens mål: eudaimonia.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forhold mellom dyd og lykke i dydsetikk\n\nBra! Du har fanget opp at dydsetikk handler om at dydene ikke bare får oss til å handle riktig, men også hjelper oss å leve gode liv. Du refererer også til at vellykket liv kan inkludere gode relasjoner og meningsfulle aktiviteter, noe som er sentralt i både dydsetikken og diskusjonen om lykke.\n", "## Passed: Mangfoldige aspekter av et vellykket liv\n\nGodt gjort! Du fremhever at det er vanskelig å konkretisere hva et vellykket liv er, men nevner at det kan inkludere gode relasjoner og meningsfulle aktiviteter. Dette er i tråd med dydsetikkens fokusering på helhetlig livskvalitet.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Definisjon av dyd og lykke\\\",\\n        \\\"description\\\": \\\"Forst\\u00e5 at dyd og lykke er sentrale begreper i dydsetikk.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har identifisert at dyd og lykke er sentrale. Et grunnleggende trekk ved dydsetikken er hvordan dydene henger sammen med individets lykke og funksjon. Husk at dydsetikken legger vekt p\\u00e5 \\u00e5 utvikle dyder for \\u00e5 oppn\\u00e5 eudaimonia, eller et godt liv.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Forholdet mellom dyder og \\u00e5 leve et godt liv\\\",\\n        \\\"description\\\": \\\"Forst\\u00e5 at dydene bidrar til \\u00e5 fungere godt og leve godt.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har forst\\u00e5tt at dydene ikke bare f\\u00e5r oss til \\u00e5 handle riktig, men ogs\\u00e5 gj\\u00f8r at vi fungerer godt og lever gode liv. Tenk p\\u00e5 hvordan dydene som moderasjon, mot og rettferdighet bidrar til personlig velv\\u00e6re.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Hva et vellykket liv inneb\\u00e6rer\\\",\\n        \\\"description\\\": \\\"Ha et perspektiv p\\u00e5 hva et vellykket liv kan inneb\\u00e6re.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du gav et godt eksempel ved \\u00e5 nevne gode relasjoner og meningsfulle aktiviteter som deler av et vellykket liv. Det er viktig \\u00e5 utvide dette perspektivet ved \\u00e5 inkludere utviklingen av individuelle dyder.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydsetikkens nevnte pensumma\\u030al\\\",\\n        \\\"description\\\": \\\"Identifiser dydsetikkens m\\u00e5l: eudaimonia.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Svaret ditt nevner ikke direkte dydsetikkens m\\u00e5l om eudaimonia, eller 'blomstrende', som et uttrykk for \\u00e5 leve vel. Se om du kan inkludere dette begrepet for \\u00e5 styrke din forst\\u00e5else.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Definisjon av dyd og lykke"
+passed = true
+mark = 1
+description = "Forstå at dyd og lykke er sentrale begreper i dydsetikk."
+resultat = "Du har identifisert at dyd og lykke er sentrale. Et grunnleggende trekk ved dydsetikken er hvordan dydene henger sammen med individets lykke og funksjon. Husk at dydsetikken legger vekt på å utvikle dyder for å oppnå eudaimonia, eller et godt liv."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forholdet mellom dyder og å leve et godt liv"
+passed = true
+mark = 1
+description = "Forstå at dydene bidrar til å fungere godt og leve godt."
+resultat = "Du har forstått at dydene ikke bare får oss til å handle riktig, men også gjør at vi fungerer godt og lever gode liv. Tenk på hvordan dydene som moderasjon, mot og rettferdighet bidrar til personlig velvære."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Hva et vellykket liv innebærer"
+passed = true
+mark = 1
+description = "Ha et perspektiv på hva et vellykket liv kan innebære."
+resultat = "Du gav et godt eksempel ved å nevne gode relasjoner og meningsfulle aktiviteter som deler av et vellykket liv. Det er viktig å utvide dette perspektivet ved å inkludere utviklingen av individuelle dyder."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydsetikkens nevnte pensummål"
+passed = false
+mark = 1
+description = "Identifiser dydsetikkens mål: eudaimonia."
+resultat = "Svaret ditt nevner ikke direkte dydsetikkens mål om eudaimonia, eller 'blomstrende', som et uttrykk for å leve vel. Se om du kan inkludere dette begrepet for å styrke din forståelse."
+
 
 
 [[questions.answers]]
 ans = "Ifølge dydsetikken vil man kunne oppnå eudaimonia, det gode liv,\ndersom man lever et dydig liv (1, s. 264). Man vil altså ifølge\ndydsetikken og Aristoteles leve et lykkelig liv ved å fokusere\npå å leve best mulig, og bli den beste mulige versjonen av seg\nselv ved å handle dydig.\n"
 [[questions.answers.feedback]]
 fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av Eudaimonia", "Svarer studenten på hva 'eudaimonia' betyr?",], [ true, "Relasjon mellom dyd og lykke", "Kobler studenten sammenhengen mellom dyd og lykke?",], [ true, "Aristoteles og dydsetikk", "Nevner studenten Aristoteles i konteksten av dydsetikk?",], [ true, "Dydens rolle i et godt liv", "Forklarer studenten hvordan dyd bidrar til et godt liv?",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av eudaimonia", "Studenten forklarer eudaimonia i kontekst av dydsetikk.",], [ true, "Forholdet mellom dyd og eudaimonia", "Studenten beskriver hvordan dyd fører til eudaimonia.",], [ true, "Aristoteles' dydsetikk", "Studenten anerkjenner Aristoteles' bidrag i dydsetikken.",], [ true, "Dydig handling som fokus", "Studenten legger vekt på viktigheten av dydige handlinger for å oppnå lykke.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forståelse av Eudaimonia\n\nGod beskrivelse! 'Eudaimonia' refererer til begrepet om 'det gode liv' eller 'lykken' i dydsetikk. Det innebærer å oppnå en høyere tilstand av tilfredsstillelse gjennom å leve på en dydig måte.\n", "## Passed: Relasjon mellom dyd og lykke\n\nVeldig bra! Du har identifisert at ifølge dydsetikken, spesielt i Aristoteles' filosofi, kan man oppnå lykke gjennom å leve et dydig liv.\n", "## Passed: Aristoteles og dydsetikk\n\nFlott referanse til Aristoteles. Han er sentral i utviklingen av dydsetikken.\n", "## Passed: Dydens rolle i et godt liv\n\nDu har nydelig forklart hvordan dyder kan bidra til å bli den beste versjonen av seg selv, noe som igjen fører til et lykkelig liv i henhold til dydsetikken.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"[ \\n    { \\n        \\\"testName\\\": \\\"Forst\\u00e5else av eudaimonia\\\", \\n        \\\"description\\\": \\\"Studenten forklarer eudaimonia i kontekst av dydsetikk.\\\", \\n        \\\"iscorrect\\\": true,  \\n        \\\"resultat\\\": \\\"Du har korrekt identifisert at eudaimonia refererer til det gode liv eller velv\\u00e6re, som er sentralt i dydsetikken.\\\" \\n    },\\n    { \\n        \\\"testName\\\": \\\"Forholdet mellom dyd og eudaimonia\\\", \\n        \\\"description\\\": \\\"Studenten beskriver hvordan dyd f\\u00f8rer til eudaimonia.\\\", \\n        \\\"iscorrect\\\": true,  \\n        \\\"resultat\\\": \\\"Du har riktig forklart at et dydig liv f\\u00f8rer til eudaimonia if\\u00f8lge dydsetikken. Dette viser at du forst\\u00e5r sammenhengen mellom dyd og lykke.\\\" \\n    },\\n    { \\n        \\\"testName\\\": \\\"Aristoteles' dydsetikk\\\", \\n        \\\"description\\\": \\\"Studenten anerkjenner Aristoteles' bidrag i dydsetikken.\\\", \\n        \\\"iscorrect\\\": true,  \\n        \\\"resultat\\\": \\\"Bra! Du har koblet dydsetikken til Aristoteles, som er en sentral figur i utviklingen av denne filosofien.\\\" \\n    },\\n    { \\n        \\\"testName\\\": \\\"Dydig handling som fokus\\\", \\n        \\\"description\\\": \\\"Studenten legger vekt p\\u00e5 viktigheten av dydige handlinger for \\u00e5 oppn\\u00e5 lykke.\\\", \\n        \\\"iscorrect\\\": true,  \\n        \\\"resultat\\\": \\\"Din beskrivelse av \\u00e5 bli den beste versjonen av seg selv gjennom dydige handlinger stemmer overens med dydsetikkens prinsipper.\\\" \\n    }\\n]\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av eudaimonia"
+passed = true
+mark = 1
+description = "Studenten forklarer eudaimonia i kontekst av dydsetikk."
+resultat = "Du har korrekt identifisert at eudaimonia refererer til det gode liv eller velvære, som er sentralt i dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forholdet mellom dyd og eudaimonia"
+passed = true
+mark = 1
+description = "Studenten beskriver hvordan dyd fører til eudaimonia."
+resultat = "Du har riktig forklart at et dydig liv fører til eudaimonia ifølge dydsetikken. Dette viser at du forstår sammenhengen mellom dyd og lykke."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Aristoteles' dydsetikk"
+passed = true
+mark = 1
+description = "Studenten anerkjenner Aristoteles' bidrag i dydsetikken."
+resultat = "Bra! Du har koblet dydsetikken til Aristoteles, som er en sentral figur i utviklingen av denne filosofien."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydig handling som fokus"
+passed = true
+mark = 1
+description = "Studenten legger vekt på viktigheten av dydige handlinger for å oppnå lykke."
+resultat = "Din beskrivelse av å bli den beste versjonen av seg selv gjennom dydige handlinger stemmer overens med dydsetikkens prinsipper."
+
 
 [[questions.answers.feedback]]
-fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forholdet mellom dyd og eudaimonia", "Studenten beskriver forholdet mellom dyd og eudaimonia (det gode liv).",], [ true, "Aristoteles' syn på lykke", "Korrekt fremstilling av Aristoteles' syn på opptjenelse av lykke gjennom dyd.",], [ true, "Å fokusere på dyd som metode for lykke", "Studenten beskriver hvorfor fokusering på dyd fører til lykke.",],]
+fraction = 0.6666666666666666
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av forholdet mellom dyd og lykke", "Forståelse av hvordan dyd og lykke henger sammen ifølge dydsetikken.",], [ true, "Bruk av begrepene eudaimonia og dyd", "Korrekt bruk av sentrale begreper innen dydsetikken, som 'eudaimonia' og 'dyd'.",], [ false, "Sitatbruk og referanser", "Korrekt bruk av sitater og litteraturreferanser.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forholdet mellom dyd og eudaimonia\n\nStudenten har korrekt identifisert forholdet mellom dyd og eudaimonia. Dydsetikken hevder at ved å leve dydig oppnår man eudaimonia, eller det gode liv.\n", "## Passed: Aristoteles' syn på lykke\n\nStudenten har korrekt identifisert Aristoteles' oppfatning om at et lykkelig liv oppnås ved å streve etter å leve best mulig og utvikle seg selv gjennom dydig handling.\n", "## Passed: Å fokusere på dyd som metode for lykke\n\nStudenten påpeker korrekt at ved å fokusere på å leve dydig, strebe etter det beste av seg selv, oppnår man lykke. God forståelse av dydsetikkens grunnprinsipp.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"[{\\\"testName\\\": \\\"Forst\\u00e5else av forholdet mellom dyd og lykke\\\", \\\"description\\\": \\\"Forst\\u00e5else av hvordan dyd og lykke henger sammen if\\u00f8lge dydsetikken.\\\", \\\"iscorrect\\\": true, \\\"resultat\\\": \\\"Svaret ditt viser en god forst\\u00e5else av forholdet mellom dyd og lykke i dydsetikken. Du kobler korrekt sammen dydig handling med oppn\\u00e5elsen av eudaimonia, som Aristoteles mener er det ultimate m\\u00e5let for menneskelivet. \\u00c5 bli den beste versjonen av seg selv gjennom dydige handlinger er sentralt i Aristoteles' filosofi.\\\"}, {\\\"testName\\\": \\\"Bruk av begrepene eudaimonia og dyd\\\", \\\"description\\\": \\\"Korrekt bruk av sentrale begreper innen dydsetikken, som 'eudaimonia' og 'dyd'.\\\", \\\"iscorrect\\\": true, \\\"resultat\\\": \\\"Du benytter deg korrekt av begrepene 'eudaimonia' og 'dyd' i din forklaring. 'Eudaimonia' oversettes ofte til 'det gode liv' eller 'lykke', og forst\\u00e5s som et resultat av dydige handlinger. Dydige handlinger f\\u00f8res tilbake til \\u00e5 leve i tr\\u00e5d med dyder som karakter og moral. Bra jobbet!\\\"}, {\\\"testName\\\": \\\"Sitatbruk og referanser\\\", \\\"description\\\": \\\"Korrekt bruk av sitater og litteraturreferanser.\\\", \\\"iscorrect\\\": false, \\\"resultat\\\": \\\"Det er bra at du refererer til litteratur for \\u00e5 st\\u00f8tte opp om svaret ditt. Imidlertid m\\u00e5 du s\\u00f8rge for \\u00e5 inkludere en fullstendig referanse, som forfatter, \\u00e5rstall, og tittel, slik at det er enkelt \\u00e5 identifisere kilden. Dette vil styrke troverdigheten og presisjonen i svaret ditt.\\\"}]\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av forholdet mellom dyd og lykke"
+passed = true
+mark = 1
+description = "Forståelse av hvordan dyd og lykke henger sammen ifølge dydsetikken."
+resultat = "Svaret ditt viser en god forståelse av forholdet mellom dyd og lykke i dydsetikken. Du kobler korrekt sammen dydig handling med oppnåelsen av eudaimonia, som Aristoteles mener er det ultimate målet for menneskelivet. Å bli den beste versjonen av seg selv gjennom dydige handlinger er sentralt i Aristoteles' filosofi."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Bruk av begrepene eudaimonia og dyd"
+passed = true
+mark = 1
+description = "Korrekt bruk av sentrale begreper innen dydsetikken, som 'eudaimonia' og 'dyd'."
+resultat = "Du benytter deg korrekt av begrepene 'eudaimonia' og 'dyd' i din forklaring. 'Eudaimonia' oversettes ofte til 'det gode liv' eller 'lykke', og forstås som et resultat av dydige handlinger. Dydige handlinger føres tilbake til å leve i tråd med dyder som karakter og moral. Bra jobbet!"
+
+[[questions.answers.feedback.testfeedback]]
+name = "Sitatbruk og referanser"
+passed = false
+mark = 1
+description = "Korrekt bruk av sitater og litteraturreferanser."
+resultat = "Det er bra at du refererer til litteratur for å støtte opp om svaret ditt. Imidlertid må du sørge for å inkludere en fullstendig referanse, som forfatter, årstall, og tittel, slik at det er enkelt å identifisere kilden. Dette vil styrke troverdigheten og presisjonen i svaret ditt."
+
 
 
 [[questions.answers]]
 ans = "    c)  Lykke (eudaimonia) er målet og formålet med alt vi gjør.\n        Begrepet Aristoteles bruker når han skriver om dette er\n        eudaimonia (Antonsen et al. 2023, s. 264) Det beskriver livet\n        som en helhet for hvordan vi skal leve et godt liv å lykkes som\n        mennesker. Dyd er nødvendig for og den viktigste delen av lykke.\n        Det er nøkkelen til å at man får et meningsfullt liv. Et godt\n        liv krever dyder, men dydene alene er ikke nok (Antonsen et al.\n        2023, s. 264).\n"
 [[questions.answers.feedback]]
 fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Dyd og lykke i dydsetikk", "Forståelse av forholdet mellom dyd og lykke ifølge dydsetikk",], [ true, "Lykke (eudaimonia) som mål", "Viser forståelse for lykke som endemål i menneskelig handling",], [ true, "Dydens rolle i lykke", "Beskrivelse av dydens nødvendighet og begrensninger for lykke",], [ true, "Helhetlig syn på livet", "Refleksjon over livet som helhet i dydsetikk",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av Eudaimonia", "Forståelse av Aristoteles' konsept av eudaimonia.",], [ true, "Dydens rolle i lykke", "Forståelse av hvordan dyd er relatert til lykke.",], [ true, "Lykke som livsformål", "Oppfatning av lykkens betydning som livsformål.",], [ true, "Kompleksiteten i dydsetikk", "Erkjenne at dyder alene er ikke nok for lykke.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Dyd og lykke i dydsetikk\n\nDu forklarer kjernen i forholdet mellom dyd (arete) og lykke (eudaimonia) i dydsetikk, som beskriver livet som en helhet og hvordan man skal leve et godt liv. Aristoteles' syn på at dyd er en nødvendig del av lykke, men ikke tilstrekkelig alene for et meningsfullt liv, er godt beskrevet.\n", "## Passed: Lykke (eudaimonia) som mål\n\nDu nevner korrekt at lykke (eudaimonia) er målet og formålet med menneskelige handlinger ifølge Aristoteles, noe som understreker hvor integrert dette begrepet er i hans etikk.\n", "## Passed: Dydens rolle i lykke\n\nDu forklarer at dyd er nødvendig for lykke, men påpeker også at dydene alene ikke er nok, noe som er essensielt i Aristoteles' filosofi da han erkjenner behovet for eksterne goder for å virkelig oppnå lykke.\n", "## Passed: Helhetlig syn på livet\n\nDu fanger Aristoteles' idé om at lykke ikke bare er en følelse, men en tilstand beslektet med det å leve et helt liv i dydighet. Dette er en kompleks, men viktig del av dydsetikk.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Forst\\u00e5else av Eudaimonia\\\",\\n        \\\"description\\\": \\\"Forst\\u00e5else av Aristoteles' konsept av eudaimonia.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har riktig identifisert eudaimonia som m\\u00e5let og form\\u00e5let med menneskelig handling if\\u00f8lge Aristoteles. Dette er et bredt konsept som inkluderer mer enn bare subjektiv lykke; det handler om \\u00e5 leve et fullt og meningsfylt liv.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydens rolle i lykke\\\",\\n        \\\"description\\\": \\\"Forst\\u00e5else av hvordan dyd er relatert til lykke.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du nevner at dyd er en n\\u00f8dvendig del av lykke, men ikke tilstrekkelig alene. Dette reflekterer Aristoteles' syn p\\u00e5 at dyder er essensielle for \\u00e5 oppn\\u00e5 eudaimonia, men de m\\u00e5 integreres i et liv som ogs\\u00e5 inkluderer andre faktorer.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Lykke som livsform\\u00e5l\\\",\\n        \\\"description\\\": \\\"Oppfatning av lykkens betydning som livsform\\u00e5l.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du beskriver eudaimonia som den generelle m\\u00e5let for menneskelivet. Aristoteles vil v\\u00e6re enig i at lykke forst\\u00e5tt som eudaimonia er det ultimate m\\u00e5let vi streber etter.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Kompleksiteten i dydsetikk\\\",\\n        \\\"description\\\": \\\"Erkjenne at dyder alene er ikke nok for lykke.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har forst\\u00e5tt at selv om dyder er n\\u00f8dvendige for lykke, kreves det flere elementer for et fullstendig begrep om eudaimonia. Dette kan inkludere eksterne faktorer som vennskap, rikdom, og helse, som alle spiller sine roller if\\u00f8lge Aristoteles.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av Eudaimonia"
+passed = true
+mark = 1
+description = "Forståelse av Aristoteles' konsept av eudaimonia."
+resultat = "Du har riktig identifisert eudaimonia som målet og formålet med menneskelig handling ifølge Aristoteles. Dette er et bredt konsept som inkluderer mer enn bare subjektiv lykke; det handler om å leve et fullt og meningsfylt liv."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydens rolle i lykke"
+passed = true
+mark = 1
+description = "Forståelse av hvordan dyd er relatert til lykke."
+resultat = "Du nevner at dyd er en nødvendig del av lykke, men ikke tilstrekkelig alene. Dette reflekterer Aristoteles' syn på at dyder er essensielle for å oppnå eudaimonia, men de må integreres i et liv som også inkluderer andre faktorer."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Lykke som livsformål"
+passed = true
+mark = 1
+description = "Oppfatning av lykkens betydning som livsformål."
+resultat = "Du beskriver eudaimonia som den generelle målet for menneskelivet. Aristoteles vil være enig i at lykke forstått som eudaimonia er det ultimate målet vi streber etter."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Kompleksiteten i dydsetikk"
+passed = true
+mark = 1
+description = "Erkjenne at dyder alene er ikke nok for lykke."
+resultat = "Du har forstått at selv om dyder er nødvendige for lykke, kreves det flere elementer for et fullstendig begrep om eudaimonia. Dette kan inkludere eksterne faktorer som vennskap, rikdom, og helse, som alle spiller sine roller ifølge Aristoteles."
+
 
 [[questions.answers.feedback]]
 fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dyder", "Studenten viser forståelse for hvordan dyder relaterer til lykke.",], [ true, "Eudaimonia", "Er eudaimonia godt definert i svaret?",], [ true, "Kombinasjon av dyder og andre faktorer", "Gjør svaret det tydelig at dyder alene ikke er nok for lykke?",], [ true, "Bruk av kilder", "Studenten bruker relevante kildereferanser",], [ true, "Dydenes rolle i et meningsfullt liv", "Oppgir svaret at dyd er nøkkelen til et meningsfullt liv?",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Beskrivelse av eudaimonia", "Forholdet mellom eudaimonia og lykke.",], [ true, "Dydens rolle for lykke", "Dydens nødvendighet for lykke.",], [ true, "Dyder alene ikke nok", "Er dyder alene tilstrekkelig for lykke?",], [ true, "Menneskelig helhet og lykke", "Hvordan lykke innrammer livet som en helhet.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forståelse av dyder\n\nBra! Du har fått med deg at dyd er nødvendig og en viktig del av lykke, slik dydsetikken beskriver det.\n", "## Passed: Eudaimonia\n\nFlott at du inkluderer begrepet eudaimonia som den overordnede formen for lykke i Aristoteles' tanke.\n", "## Passed: Kombinasjon av dyder og andre faktorer\n\nDet er korrekt at dyder alene ikke er nok for lykke, men de er nødvendige. Du har forstått dette poenget.\n", "## Passed: Bruk av kilder\n\nGodt jobbet med å trekke inn kilder (Antonsen et al. 2023) for å støtte din forklaring.\n", "## Passed: Dydenes rolle i et meningsfullt liv\n\nDu har korrekt identifisert dyder som en nøkkelkomponent i et meningsfullt liv. Dette viser en god forståelse av dydsetikk.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Beskrivelse av eudaimonia\\\",\\n        \\\"description\\\": \\\"Forholdet mellom eudaimonia og lykke.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Svaret belyser godt hvordan eudaimonia (lykke) hos Aristoteles er et m\\u00e5l og form\\u00e5l med livet, og beskriver det som en helhet for \\u00e5 leve et godt og meningsfullt liv.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydens rolle for lykke\\\",\\n        \\\"description\\\": \\\"Dydens n\\u00f8dvendighet for lykke.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du forklarer tydelig at dyder er n\\u00f8dvendig for lykke, og at de er en kritisk del av \\u00e5 oppn\\u00e5 lykke. Dette er i tr\\u00e5d med dydsetikkens syn p\\u00e5 forholdet mellom dyd og lykke.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dyder alene ikke nok\\\",\\n        \\\"description\\\": \\\"Er dyder alene tilstrekkelig for lykke?\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Det er bra at du p\\u00e5peker at dyder alene ikke er nok for lykke, da dette viser en forst\\u00e5else av hvordan dydsetikk ser p\\u00e5 et meningsfullt liv som noe som krever mer enn bare dyder.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Menneskelig helhet og lykke\\\",\\n        \\\"description\\\": \\\"Hvordan lykke innrammer livet som en helhet.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Besvarelsen viser forst\\u00e5else for at lykke, if\\u00f8lge dydsetikk, innrammer livet som en helhet og handler om hvordan vi lykkes som mennesker.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Beskrivelse av eudaimonia"
+passed = true
+mark = 1
+description = "Forholdet mellom eudaimonia og lykke."
+resultat = "Svaret belyser godt hvordan eudaimonia (lykke) hos Aristoteles er et mål og formål med livet, og beskriver det som en helhet for å leve et godt og meningsfullt liv."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydens rolle for lykke"
+passed = true
+mark = 1
+description = "Dydens nødvendighet for lykke."
+resultat = "Du forklarer tydelig at dyder er nødvendig for lykke, og at de er en kritisk del av å oppnå lykke. Dette er i tråd med dydsetikkens syn på forholdet mellom dyd og lykke."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dyder alene ikke nok"
+passed = true
+mark = 1
+description = "Er dyder alene tilstrekkelig for lykke?"
+resultat = "Det er bra at du påpeker at dyder alene ikke er nok for lykke, da dette viser en forståelse av hvordan dydsetikk ser på et meningsfullt liv som noe som krever mer enn bare dyder."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Menneskelig helhet og lykke"
+passed = true
+mark = 1
+description = "Hvordan lykke innrammer livet som en helhet."
+resultat = "Besvarelsen viser forståelse for at lykke, ifølge dydsetikk, innrammer livet som en helhet og handler om hvordan vi lykkes som mennesker."
+
 
 
 
@@ -111,52 +481,223 @@ question = "Enkelte har innvendt mot dydsetikken at den er vanskelig å anvende 
 [[questions.answers]]
 ans = "Jeg kan forstå at det kan være vanskelig å forholde seg til\ndydsetikken i praksis, men jeg mener at dydsetikken gir en god\nhandlingsveiledning på hva man burde gjøre i et dilemma. Selv om\ndydsetikken ikke har konkrete svar på etiske dilemmaer, så kan\nutfordringen likevel fortelle oss om hvordan vi bør handle. For\neksempel Rosalind Hursthouse (1943-) har argumenter for dette:\nNår vi sier om en handling at den er uansvarlig, for eksempel,\nhar vi jo samtidig sagt noe om hvorvidt det er noe man bør gjøre\neller ei. (Antonsen et al., 2023, s. 265). Dydsetikken forklarer\nat vi skal gjøre det som er respektfullt og det som er ærlig, og\nat vi ikke skal gjøre det som er gjerrig eller feigt (Antonsen\net la., 2023, s. 265). Ut ifra disse dydsreglene, så har vi fått\nen form for handlingsveiledning fra dydsetikken.xa0xa0\n"
 [[questions.answers.feedback]]
-fraction = 0.75
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dydsetikken", "Vurderer om studenten har grunnleggende forståelse av dydsetikken som en etisk teori.",], [ true, "Praktisk anvendelse", "Vurderer studentens evne til å diskutere dydsetikkens praktiske anvendelse.",], [ true, "Eksempler og argumentasjon", "Vurderer evnen til å bruke eksempler og argumentere for dydsetikkens anvendelse.",], [ false, "Kritisk vurdering", "Vurderer studentens evne til å kritisk vurdere hvorvidt dydsetikken er anvendbar i praksis.",],]
+fraction = 1.0
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dydsetikken i praksis", "Besvarer om dydsetikken gir praktisk handlingsveiledning.",], [ true, "Eksempelbruk", "Bruker et eksempel for å illustrere poenget.",], [ true, "Kritikk av dydsetikken", "Vurderer kritikken av dydsetikken om praksisanvendelse.",], [ true, "Referansebruk", "Bruker referanser riktig for å støtte argumentet.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forståelse av dydsetikken\n\nDu har en god forståelse av dydsetikken og viser at den gir veiledning i form av dydsregler som respekt og ærlighet.\n", "## Passed: Praktisk anvendelse\n\nGodt! Du påpeker hvordan dydsetikken kan gi en form for handlingsveiledning, selv om den ikke gir konkrete svar. Du nevner Rosalind Hursthouses argumenter som en styrke i denne etikken.\n", "## Passed: Eksempler og argumentasjon\n\nVeldig bra at du bruker eksempler som uansvarlighet for å illustrere hvordan dydsetikken gir veiledning. Dette styrker svaret ditt.\n", "## Failed: Kritisk vurdering\n\nSelv om du gir en god forklaring på hvordan dydsetikken gir veiledning, burde du også drøfte kritikken om at dydsetikken kan mangle spesifikke retningslinjer for handlinger i praksis for å gi et mer balansert syn.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Forst\\u00e5else av dydsetikken i praksis\\\",\\n        \\\"description\\\": \\\"Besvarer om dydsetikken gir praktisk handlingsveiledning.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du viser en god forst\\u00e5else for hvordan dydsetikken kan anvendes i praksis, selv om den ikke gir konkrete svar p\\u00e5 etiske dilemmaer. Du nevner at dydsetikken gir en form for handlingsveiledning basert p\\u00e5 dyder, som respekt og \\u00e6rlighet, og du gir et relevant eksempel fra Rosalind Hursthouse. Dette illustrerer godt hvordan etiske dyder kan p\\u00e5virke v\\u00e5r vurdering av hva som er riktig \\u00e5 gj\\u00f8re.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksempelbruk\\\",\\n        \\\"description\\\": \\\"Bruker et eksempel for \\u00e5 illustrere poenget.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Eksempelet med Rosalind Hursthouse styrker argumentet ditt ved \\u00e5 vise at dydsetikk kan gi veiledning i situasjoner hvor vi bruker dyder til \\u00e5 vurdere handlinger som ansvarlig eller uansvarlig. Dette styrker forst\\u00e5elsen av hvordan etiske vurderinger kan formes av dyder.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Kritikk av dydsetikken\\\",\\n        \\\"description\\\": \\\"Vurderer kritikken av dydsetikken om praksisanvendelse.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har p\\u00e5 en balansert m\\u00e5te anerkjent at noen opplever dydsetikken som vanskelig \\u00e5 anvende i praksis, samtidig som du argumenterer for at den kan gi veiledning. Dette viser en moden forst\\u00e5else av b\\u00e5de styrkene og svakhetene ved dydsetikken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Referansebruk\\\",\\n        \\\"description\\\": \\\"Bruker referanser riktig for \\u00e5 st\\u00f8tte argumentet.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Referansene til Antonsen et al. og Rosalind Hursthouse brukes effektivt for \\u00e5 st\\u00f8tte argumentene dine om hvordan dydsetikken kan gi veiledning. Det viser at du underbygger dine p\\u00e5stander med relevant litteratur.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av dydsetikken i praksis"
+passed = true
+mark = 1
+description = "Besvarer om dydsetikken gir praktisk handlingsveiledning."
+resultat = "Du viser en god forståelse for hvordan dydsetikken kan anvendes i praksis, selv om den ikke gir konkrete svar på etiske dilemmaer. Du nevner at dydsetikken gir en form for handlingsveiledning basert på dyder, som respekt og ærlighet, og du gir et relevant eksempel fra Rosalind Hursthouse. Dette illustrerer godt hvordan etiske dyder kan påvirke vår vurdering av hva som er riktig å gjøre."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksempelbruk"
+passed = true
+mark = 1
+description = "Bruker et eksempel for å illustrere poenget."
+resultat = "Eksempelet med Rosalind Hursthouse styrker argumentet ditt ved å vise at dydsetikk kan gi veiledning i situasjoner hvor vi bruker dyder til å vurdere handlinger som ansvarlig eller uansvarlig. Dette styrker forståelsen av hvordan etiske vurderinger kan formes av dyder."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Kritikk av dydsetikken"
+passed = true
+mark = 1
+description = "Vurderer kritikken av dydsetikken om praksisanvendelse."
+resultat = "Du har på en balansert måte anerkjent at noen opplever dydsetikken som vanskelig å anvende i praksis, samtidig som du argumenterer for at den kan gi veiledning. Dette viser en moden forståelse av både styrkene og svakhetene ved dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Referansebruk"
+passed = true
+mark = 1
+description = "Bruker referanser riktig for å støtte argumentet."
+resultat = "Referansene til Antonsen et al. og Rosalind Hursthouse brukes effektivt for å støtte argumentene dine om hvordan dydsetikken kan gi veiledning. Det viser at du underbygger dine påstander med relevant litteratur."
+
 
 [[questions.answers.feedback]]
 fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Gir dydsetikken handlingsveiledning?", "Evaluere om dydsetikken gir en form for guiding i praksis.",], [ true, "Dydsetikkens løsning på etiske dilemmaer", "Vurdere om dydsetikken løser etiske dilemmaer med konkrete svar.",], [ true, "Forståelse av dyders rolle i dydsetikken", "Vurdere din forståelse av hvilke dyder dydsetikken fremmer.",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dydsetikkens praktiske anvendelse", "Beskriv hvordan dydsetikk kan anvendes i praksis.",], [ true, "Diskutere utfordringer ved dydsetikk", "Diskuter hvorvidt dydsetikken gir konkrete etiske svar.",], [ true, "Bruk av kilder", "Korrekt henvise til relevante kilder.",], [ true, "Eksemplifisering av dyder", "Gi eksempler på dyder i dydsetikken.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Gir dydsetikken handlingsveiledning?\n\nDu har rett i at dydsetikken kan gi handlingsveiledning ved å fremme spesifikke dyder som ærlighet og respekt. Godt referert til Rosalind Hursthouse som argumenterer for dette perspektivet. Et område som kan utforskes videre er hvordan ulike dyder kan komme i konflikt og hvordan disse konfliktene kan navigeres.\n", "## Passed: Dydsetikkens løsning på etiske dilemmaer\n\nDu er inne på at dydsetikken ikke gir konkrete svar på etiske dilemmaer, men det er viktig å merke seg at fokus på karakterdannelse kan hjelpe individer til å utvikle gode moralske intuisjoner og derved lettere navigere slike dilemmaer.\n", "## Passed: Forståelse av dyders rolle i dydsetikken\n\nDu har nevnt dyder som ærlighet, respekt, og har også pekt på undeirable handlinger som gjerrighet og feighet. Dette viser en god forståelse av de typiske fokusområdene til dydsetikken.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Forst\\u00e5else av dydsetikkens praktiske anvendelse\\\",\\n        \\\"description\\\": \\\"Beskriv hvordan dydsetikk kan anvendes i praksis.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har beskrevet hvordan dydsetikken gir en form for handlingsveiledning, og nevner eksempler p\\u00e5 hvordan dydsetikken kan informere handlinger i konkrete situasjoner. Dette viser god forst\\u00e5else for dydsetikkens potensial i praktiske anvendelser.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Diskutere utfordringer ved dydsetikk\\\",\\n        \\\"description\\\": \\\"Diskuter hvorvidt dydsetikken gir konkrete etiske svar.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du anerkjenner at dydsetikken ikke gir konkrete svar p\\u00e5 etiske dilemmaer, men p\\u00e5peker at den gir veiledning gjennom dydsregler som ansvarlighet, \\u00e6rlighet, og respekt. Det viser en evne til \\u00e5 se nyansene i dydsetikken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Bruk av kilder\\\",\\n        \\\"description\\\": \\\"Korrekt henvise til relevante kilder.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har brukt Antonsen et al. som en kilde, samt nevnt Rosalind Hursthouse som en st\\u00f8ttende kilde i diskusjonen. Det viser at du har brukt relevante kilder for \\u00e5 underbygge dine argumenter.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Eksemplifisering av dyder\\\",\\n        \\\"description\\\": \\\"Gi eksempler p\\u00e5 dyder i dydsetikken.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har gitt eksempler p\\u00e5 konkrete dyder som \\u00e6rlighet og respekt, samt hva man b\\u00f8r unng\\u00e5 som gjerrighet og feighet. Dette viser en anvendbar forst\\u00e5else av dydsetikkens terminologi.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av dydsetikkens praktiske anvendelse"
+passed = true
+mark = 1
+description = "Beskriv hvordan dydsetikk kan anvendes i praksis."
+resultat = "Du har beskrevet hvordan dydsetikken gir en form for handlingsveiledning, og nevner eksempler på hvordan dydsetikken kan informere handlinger i konkrete situasjoner. Dette viser god forståelse for dydsetikkens potensial i praktiske anvendelser."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Diskutere utfordringer ved dydsetikk"
+passed = true
+mark = 1
+description = "Diskuter hvorvidt dydsetikken gir konkrete etiske svar."
+resultat = "Du anerkjenner at dydsetikken ikke gir konkrete svar på etiske dilemmaer, men påpeker at den gir veiledning gjennom dydsregler som ansvarlighet, ærlighet, og respekt. Det viser en evne til å se nyansene i dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Bruk av kilder"
+passed = true
+mark = 1
+description = "Korrekt henvise til relevante kilder."
+resultat = "Du har brukt Antonsen et al. som en kilde, samt nevnt Rosalind Hursthouse som en støttende kilde i diskusjonen. Det viser at du har brukt relevante kilder for å underbygge dine argumenter."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Eksemplifisering av dyder"
+passed = true
+mark = 1
+description = "Gi eksempler på dyder i dydsetikken."
+resultat = "Du har gitt eksempler på konkrete dyder som ærlighet og respekt, samt hva man bør unngå som gjerrighet og feighet. Dette viser en anvendbar forståelse av dydsetikkens terminologi."
+
 
 
 [[questions.answers]]
 ans = "Ja, noen ganger kan dydige handlinger sette oss i vanskelig\nsituasjoner. F.eks Nelson Mandela som utviste stort mot gjennom\nsin aktivisme mot aparheid i Sør-Afrika, og som satt i fengsel i\n27 år under harde forhold som er langt unna det vi vanligvis\nforbinder med lykke (Christensen, 2008, s 49). Sammenhengen\nmellom dyd å lykke kan derfor virke kontraintuitiv. (Antonsen et\nal., 2025, s. 264)\n"
 [[questions.answers.feedback]]
-fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Vanskelighet med å anvende dydsetikken i praksis", "Beskriver utfordringer med å anvende dydsetikk i praktiske situasjoner.",], [ true, "Forståelse av dydsetikk", "Demonstrerer en forståelse av hva dydsetikk innebærer.",], [ true, "Relasjon mellom dyd og lykke", "Utforsker forholdet mellom dyd og lykke i dydsetikken.",],]
+fraction = 0.6666666666666666
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ false, "Forståelse av dydsetikkens praksis", "Evaluering av om studenten har forstått dydsetikkens praktiske anvendelse.",], [ true, "Kobling mellom dyd og lykke", "Evaluering av hvordan studenten forstår forholdet mellom dyd og lykke i dydsetikk.",], [ true, "Bruk av eksempler", "Evaluering av hvor godt studenten benytter eksempler for å forklare dydsetikk.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Vanskelighet med å anvende dydsetikken i praksis\n\nDu gjør en god observasjon ved å nevne situasjonen til Nelson Mandela som et eksempel på hvordan dydige handlinger kan sette individer i vanskelige situasjoner. Dette viser en forståelse for hvordan dydsetikken kan være utfordrende å anvende i praksis, siden den noen ganger kan kreve handlinger som ikke nødvendigvis fører til lykke i tradisjonell forstand. Din refleksjon over forbindelsen mellom dyd og lykke, og at den kan være kontraintuitiv, er et verdifullt perspektiv.\n", "## Passed: Forståelse av dydsetikk\n\nDu viser en god forståelse av dydsetikkens kjerneprinsipper ved å identifisere at den involverer handlinger som kommer fra dyd. Nelson Mandela er et glimrende eksempel på en person som agerer i samsvar med dydige prinsipper, selv under pressende forhold. Dette indikerer innsikt i hvordan dydsetikken tar sikte på å oppnå en høyere form for tilfredsstillelse som ikke alltid korresponderer med umiddelbar lykke.\n", "## Passed: Relasjon mellom dyd og lykke\n\nDu peker på en interessant problemstilling ved å nevne at sammenhengen mellom dyd og lykke kan virke kontraintuitiv. Dette indikerer at du reflekterer over hvordan dydsetikken kan implisere en dypere form for lykke enn den overfladiske, kortvarige tilfredsstillelsen. Dette er essensielt for å forstå de komplekse aspektene ved dydsetikken.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"[\\n    {\\n        \\\"testName\\\": \\\"Forst\\u00e5else av dydsetikkens praksis\\\",\\n        \\\"description\\\": \\\"Evaluering av om studenten har forst\\u00e5tt dydsetikkens praktiske anvendelse.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Studenten nevner et eksempel med Nelson Mandela for \\u00e5 argumentere for at dydige handlinger kan sette oss i vanskelige situasjoner. Dette reflekterer imidlertid ikke hovedinnvendingen mot dydsetikken om dens praktiske anvendelse, som ofte handler om hvordan dydsetikk gir lite klare retningslinjer for handling. Fors\\u00f8k \\u00e5 knytte vurderingen til den praktiske anvendbarheten ved \\u00e5 diskutere hvordan dydsetikkens relevans kan v\\u00e6re utfordrende n\\u00e5r det ikke er klare regler, i motsetning til andre etiske teorier som konsekvensetikk eller pliktetikk.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Kobling mellom dyd og lykke\\\",\\n        \\\"description\\\": \\\"Evaluering av hvordan studenten forst\\u00e5r forholdet mellom dyd og lykke i dydsetikk.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Studenten p\\u00e5peker en interessant vinkling ved \\u00e5 nevne at forbindelsen mellom dyd og lykke kan virke kontraintuitiv. Dette er en gyldig observasjon, da dydsetikk ofte knytter dydige handlinger til det gode liv, noe som ikke alltid fremst\\u00e5r som \\u00e5penbart i praksis. Dette gir en verdifull kritisk refleksjon rundt forholdet mellom dyd og lykke i dydsetikken.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Bruk av eksempler\\\",\\n        \\\"description\\\": \\\"Evaluering av hvor godt studenten benytter eksempler for \\u00e5 forklare dydsetikk.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Eksempelet med Nelson Mandela er godt valgt for \\u00e5 illustrere hvordan dydige handlinger kan inneb\\u00e6re offer og utfordringer, og derfor ikke alltid oppleves som lykke i tradisjonell forstand. Vurder \\u00e5 inkludere flere eksempler eller utdype eksisterende for \\u00e5 gi en bredere forst\\u00e5else av dydsetikkens kompleksitet.\\\"\\n    }\\n]\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av dydsetikkens praksis"
+passed = false
+mark = 1
+description = "Evaluering av om studenten har forstått dydsetikkens praktiske anvendelse."
+resultat = "Studenten nevner et eksempel med Nelson Mandela for å argumentere for at dydige handlinger kan sette oss i vanskelige situasjoner. Dette reflekterer imidlertid ikke hovedinnvendingen mot dydsetikken om dens praktiske anvendelse, som ofte handler om hvordan dydsetikk gir lite klare retningslinjer for handling. Forsøk å knytte vurderingen til den praktiske anvendbarheten ved å diskutere hvordan dydsetikkens relevans kan være utfordrende når det ikke er klare regler, i motsetning til andre etiske teorier som konsekvensetikk eller pliktetikk."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Kobling mellom dyd og lykke"
+passed = true
+mark = 1
+description = "Evaluering av hvordan studenten forstår forholdet mellom dyd og lykke i dydsetikk."
+resultat = "Studenten påpeker en interessant vinkling ved å nevne at forbindelsen mellom dyd og lykke kan virke kontraintuitiv. Dette er en gyldig observasjon, da dydsetikk ofte knytter dydige handlinger til det gode liv, noe som ikke alltid fremstår som åpenbart i praksis. Dette gir en verdifull kritisk refleksjon rundt forholdet mellom dyd og lykke i dydsetikken."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Bruk av eksempler"
+passed = true
+mark = 1
+description = "Evaluering av hvor godt studenten benytter eksempler for å forklare dydsetikk."
+resultat = "Eksempelet med Nelson Mandela er godt valgt for å illustrere hvordan dydige handlinger kan innebære offer og utfordringer, og derfor ikke alltid oppleves som lykke i tradisjonell forstand. Vurder å inkludere flere eksempler eller utdype eksisterende for å gi en bredere forståelse av dydsetikkens kompleksitet."
+
 
 [[questions.answers.feedback]]
-fraction = 0.6666666666666666
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ false, "Forståelse av dydsetikk", "Evaluering av forståelsen av hvordan dydsetikken anvendes i praksis.",], [ true, "Dydsetikk og praktiske utfordringer", "Analyse av om dydsetikken er vanskelig å anvende i praksis.",], [ true, "Kobling mellom dyd og lykke", "Undersøkelse av studentens forståelse av forholdet mellom dyd og lykke i dydsetikken.",],]
+fraction = 1.0
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Tilknytning til dydsetikkens praktiske anvendelse", "Beskriver hvordan dydsetikk kan være utfordrende i praksis.",], [ true, "Forståelse av sammenhengen mellom dyd og lykke", "Utforsker sammenhengen mellom dyd og lykke i dydsetikken.",],]
 otherfeedback = []
-testfeedback = [ "## Failed: Forståelse av dydsetikk\n\nDin besvarelse fokuserer mer på de utfordringene dydsetikken kan stille oss overfor uten å diskutere hva dydsetikk faktisk er eller hvordan den anvendes i praksis. Vurder å utdype hva dydsetikk innebærer, og hvordan den rettes mot å oppdra moralske karakterdyder fremfor spesifikke handlinger.\n", "## Passed: Dydsetikk og praktiske utfordringer\n\nDu nevner et eksempel på hvordan dydsetikk kan føre til vanskelige situasjoner, ved å bruke Nelson Mandela som et eksempel på mot, en av dydsetikkens sentrale dyder. Dette viser en god forståelse for hvordan dydsetikk kan utgjøre praktiske utfordringer.\n", "## Passed: Kobling mellom dyd og lykke\n\nDu viser forståelse for hvordan sammenhengen mellom dyd og lykke kan virke kontraintuitiv, spesielt når dydige handlinger kan føre til personlige utfordringer eller offer. Dette er en viktig nyanse i forståelsen av dydsetikk.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"[ \\n  { \\n    \\\"testName\\\": \\\"Tilknytning til dydsetikkens praktiske anvendelse\\\", \\n    \\\"description\\\": \\\"Beskriver hvordan dydsetikk kan v\\u00e6re utfordrende i praksis.\\\", \\n    \\\"iscorrect\\\": true, \\n    \\\"resultat\\\": \\\"Studenten beskriver hvordan dydige handlinger kan resultere i vanskelige situasjoner og trekker paralleller til Nelson Mandela. Dette er relevant for \\u00e5 diskutere dydsetikkens utfordringer i praksis. For \\u00e5 styrke svaret ytterligere kan det v\\u00e6re nyttig \\u00e5 inkludere hvordan dette kan p\\u00e5virke anvendelsen i mindre ekstreme situasjoner.\\\" \\n  },\\n  { \\n    \\\"testName\\\": \\\"Forst\\u00e5else av sammenhengen mellom dyd og lykke\\\", \\n    \\\"description\\\": \\\"Utforsker sammenhengen mellom dyd og lykke i dydsetikken.\\\", \\n    \\\"iscorrect\\\": true, \\n    \\\"resultat\\\": \\\"Studenten p\\u00e5peker en potensiell motsetning mellom dyd og lykke, noe som reflekterer en kritisk forst\\u00e5else av dydsetikkens utfordringer. Ytterligere utdypning om hvordan dydsetikken h\\u00e5ndterer denne motsetningen, for eksempel ved \\u00e5 se p\\u00e5 den langsiktige verdien av dyd, kunne gitt en mer omfattende analyse.\\\" \\n  }\\n]\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Tilknytning til dydsetikkens praktiske anvendelse"
+passed = true
+mark = 1
+description = "Beskriver hvordan dydsetikk kan være utfordrende i praksis."
+resultat = "Studenten beskriver hvordan dydige handlinger kan resultere i vanskelige situasjoner og trekker paralleller til Nelson Mandela. Dette er relevant for å diskutere dydsetikkens utfordringer i praksis. For å styrke svaret ytterligere kan det være nyttig å inkludere hvordan dette kan påvirke anvendelsen i mindre ekstreme situasjoner."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Forståelse av sammenhengen mellom dyd og lykke"
+passed = true
+mark = 1
+description = "Utforsker sammenhengen mellom dyd og lykke i dydsetikken."
+resultat = "Studenten påpeker en potensiell motsetning mellom dyd og lykke, noe som reflekterer en kritisk forståelse av dydsetikkens utfordringer. Ytterligere utdypning om hvordan dydsetikken håndterer denne motsetningen, for eksempel ved å se på den langsiktige verdien av dyd, kunne gitt en mer omfattende analyse."
+
 
 
 [[questions.answers]]
 ans = "Jeg er nokså enig i denne innvendingen. Dydsetikken gir nemlig\ningen fasit på akkurat hva som er ansett som dydig i en\nsituasjon, og det er derfor opp til enhver å vurdere dette selv.\nI eksempelet gitt i Tenk! Fra Victor Hugo sin roman De elendige\nblir valget Jean Valjeans tatt ansett som dydig med tanke på at\nhan er omsorgsfull og ansvarsfull ovenfor sin familie (Antonsen\net al., 2025, s.258-259). Samtidig kan man argumentere at det\nhadde vært mer dydig av han å skaffe maten på en mer ærlig måte\nenn tyveri. I tillegg til at dydsetikken er preget av menneskets\nsubjektive perspektiv, er det ikke alltid like lett i praksis.\nDet mest dydige valget er ikke alltid det som frister mest,\neller det som virker til å ha det beste utfallet.\n"
 [[questions.answers.feedback]]
 fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Forståelse av dydsetikkens subjektive natur", "Studenten demonstrerer forståelse av at dydsetikken ikke gir en bestemt fasit.",], [ true, "Eksemplifisering med litteratureksempel", "Studenten gir et relevant eksempel fra litteraturen.",], [ true, "Kompleksiteten i dydsetisk dømmekraft", "Studenten adresserer kompleksiteten ved dydsetisk dømmekraft i praksis.",], [ true, "Diskusjon av alternative perspektiver", "Studenten diskuterer muligheten for alternative dydige valg.",], [ true, "Forståelse av dydsetikkens mangler i praksis", "Studenten peker på praktiske utfordringer ved å anvende dydsetikk.",],]
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Subjektivitet og manglende faste regler i dydsetikken", "Dydsetikken mangler faste regler, noe som fører til subjektive vurderinger.",], [ true, "Referanse til Victor Hugos 'De elendige'", "Bruke eksempler fra litteraturen for å illustrere poeng i dydsetikken.",], [ true, "Beskrivelse av dydetikkens praksis", "Vurdering av dydsetikkens anvendbarhet i praksis.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Forståelse av dydsetikkens subjektive natur\n\nBra gjort! Du har forstått at dydsetikken handler om personlig vurdering av hva som er dydig. Det viser at du har grepet kjernen i en av de vanligste innvendingene mot dydsetikken.\n", "## Passed: Eksemplifisering med litteratureksempel\n\nGod bruk av eksempelet fra 'De elendige'. Dette gir en konkret kontekst og styrker diskusjonen rundt dydsetikkens subjektivitet og utfordringer.\n", "## Passed: Kompleksiteten i dydsetisk dømmekraft\n\nDu nevner hvordan det mest dydige valget ikke alltid er det mest fristende. Det er en god refleksjon over utfordringene ved å følge dydsetikken i praksis.\n", "## Passed: Diskusjon av alternative perspektiver\n\nBra at du også vurderte muligheten for at Jean Valjeans handlinger kunne ha blitt ansett som mindre dydige av andre grunner. Dette viser din evne til å vurdere etisk mangfold i vurdering av dyd.\n", "## Passed: Forståelse av dydsetikkens mangler i praksis\n\nDet er fint hvordan du beskriver dydsetikkens utfordringer i praksis, spesielt hvordan det kan være vanskelig å ta det dydige valget.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    { \\n        \\\"testName\\\": \\\"Subjektivitet og manglende faste regler i dydsetikken\\\",\\n        \\\"description\\\": \\\"Dydsetikken mangler faste regler, noe som f\\u00f8rer til subjektive vurderinger.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"God forst\\u00e5else av utfordringen med dydsetikken: den mangler spesifikke regler og overlater avgj\\u00f8relser til individuell vurdering, noe som ofte gj\\u00f8r anvendelsen vanskelig i praksis.\\\"\\n    },\\n    { \\n        \\\"testName\\\": \\\"Referanse til Victor Hugos 'De elendige'\\\",\\n        \\\"description\\\": \\\"Bruke eksempler fra litteraturen for \\u00e5 illustrere poeng i dydsetikken.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Bra bruk av litter\\u00e6rt eksempel med referanse til 'De elendige' som illustrerer hvordan ulike handlinger kan tolkes ulikt under dydsetikken. For \\u00e5 styrke argumentet ytterligere, kan du inkludere flere konkrete eksempler som viser kompleksiteten i \\u00e5 praktisere dydsetikk.\\\"\\n    },\\n    { \\n        \\\"testName\\\": \\\"Beskrivelse av dydetikkens praksis\\\",\\n        \\\"description\\\": \\\"Vurdering av dydsetikkens anvendbarhet i praksis.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"God analyse av hvordan dydetikkens praktiske anvendelse kan v\\u00e6re utfordrende og ikke alltid sammenfaller med hva som er 'fristende' eller gir 'beste utfallet'. Videre kan det v\\u00e6re nyttig \\u00e5 dr\\u00f8fte hvordan forskjellige dydsetiske teorier kan engasjere seg med disse utfordringene, inkludert hvordan dyd kan utvikles over tid.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Subjektivitet og manglende faste regler i dydsetikken"
+passed = true
+mark = 1
+description = "Dydsetikken mangler faste regler, noe som fører til subjektive vurderinger."
+resultat = "God forståelse av utfordringen med dydsetikken: den mangler spesifikke regler og overlater avgjørelser til individuell vurdering, noe som ofte gjør anvendelsen vanskelig i praksis."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Referanse til Victor Hugos 'De elendige'"
+passed = true
+mark = 1
+description = "Bruke eksempler fra litteraturen for å illustrere poeng i dydsetikken."
+resultat = "Bra bruk av litterært eksempel med referanse til 'De elendige' som illustrerer hvordan ulike handlinger kan tolkes ulikt under dydsetikken. For å styrke argumentet ytterligere, kan du inkludere flere konkrete eksempler som viser kompleksiteten i å praktisere dydsetikk."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Beskrivelse av dydetikkens praksis"
+passed = true
+mark = 1
+description = "Vurdering av dydsetikkens anvendbarhet i praksis."
+resultat = "God analyse av hvordan dydetikkens praktiske anvendelse kan være utfordrende og ikke alltid sammenfaller med hva som er 'fristende' eller gir 'beste utfallet'. Videre kan det være nyttig å drøfte hvordan forskjellige dydsetiske teorier kan engasjere seg med disse utfordringene, inkludert hvordan dyd kan utvikles over tid."
+
 
 [[questions.answers.feedback]]
-fraction = 1.0
-testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Subjektiv vurdering", "Refleksjon over subjektiv vurdering i dydsetikk.",], [ true, "Mangel på konkret veiledning", "Dydsetikk gir ikke alltid en klar fasit.",], [ true, "Eksistensen av flere dyder", "Flere dyder kan være i konflikt.",], [ true, "Dydens fristelse og utfall", "Det mest dydige valget kan være det minst fristende.",],]
+fraction = 0.8
+testresults = [ [ "iscorrect", "Test", "Beskrivelse",], [ true, "Ingen objektive kriterier", "Dydsetikken gir ikke konkrete retningslinjer.",], [ true, "Subjektiv vurdering", "Vurdering av dydighet er subjektiv.",], [ true, "Tension mellom dyder", "Praktisk anvendelse kan inkludere konflikt mellom dyder.",], [ true, "Dydsetikkens pragmatiske utfordringer", "Det dydige valg er ikke alltid opplagt.",], [ false, "Relativisme i dydsetikken", "Dydsetikkens mulighet til relativisme.",],]
 otherfeedback = []
-testfeedback = [ "## Passed: Subjektiv vurdering\n\nDu påpeker korrekt at dydsetikken ofte krever subjektiv vurdering av hva som er dydig i en gitt situasjon. Det er viktig å forstå at dette kan variere fra individ til individ, hvilket kan komplisere bruken av dydsetikk i praksis. Bra jobbet med å trekke inn eksempler fra litteraturen!\n", "## Passed: Mangel på konkret veiledning\n\nDu adresserer hvordan dydsetikken kan kritiseres for ikke å gi spesifikke retningslinjer for handling, noe som kan gjøre anvendelsen utfordrende. Dette er en viktig innvending og du har forstått dette aspektet. God observasjon!\n", "## Passed: Eksistensen av flere dyder\n\nDu viser til at ulike dyder kan komme i konflikt med hverandre, som i tilfelle med Jean Valjean. Dette er et godt poeng og viser at du har reflektert over kompleksiteten i dydsetikken.\n", "## Passed: Dydens fristelse og utfall\n\nDu nevner at det valgt som er mest dydig ikke alltid er det mest fristende eller har det beste umiddelbare utfallet. Dette viser en dypere forståelse av moralfilosofiske dilemmaer knyttet til dydsetikk.\n",]
 model = "gpt-4o"
+[[questions.answers.feedback.testfeedback]]
+name = "svardata"
+passed = false
+gpt_svar = "\"```json\\n[\\n    {\\n        \\\"testName\\\": \\\"Ingen objektive kriterier\\\",\\n        \\\"description\\\": \\\"Dydsetikken gir ikke konkrete retningslinjer.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Bra! Dydsetikken fremhever at det ikke alltid finnes klare regler for hva som anses som dydig, noe som kan gj\\u00f8re anvendelsen utfordrende. Du har ogs\\u00e5 eksemplifisert dette ved \\u00e5 nevne hvordan situasjonsbestemte tolkninger kan variere.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Subjektiv vurdering\\\",\\n        \\\"description\\\": \\\"Vurdering av dydighet er subjektiv.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Godt observert! Det at dydsetikken baserer seg p\\u00e5 individets egen vurdering gj\\u00f8r det vanskelig \\u00e5 anvende i praksis, da det ofte involverer subjektive perspektiver, slik du har nevnt med eksempelet fra Victor Hugo.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Tension mellom dyder\\\",\\n        \\\"description\\\": \\\"Praktisk anvendelse kan inkludere konflikt mellom dyder.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Riktig! Konflikt mellom hva som anses som forskjellige dyder kan skape problemer, som i tilfeller hvor \\u00e6rlighet og ansvar kan kollidere. Du nevnte dette med muligheten for alternative, mer dydige valg.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Dydsetikkens pragmatiske utfordringer\\\",\\n        \\\"description\\\": \\\"Det dydige valg er ikke alltid opplagt.\\\",\\n        \\\"iscorrect\\\": true,\\n        \\\"resultat\\\": \\\"Du har riktig p\\u00e5pekt at dydige valg ikke alltid er de enkleste eller mest tiltalende. Dette belyser hvordan dydsetikken kan inneb\\u00e6re praktiske utfordringer.\\\"\\n    },\\n    {\\n        \\\"testName\\\": \\\"Relativisme i dydsetikken\\\",\\n        \\\"description\\\": \\\"Dydsetikkens mulighet til relativisme.\\\",\\n        \\\"iscorrect\\\": false,\\n        \\\"resultat\\\": \\\"Selv om du har nevnt subjektivitet, kunne en dypere refleksjon over hvordan dette f\\u00f8rer til moralsk relativisme ha styrket argumentet ditt. Kanskje du kan vurdere hvordan dette kan variere mellom kulturer og personlige oppfatninger.\\\"\\n    }\\n]\\n```\""
+
+[[questions.answers.feedback.testfeedback]]
+name = "Ingen objektive kriterier"
+passed = true
+mark = 1
+description = "Dydsetikken gir ikke konkrete retningslinjer."
+resultat = "Bra! Dydsetikken fremhever at det ikke alltid finnes klare regler for hva som anses som dydig, noe som kan gjøre anvendelsen utfordrende. Du har også eksemplifisert dette ved å nevne hvordan situasjonsbestemte tolkninger kan variere."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Subjektiv vurdering"
+passed = true
+mark = 1
+description = "Vurdering av dydighet er subjektiv."
+resultat = "Godt observert! Det at dydsetikken baserer seg på individets egen vurdering gjør det vanskelig å anvende i praksis, da det ofte involverer subjektive perspektiver, slik du har nevnt med eksempelet fra Victor Hugo."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Tension mellom dyder"
+passed = true
+mark = 1
+description = "Praktisk anvendelse kan inkludere konflikt mellom dyder."
+resultat = "Riktig! Konflikt mellom hva som anses som forskjellige dyder kan skape problemer, som i tilfeller hvor ærlighet og ansvar kan kollidere. Du nevnte dette med muligheten for alternative, mer dydige valg."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Dydsetikkens pragmatiske utfordringer"
+passed = true
+mark = 1
+description = "Det dydige valg er ikke alltid opplagt."
+resultat = "Du har riktig påpekt at dydige valg ikke alltid er de enkleste eller mest tiltalende. Dette belyser hvordan dydsetikken kan innebære praktiske utfordringer."
+
+[[questions.answers.feedback.testfeedback]]
+name = "Relativisme i dydsetikken"
+passed = false
+mark = 1
+description = "Dydsetikkens mulighet til relativisme."
+resultat = "Selv om du har nevnt subjektivitet, kunne en dypere refleksjon over hvordan dette fører til moralsk relativisme ha styrket argumentet ditt. Kanskje du kan vurdere hvordan dette kan variere mellom kulturer og personlige oppfatninger."
+
 
 
 

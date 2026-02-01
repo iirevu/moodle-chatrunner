@@ -183,7 +183,7 @@ class TestResults:
        Return the test results as used by CodeRunner.
        This is string representation of a JSON object.
        """
-       rl = [ test.formatMarkdown() for test in self.testresults ]
+       rl = [ test.asdict() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
