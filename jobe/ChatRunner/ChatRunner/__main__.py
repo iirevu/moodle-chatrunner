@@ -18,13 +18,44 @@ from .sandbox import runAnswer
 import json
 import argparse
 
+import toml
+import helper
+
+def batchfeedback( *a, config={}, **kw ):
+    r = { "model" : config["model"]
+        , "feedback" : testProgram( prob, ans, lit, config, criteria, markdown=True, **kw )
+        }
+    return r
+
+def batchprocess( qalist, lit, cfg, count, **kw ):
+    modellist = cfg["model"]
+    try:
+        _ = iter(modellist)
+    except:
+        modellist = [ modellist ]
+    config = []
+    for m in modellist:
+        c = cfg.copy()
+        c["model"] = m
+        config.append( c )
+    for q in qalist["questions"]:
+        prob = q["question"]
+        for a in q["answers"]:
+            ans = a["ans"]
+            criteria = a.get( "criteria", "" )
+            a["feedback"] = [ batchfeedback( prob, ans, lit
+                            , config=config, criteria=criteria, **kw ) 
+                            for _ in range(count) ]
+    return qalist
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
     prog = 'chatrunner',
     description = 'Get AI feedback on a student answer',
              epilog = '')
-    parser.add_argument('problem',help="Problem file")
-    parser.add_argument('answer',help="Answer file")
+    parser.add_argument('problem',help="Problem file",nargs="?")
+    parser.add_argument('answer',help="Answer file",nargs="?")
+    parser.add_argument('criteria',help="Answer file",nargs="?")
     parser.add_argument('-m','--model',help="Model")
     parser.add_argument('-l','--literature',help="Literature file (json)")
     parser.add_argument('-u','--url',help="URL for the LLM OpenAPI.")
@@ -43,13 +74,30 @@ if __name__ == "__main__":
                         help="Filename for JSON output.")
     parser.add_argument('-E','--mode',default="baseline",
                         help="Engine mode (baseline/dump/new).")
+    parser.add_argument('-b','--batch',
+                        help="Question/answer set for batch ruin (toml file).")
+    parser.add_argument('-n','--count',default=1,
+                        help="Numer of repetition of the batch test.")
     args = parser.parse_args()
 
-    # Read support files
-    with open(args.problem, 'r') as file:
-        prob = file.read()
-    with open(args.answer, 'r') as file:
-        ans = file.read()
+    if args.batch:
+        with open(args.batch, "rb") as f:
+             qalist = toml.load(f)
+    else:
+        # Read support files
+        if args.problem is None:
+            raise Exception("Needs problem and answer arguments.")
+        if args.answer is None:
+            raise Exception("Needs answer argument.")
+        with open(args.problem, 'r') as file:
+            prob = file.read()
+        with open(args.answer, 'r') as file:
+            ans = file.read()
+        if args.criteria:
+            with open(args.criteria, 'r') as file:
+                criteria = file.read()
+        else:
+            args.criteria = ""
     if args.literature:
         with open(args.literature, 'r') as file:
             lit = file.read()
@@ -57,8 +105,7 @@ if __name__ == "__main__":
     
     # Read AI configuration from JSON or from arguments 
     if args.config:
-        with open( args.config, "r" ) as file:
-            cfg = json.load(file)
+        cfg = helper.readobject( args.config )
     else:
         cfg = {}
 
@@ -95,10 +142,14 @@ if __name__ == "__main__":
         mode = args.mode
 
     # Run the test
-    if mode == "moodle":
-        r = runAnswer( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
+    if args.batch:
+        r = batchprocess( qalist, lit, count=int(args.count), gs=graderstate_string, cfg, mode=mode )
+        with open(args.outfile, "wb") as f:
+             toml.dumo(qalist,f)
+    elif mode == "moodle":
+        r = runAnswer( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = testProgram( prob, ans, lit, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
+        r = testProgram( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
         print( r )

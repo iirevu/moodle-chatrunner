@@ -287,15 +287,19 @@ class GraderState:
         return r
 
 class Engine:
-    def __init__(self,problem,studans,
-                 literatur={},gs="",sandbox={},qid=0,
+    def __init__(self,problem,studans=None,
+                 literatur={},criteria="",gs="",sandbox={},qid=0,
                  debug=False):
+        if studans is None:
+            raise Exception("Not implemented")
+        else:
+            self.problem = problem
+            self.studans = studans
+            self.criteria = criteria
         self.graderstate = GraderState(gs,studans)
         self.literatur = literatur
-        self.studans = studans
         self.sandbox = sandbox
         self.debug = debug
-        self.problem = problem
     def getPrompt(self,debug=None):
         return getPrompt(self.problem,self.literatur,self.graderstate)
     def getHistory(self,debug=None):
@@ -336,7 +340,9 @@ class NewEngine(Engine):
     def getPrompt(self,mdfn=getfn("prompt2.md"),debug=None):
         with open(mdfn, 'r') as file:
             template = file.read()
-        sys = template.format( problem=self.problem, literatur=self.literatur )
+        sys = template.format( problem=self.problem
+                             , criteria=self.criteria
+                             , literatur=self.literatur )
         prompt = [ { "role" : "system",  "content" : sys } ]
         prompt.extend( self.getHistory() )
         return prompt
@@ -369,7 +375,7 @@ class DumpEngine(Engine):
         return testResults
 
 
-def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,
+def testProgram(problem,studans,literatur={},criteria="",gs="",sandbox={},qid=0,
                 debug=False,mode="baseline", markdown=False, outfile=None):
     """
     This function is supposed to be functionally identical to
@@ -381,11 +387,11 @@ def testProgram(problem,studans,literatur={},gs="",sandbox={},qid=0,
     """
 
     if mode == "baseline":
-       eng = Engine(problem,studans,literatur,gs,sandbox,qid,debug)
+       eng = Engine(problem,studans,literatur,criteria,gs,sandbox,qid,debug)
     elif mode == "new":
-        eng = NewEngine(problem,studans,literatur,gs,sandbox,qid,debug)
+        eng = NewEngine(problem,studans,literatur,criteria,gs,sandbox,qid,debug)
     elif mode == "dump":
-        eng = DumpEngine(problem,studans,literatur,gs,sandbox,qid,debug)
+        eng = DumpEngine(problem,studans,literatur,criteria,gs,sandbox,qid,debug)
     else:
         raise Exception( f"Unknown mode {mode}." )
     testResults = eng.queryAI()
