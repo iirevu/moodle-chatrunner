@@ -82,7 +82,8 @@ if __name__ == "__main__":
 
     if args.batch:
         with open(args.batch, "rb") as f:
-             qalist = toml.load(f)
+            print( "Opened file", args.batch )
+            qalist = toml.load(f)
     else:
         # Read support files
         if args.problem is None:
@@ -146,7 +147,7 @@ if __name__ == "__main__":
         r = batchprocess( qalist, lit, cfg=cfg, count=int(args.count)
                         , gs=graderstate_string, mode=mode )
         with open(args.outfile, "wb") as f:
-             toml.dumo(qalist,f)
+             toml.dump(qalist,f)
     elif mode == "moodle":
         r = runAnswer( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
