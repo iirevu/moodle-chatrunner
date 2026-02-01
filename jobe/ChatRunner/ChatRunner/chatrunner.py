@@ -176,6 +176,23 @@ class TestResults:
        tab = "# Results table\n\n" + self.resultstable.markdown()
        header = "# Assessment output\n\n"
        return gs + header + prehtml + tab + "\n\n" + self.pmd() + f"\nFraction: {self.frac}\n"
+   def getFeedbackObject(self,
+                           graderstate=None,
+                           other_lines=False ):
+       """
+       Return the test results as used by CodeRunner.
+       This is string representation of a JSON object.
+       """
+       rl = [ test.formatMarkdown() for test in self.testresults ]
+       rl = [ x for x in rl if x is not None ]
+       ol = self.getOtherOutput()
+       obj = { "fraction": self.frac,
+               "testresults": self.resultstable.asList(),
+               "otherfeedback": ol,
+               "testfeedback": rl,
+               "graderstate": graderstate }
+       return obj
+       # return json.dumps( obj, ensure_ascii=False )
    def getCodeRunnerOutput(self,
                            graderstate=None,
                            other_lines=False ):
@@ -189,7 +206,7 @@ class TestResults:
        if ol:
               prehtml = f"""<h2>Other output / error-messages from testgrader </h2>
          <p><br>
-         {"<br>".join( self.other_output )}
+         {"<br>".join( ol )}
          </p></br>"""
        else: prehtml = ""
        obj = { "fraction": self.frac,
@@ -377,7 +394,7 @@ class DumpEngine(Engine):
 
 
 def testProgram(problem,studans,literatur={},criteria="",gs="",sandbox={},qid=0,
-                debug=False,mode="baseline", markdown=False, outfile=None):
+                debug=False,mode="baseline", markdown=False, outfile=None, raw=False):
     """
     This function is supposed to be functionally identical to
     `runAnswer()` without using the sandbox.  The code from 
@@ -403,7 +420,9 @@ def testProgram(problem,studans,literatur={},criteria="",gs="",sandbox={},qid=0,
         with open(outfile, 'w') as f:
             tr = eng.getResult().asdict()
             json.dump(tr, f, indent=4) 
-    if markdown:
+    if raw:
+       return eng.getResult()
+    elif markdown:
        return eng.getMarkdownResult( )
     else:
        return eng.getResult().getCodeRunnerOutput( other_lines=True )
