@@ -22,9 +22,8 @@ import toml
 from . import helper
 
 def batchfeedback( *a, config={}, **kw ):
-    r = { "model" : config["model"]
-        , "feedback" : testProgram( *a, sandbox=config, **kw )
-        }
+    r = testProgram( *a, sandbox=config, **kw )
+    r["model"] = config["model"]
     return r
 
 def batchprocess( qalist, lit, cfg, count, **kw ):
