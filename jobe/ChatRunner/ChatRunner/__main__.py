@@ -152,5 +152,5 @@ if __name__ == "__main__":
         print( "== Output of runAnswer ==" )
         print( r )
     else:
-        r = testProgram( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
-        print( r )
+        obj = testProgram( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, mode=mode, markdown=args.markdown, outfile=args.outfile )
+        print( json.dumps( obj, ensure_ascii=False ) )

@@ -197,7 +197,8 @@ class TestResults:
                "prologuehtml": prehtml,
                "epiloguehtml": self.phtml(),
                "graderstate": graderstate }
-       return json.dumps( obj, ensure_ascii=False )
+       return obj
+       # return json.dumps( obj, ensure_ascii=False )
 
    def asdict(self):
        return [ x.asdict() for x in self.testresults ]
