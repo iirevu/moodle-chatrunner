@@ -29,9 +29,7 @@ def batchfeedback( *a, config={}, **kw ):
 
 def batchprocess( qalist, lit, cfg, count, **kw ):
     modellist = cfg["model"]
-    try:
-        _ = iter(modellist)
-    except:
+    if isinstance(modellist,str):
         modellist = [ modellist ]
     config = []
     for m in modellist:
