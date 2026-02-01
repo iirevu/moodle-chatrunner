@@ -23,7 +23,7 @@ from . import helper
 
 def batchfeedback( *a, config={}, **kw ):
     r = { "model" : config["model"]
-        , "feedback" : testProgram( *a, config=config, **kw )
+        , "feedback" : testProgram( *a, sandbox=config, **kw )
         }
     return r
 
@@ -44,8 +44,9 @@ def batchprocess( qalist, lit, cfg, count, **kw ):
             ans = a["ans"]
             criteria = a.get( "criteria", "" )
             a["feedback"] = [ batchfeedback( prob, ans, lit
-                            , config=config, criteria=criteria, **kw ) 
-                            for _ in range(count) ]
+                            , config=c, criteria=criteria, **kw ) 
+                            for _ in range(count)
+                            for c in config ]
     return qalist
 
 if __name__ == "__main__":
@@ -81,7 +82,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.batch:
-        with open(args.batch, "rb") as f:
+        with open(args.batch, "r") as f:
             print( "Opened file", args.batch )
             qalist = toml.load(f)
     else:
@@ -146,7 +147,7 @@ if __name__ == "__main__":
     if args.batch:
         r = batchprocess( qalist, lit, cfg=cfg, count=int(args.count)
                         , gs=graderstate_string, mode=mode )
-        with open(args.outfile, "wb") as f:
+        with open(args.outfile, "w") as f:
              toml.dump(qalist,f)
     elif mode == "moodle":
         r = runAnswer( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
