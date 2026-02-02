@@ -90,7 +90,13 @@ def dumpResponse(svar,debug=False):
        print( svar_fetched )
 
     # Parse the JSON string
-    testlist = json.loads(svar_fetched)
+    try:
+       testlist = json.loads(svar_fetched,strict=False)
+    except JSONDecodeError as e:
+        return {
+                "rawfeedback" : svar_fetched,
+                "decodeerror" : str(e)
+                }
 
     # Create Test objects and return
     return [ makeTest(test) for test in testlist ]

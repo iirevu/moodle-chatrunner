@@ -13,12 +13,13 @@ def readobject(fn):
     The filename has to indicate the file format by its extension,
     either .json or .toml.
     """
-    with open(fn, "rb") as file:
-        print( "Opened file", fn )
-        if fn[-5:] == ".toml":
-             r = toml.load(file)
-        elif fn[-5:] == ".json":
-             r = json.load(file)
-        else:
-            raise Exception("Need a filename ending in .toml or .json")
+    if fn[-5:] == ".toml":
+        print( "Load file", fn )
+        r = toml.load(fn)
+    elif fn[-5:] == ".json":
+        with open(fn, "rb") as file:
+            print( "Opened file", fn )
+            r = json.load(file)
+    else:
+        raise Exception("Need a filename ending in .toml or .json")
     return r

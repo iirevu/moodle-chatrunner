@@ -102,7 +102,8 @@ if __name__ == "__main__":
     
     # Read AI configuration from JSON or from arguments 
     if args.config:
-        cfg = helper.readobject( args.config )
+        tomlconfig = helper.readobject( args.config )
+        cfg = tomlconfig["server"]
     else:
         cfg = {}
 
@@ -118,7 +119,7 @@ if __name__ == "__main__":
 
     # Set default URLs
     if cfg.get( "url" ) is None: 
-        api = cfg["api"]
+        api = cfg["API"]
         if api == "ollama":
            cfg["url"] = "http://localhost:11434/api/chat"
         elif api == "openai":
@@ -126,7 +127,7 @@ if __name__ == "__main__":
         else:
             raise Exception( "No URL provided." )
 
-    print( cfg )
+    print("Config",cfg)
 
     # Support for graderstate is currently not implemented; use a blank.
     graderstate_string = ""
@@ -141,7 +142,8 @@ if __name__ == "__main__":
     # Run the test
     if args.batch:
         r = batchprocess( qalist, lit, cfg=cfg, count=int(args.count)
-                        , gs=graderstate_string, mode=mode )
+                        , gs=graderstate_string, mode=mode 
+                        , debug=args.debug )
         with open(args.outfile, "w") as f:
              toml.dump(qalist,f)
     elif mode == "moodle":
