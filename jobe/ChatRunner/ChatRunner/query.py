@@ -92,7 +92,7 @@ def dumpResponse(svar,debug=False):
     # Parse the JSON string
     try:
        testlist = json.loads(svar_fetched,strict=False)
-    except JSONDecodeError as e:
+    except json.JSONDecodeError as e:
         return {
                 "rawfeedback" : svar_fetched,
                 "decodeerror" : str(e)
