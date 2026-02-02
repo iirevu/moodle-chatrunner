@@ -115,6 +115,29 @@ readable for human users in the command line interface.
 It is possible to add the `-T` option to run outside the sandbox, which
 gives more debug information.
 
+### Batch testing 
+
+For batch testing, question/answer tests can be defined in a TOML file.
+There is no reference documentation, but there are examples to demonstrate 
+the format.
++ `Example/exphil.toml` is complete, but does not use grading criteria.
++ `Example/optics.toml` has only nonsense answers, but demonstrate the
+  use of grading criteria.
+
+To run a batch test, the following command can be used.
+(Remember to add API key to the config file.)
+```sh
+python -m ChatRunner --config idun.toml --batch Example/exphil.toml --outfile Example/exphil-idun.toml --count 5 
+```
+Sample output is included in the repo, showing how feedback from AI is added 
+to the originl sample object from the input TOML file.
+
+As always a config file is required, supplying URL, API key, and any other data 
+the server requires.  The TOML format allows listing multiple models, and the
+batch processor will test each model in turn.
+
+The `--count` option specifies the number of queries made per student answer.
+This is intended for consistency testing.
 
 ### Using Ollama
 
