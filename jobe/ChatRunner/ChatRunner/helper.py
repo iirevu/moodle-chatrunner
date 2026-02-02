@@ -14,6 +14,7 @@ def readobject(fn):
     either .json or .toml.
     """
     with open(fn, "rb") as file:
+        print( "Opened file", fn )
         if fn[-5:] == ".toml":
              r = toml.load(file)
         elif fn[-5:] == ".json":

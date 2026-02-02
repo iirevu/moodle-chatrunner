@@ -79,9 +79,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.batch:
-        with open(args.batch, "r") as f:
-            print( "Opened file", args.batch )
-            qalist = toml.load(f)
+        qalist = toml.load(args.batch)
     else:
         # Read support files
         if args.problem is None:
