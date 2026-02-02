@@ -81,8 +81,12 @@ def dumpResponse(svar,debug=False):
     try:
        svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
     except Exception as e:
-        print( "svar (crash):", svar )
-        raise Exception( "No JSON list found in response string." )
+        ob = Test(testName="No JSON list found in response string.")
+        ob.addResult( "rawfeedback", svar )
+        ob.addResult( "decodeerror", str(e) )
+        if debug:
+            print( ob )
+        return [ ob ]
 
     # Debug output
     if debug:
@@ -93,10 +97,12 @@ def dumpResponse(svar,debug=False):
     try:
        testlist = json.loads(svar_fetched,strict=False)
     except json.JSONDecodeError as e:
-        return {
-                "rawfeedback" : svar_fetched,
-                "decodeerror" : str(e)
-                }
+        ob = Test(testName="Malformed JSON result")
+        ob.addResult( "rawfeedback", svar_fetched )
+        ob.addResult( "decodeerror", str(e) )
+        if debug:
+            print( ob )
+        return [ ob ]
 
     # Create Test objects and return
     return [ makeTest(test) for test in testlist ]
