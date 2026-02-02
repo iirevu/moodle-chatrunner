@@ -14,6 +14,7 @@ __pycache__
 output
 sandboxparams
 idun-*.json
+idun-*.toml
 chatgpt-*.json
 t
 test.*
