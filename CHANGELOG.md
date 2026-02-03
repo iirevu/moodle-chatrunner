@@ -13,6 +13,12 @@
 + Use conversation history in the OpenAI API to give previous answers and feedback.
 + Refactoring: GraderState class, some simplifications
 
+### Added
+
++ Config in TOML format
++ Batch testing mode, taking question/answer collection from TOML
++ Optionally add question-specific grading criteria
+
 ### Fixed
 
 ## [0.1.0] - 2025-11-29
