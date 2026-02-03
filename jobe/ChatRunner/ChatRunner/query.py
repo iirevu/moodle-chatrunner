@@ -88,11 +88,6 @@ def dumpResponse(svar,debug=False):
             print( ob )
         return [ ob ]
 
-    # Debug output
-    if debug:
-       print( "svar_fetched" )
-       print( svar_fetched )
-
     # Parse the JSON string
     try:
        testlist = json.loads(svar_fetched,strict=False)
@@ -202,7 +197,7 @@ class Test:
       return json.dumps(self.result, indent=4)
 
    def __repr__(self):
-      return json.dumps({"Testobject": self.result})
+      return json.dumps({"Testobject": self.result}, indent=4)
 
    def load(self, str_repr):
       try:
