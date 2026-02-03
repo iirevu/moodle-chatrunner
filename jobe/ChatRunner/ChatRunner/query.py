@@ -84,6 +84,7 @@ def dumpResponse(svar,debug=False):
         ob = Test(testName="No JSON list found in response string.")
         ob.addResult( "rawfeedback", svar )
         ob.addResult( "decodeerror", str(e) )
+        ob.addResult( "type", "nontest" )
         if debug:
             print( ob )
         return [ ob ]
@@ -95,6 +96,7 @@ def dumpResponse(svar,debug=False):
         ob = Test(testName="Malformed JSON result")
         ob.addResult( "rawfeedback", svar_fetched )
         ob.addResult( "decodeerror", str(e) )
+        ob.addResult( "type", "nontest" )
         if debug:
             print( ob )
         return [ ob ]

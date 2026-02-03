@@ -180,11 +180,10 @@ class TestResults:
                            graderstate=None,
                            other_lines=False ):
        """
-       Return the test results as used by CodeRunner.
-       This is string representation of a JSON object.
+       Return the test results as a `dict`.
        """
        rl = [ test.asdict() for test in self.testresults ]
-       rl = [ x for x in rl if x is not None ]
+       rl = [ x for x in rl if not "gpt_svar" in x.keys() ]
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
