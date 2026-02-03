@@ -84,7 +84,7 @@ def dumpResponse(svar,debug=False):
         ob = Test(testName="No JSON list found in response string.")
         ob.addResult( "rawfeedback", svar )
         ob.addResult( "decodeerror", str(e) )
-        ob.addResult( "type", "nontest" )
+        ob.addResult( "type", "malformed" )
         if debug:
             print( ob )
         return [ ob ]
@@ -96,7 +96,7 @@ def dumpResponse(svar,debug=False):
         ob = Test(testName="Malformed JSON result")
         ob.addResult( "rawfeedback", svar_fetched )
         ob.addResult( "decodeerror", str(e) )
-        ob.addResult( "type", "nontest" )
+        ob.addResult( "type", "malformed" )
         if debug:
             print( ob )
         return [ ob ]
@@ -213,6 +213,12 @@ class Test:
                  }
       print( self )
 
+   def isTest(self):
+       """
+       Returns true if the object is a well-formed test, as opposed to containers
+       for raw LLM output or malformed output.
+       """
+       return self.testType() == "test"
    def dump(self):
       return self.__repr__()
    def formatMarkdown(self):

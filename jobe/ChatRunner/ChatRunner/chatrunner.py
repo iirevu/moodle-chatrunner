@@ -129,8 +129,7 @@ class TestResults:
 
       self.resultstable = Table(resultstable,tableHeader)
    def getOtherOutput(self):
-       return [ x["content"] for x in self.testresults 
-                if x.testType() == "nontest" ]
+       return [ x for x in self.testresults if not x.isTest() ]
    def __repr__(self):
       """
       Return the contents of the TestResults as a string.
