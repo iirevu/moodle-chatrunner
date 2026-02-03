@@ -130,19 +130,6 @@ class TestResults:
       self.resultstable = Table(resultstable,tableHeader)
    def getOtherOutput(self):
        return [ x for x in self.testresults if not x.isTest() ]
-   def __repr__(self):
-      """
-      Return the contents of the TestResults as a string.
-      """
-      contents = { "TestResultsObj": {
-            "testresults": [ t.dump() for t in self.testresults ],
-            "other_output": self.getOtherOutput(),
-            "tableHeader": self.tableHeader,
-            "resultstable": self.resultstable.asList(),
-            "frac": self.frac
-         }
-      }
-      return json.dumps(contents)
 
    def mark(self):
       """Compute the grade `frac` from the testResult."""
@@ -187,10 +174,17 @@ class TestResults:
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
                "otherfeedback": ol,
-               "testfeedback": rl,
-               "graderstate": graderstate }
+               "tableHeader": self.tableHeader,
+               "testfeedback": rl }
+       if graderstate:
+           obj["graderstate"] = graderstate 
        return obj
-       # return json.dumps( obj, ensure_ascii=False )
+   def __repr__(self):
+      """
+      Return the contents of the TestResults as a string.
+      """
+      contents = { "TestResultsObj": self.getFeedbackObjedt( other_lines=True ) }
+      return json.dumps(contents)
    def getCodeRunnerOutput(self,
                            graderstate=None,
                            other_lines=False ):
