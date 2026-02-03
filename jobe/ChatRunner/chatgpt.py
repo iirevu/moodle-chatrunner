@@ -23,7 +23,17 @@ sandboxparams = {
 # Load the problem text
 with open('problem.md', 'r') as file:
     problem = file.read()
-with open('literature.json', 'r') as file:
-    literatur = json.load(file)
+try:
+    with open('literature.json', 'r') as file:
+        literatur = json.load(file)
+except FileNotFoundError:
+    literatur = {}
+try:
+    with open('criteria.md', 'r') as file:
+        criteria = json.load(file)
+except FileNotFoundError:
+    criteria = ""
 
-print( runAnswer( problem, studans, literatur, graderstate_string, sandboxparams, qid ) )
+print( runAnswer( problem, studans, literatur, criteria
+                 , gs=graderstate_string
+                 , sandbox=sandboxparams, qid=qid ) )

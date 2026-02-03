@@ -83,5 +83,4 @@ def runAnswer(problem,studans,literatur={},criteria="",gs="",sandbox=None,qid=0,
         print( "== runAnswer in debug mode ==" )
         return eng.getMarkdownResult( )
     else:
-       obj = eng.getResult().getCodeRunnerOutput( other_lines=True )
-       return json.dumps( obj, ensure_ascii=False )
+       return  eng.getResult().getCodeRunnerOutput( other_lines=True )
