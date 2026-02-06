@@ -1,10 +1,10 @@
 [server]
 "API"="openai"
-"url"="https://idun-llm.hpc.ntnu.no/api/chat/completions"
+"url"="https://llm.hpc.ntnu.no/v1/chat/completions"
 "OPENAI_API_KEY"="<INSERT OWN KEY>"
-"model"=[ "openai/gpt-oss-120b"
+"model"=[ "NorwAI/NorwAI-Magistral-24B-reasoning"
+        , "mistralai/Mistral-Large-3-675B-Instruct-2512-NVFP4"
+        , "openai/gpt-oss-120b"
 	, "moonshotai/Kimi-K2.5"
 	, "Qwen/Qwen3-Coder-30B-A3B-Instruct"
-	, "NorwAI/NorwAI-Magistral-24B-reasoning"
-	, "mistralai/Mistral-Large-3-675B-Instruct-2512-NVFP4"
 	]
