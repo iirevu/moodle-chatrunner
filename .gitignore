@@ -19,3 +19,4 @@ idun-*.toml
 chatgpt-*.json
 t
 test.*
+_test*

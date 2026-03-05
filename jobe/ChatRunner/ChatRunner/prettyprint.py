@@ -1,6 +1,7 @@
 # (C) 2026: Hans Georg Schaathun <georg@schaathun.net> 
 
 import toml
+import tomllib
 import argparse
 
 if __name__ == "__main__":
@@ -13,9 +14,12 @@ if __name__ == "__main__":
 
     if args.file is None:
         raise Exception( "No file given" )
-    feedback = toml.load( args.file )
+    with open( args.file, "rb" ) as f:
+        feedback = tomllib.load( f )
 
-    print( "Top level:", feedback.keys )
+    # feedback = toml.load( args.file )
 
-    qs = toml["questions"]
+    print( "Top level:", feedback.keys() )
+
+    qs = feedback["questions"]
     print( "Questions", type(qs), len(qs) )
