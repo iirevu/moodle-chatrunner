@@ -317,8 +317,13 @@ class Engine:
         return self.graderstate
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.getPrompt(), self.studans, debug=debug)
-        if debug: debugPrintResults(response)
+        prompt = self.getPrompt()
+        response = queryAI(self.sandbox, prompt, self.studans, debug=debug)
+        if debug: 
+            print( "== prompt ==" )
+            print( prompt )
+            print( "== END prompt ==" )
+            debugPrintResults(response)
 
         testResults = TestResults(ob=response)
         testResults.finalise()
