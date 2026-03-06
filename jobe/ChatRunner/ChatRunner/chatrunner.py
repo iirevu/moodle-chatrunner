@@ -240,19 +240,6 @@ def debugPrintResults(testResults):
         i += 1
 
 
-def getPrompt(problem,literatur,gs,mdfn=getfn("prompt.md")):
-    try:
-       prevans = gs[ "studans" ][-1]
-    except:
-       prevans = "Ingen tidligere svar gitt"
-
-    with open(mdfn, 'r') as file:
-        prompt = file.read()
-    prompt = prompt.format( problem=problem,
-                            literatur=literatur,
-                            prevans=prevans,
-                           )
-    return prompt
 
 class GraderState:
     """The GraderState class wraps a graderstate object from Moodle.
@@ -321,7 +308,20 @@ class Engine:
         self.sandbox = sandbox
         self.debug = debug
     def getPrompt(self,debug=None):
-        return getPrompt(self.problem,self.literatur,self.graderstate)
+        gs = self.graderstate
+        mdfn=getfn("prompt.md")
+        try:
+           prevans = gs[ "studans" ][-1]
+        except:
+           prevans = "Ingen tidligere svar gitt"
+
+        with open(mdfn, 'r') as file:
+            prompt = file.read()
+        prompt = prompt.format( problem=self.problem,
+                            literatur=self.literatur,
+                            prevans=prevans,
+                           )
+        return prompt
     def getHistory(self,debug=None):
         return self.graderstate.getHistory()
     def getGraderState(self,debug=None):
@@ -363,8 +363,10 @@ class Engine:
 
 class NewEngine(Engine):
     def getPrompt(self,mdfn=getfn("prompt2.md"),debug=None):
+        if debug is None: debug = self.debug
         with open(mdfn, 'r') as file:
             template = file.read()
+        print( f"[getPrompt] mdfn={mdfn}" )
         sys = template.format( problem=self.problem
                              , criteria=self.criteria
                              , literatur=self.literatur )

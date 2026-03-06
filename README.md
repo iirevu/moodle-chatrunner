@@ -108,6 +108,8 @@ There are different modes to test different internal features.
 Use the `--mode` option with
 + `moodle (alt. `--moodle`) runs the test in the sandbox as used in moodle.
 + `dump` (alt. `--debug`)  dumps and reparses the output as is required by the sandbox.
++ `baseline` uses the old prompt, using plain text to describe the JSON format
++ `new` uses the new prompt using the API to specify the JSON schema
 
 This is work in progress, and we have not yet been able to format the
 output, which is intended to be parsed by CodeRunner, so that it is
