@@ -35,6 +35,18 @@ if __name__ == "__main__":
             result.append( "" )
             result.append( "> " + a["ans]" )
             result.append( "" )
+            for fno, fb in enumerate( a["feedback"] ):
+                result.append( f"#### Feedback no. {qno}-{rno}-{fno}" )
+                result.append( "" )
+                result.append( f"+ **fraction:** {fb["fraction"]:.2f}" )
+                result.append( f"+ **model:** {fb["model"]}" )
+                result.append( "" )
+                for tno, tst in enumerate( fb["testfeedback"] ):
+                    result.append( f"##### Test {fno}: {tst["name"]}" )
+                    result.append( "" )
+                    result.append( f"+ **passed:** {tst["passed"]}" )
+                    result.append( f"+ **mark:** {tst["mark"]}" )
+
     with open(args.outfile, "w") as f:
         f.write("\n".join(result))
 
