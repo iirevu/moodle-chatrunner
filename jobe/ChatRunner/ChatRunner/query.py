@@ -13,7 +13,7 @@ from .helper import getfn
 
 def queryAI(sandbox, prompt, ans=None, debug=False ):
    """
-   Query the languagemodel.  It retunrs a list of `Test` objects.
+   Query the languagemodel.  It returns a list of `Test` objects.
 
    It has two different modes.  If `ans=None`, the `prompt` should be
    a list of role/content objects, including a system prompt and the
@@ -55,8 +55,9 @@ def dumpSvardata(svar):
     """
     svardata = Test(testName="svardata")
     svardata.addResult("gpt_svar", json.dumps(svar))
+    svardata.addResult("type", "gpt_svar")
     return svardata
-def makeTest(test):
+def makeTest(test) -> Test:
     try:
         ob = Test(testName=test.get( "testName", "Unnamed test" ))
     except Exception as e:
@@ -171,7 +172,7 @@ class Test:
    class.
 
    A `Test` may also contain the raw response from the LLM, in which
-   case it hqas name «gpt_svar».
+   case it has name «gpt_svar».
    """
    def __init__(self, testName=None, content=None):
       self.result = {"name": testName, "passed": False}

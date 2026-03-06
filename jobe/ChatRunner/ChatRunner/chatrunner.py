@@ -43,7 +43,10 @@ class TestResults:
    The results table (`Table` object) is formatted from the `Test` objects.
    A grade (`frac`) is calculated as the fraction of passed tests.
    """
-   def __init__(self, output=None, ob=None, exitCode=0, debug=False):
+   def __init__(self, output : str = None
+                , ob : List[Test] = None
+                , exitCode : int = 0
+                , debug : bool = False):
       """
       output: Output fra testprogram
 
@@ -68,11 +71,17 @@ class TestResults:
               { "description": "CodeTester ran without loaded tests" } }
          self.testresults = None
       if output is not None:
+          if not isinstance(output,str):
+              raise Exception( "TestResult() - output argument should be str." )
           if ob is not None:
               raise Exception( "Either output or ob should be given, not both." )
           self.testresults = [ Test(content=line)
                               for line in output.splitlines() ]
       elif ob is not None:
+          if not isinstance(ob,list):
+              raise Exception( "TestResult() - ob argument should be list of Test objects." )
+          if not all(isinstance(elem,Test) for elem in ob:
+              raise Exception( "TestResult() - all elements of ob should be Test objects." )
           self.testresults = ob
       else:
           raise Exception( "Either output or ob should be given." )

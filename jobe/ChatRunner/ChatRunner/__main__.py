@@ -143,11 +143,12 @@ if __name__ == "__main__":
     if args.batch:
         r = batchprocess( qalist, lit, cfg=cfg, count=int(args.count)
                         , gs=graderstate_string, mode=mode 
-                        , debug=args.debug )
+                        , debug=args.verbose )
         with open(args.outfile, "w") as f:
              toml.dump(qalist,f)
     elif mode == "moodle":
-        r = runAnswer( prob, ans, lit, criteria, graderstate_string, cfg, debug=args.verbose, markdown=args.markdown ) 
+        r = runAnswer( prob, ans, lit, criteria, graderstate_string, cfg, 
+                      debug=args.verbose, markdown=args.markdown ) 
         print( "== Output of runAnswer ==" )
         print( r )
     else:
