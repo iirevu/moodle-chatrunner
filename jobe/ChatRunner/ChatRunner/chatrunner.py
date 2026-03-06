@@ -308,6 +308,7 @@ class Engine:
     def __init__(self,problem,studans=None,
                  literatur={},criteria="",gs="",sandbox={},qid=0,
                  debug=False):
+        print( "[Engine] init - debug mode" )
         if studans is None:
             raise Exception("Not implemented")
         else:
@@ -408,6 +409,9 @@ def testProgram(problem,studans,literatur={},criteria="",gs="",sandbox={},qid=0,
     In general, this function should be used to test the functionality 
     and the language models from the command line.
     """
+
+    if debug:
+        print( f"[testProgram] debug; mode={mode}." )
 
     if mode == "baseline":
        eng = Engine(problem,studans,literatur,criteria,gs,sandbox,qid,debug)
