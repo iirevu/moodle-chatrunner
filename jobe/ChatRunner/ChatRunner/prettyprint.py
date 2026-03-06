@@ -4,6 +4,9 @@ import toml
 import tomllib
 import argparse
 
+testKeys = ['name', 'passed', 'mark', 'description', 'resultat']
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog = 'ChatRunner.prettyprint',
@@ -29,25 +32,40 @@ if __name__ == "__main__":
         result.append( f"## Question {qno+1}" )
         result.append( "" )
         result.append( "> " + q["question"] )
+        if len( q ) > 1:
+           result.append( "" )
+           result.append( f"Keys: {q.keys()}" )
         result.append( "" )
         for ano, a in enumerate( q["answers"] ):
             result.append( f"### Answer no. {qno+1}-{ano+1}" )
             result.append( "" )
             result.append( "> " + a["ans"] )
             result.append( "" )
+            result.append( f"Keys: {a.keys()}" )
+            result.append( "" )
             for fno, fb in enumerate( a["feedback"] ):
                 result.append( f"#### Feedback no. {qno+1}-{ano+1}-{fno+1}" )
                 result.append( "" )
                 result.append( f"+ **fraction:** {fb["fraction"]:.2f}" )
                 result.append( f"+ **model:** {fb["model"]}" )
+                result.append( f"+ **keys:** {fb.keys()}" )
                 result.append( "" )
                 for tno, tst in enumerate( fb["testfeedback"] ):
                     result.append( f"##### Test {tno+1}: {tst["name"]}" )
                     result.append( "" )
+                    if "description" in tst:
+                        result.append( f"+ **description:** {tst["description"]}" )
                     if "passed" in tst:
                         result.append( f"+ **passed:** {tst["passed"]}" )
                     if "mark" in tst:
                         result.append( f"+ **mark:** {tst["mark"]}" )
+                    ks = set( tst.keys() )
+                    ds = set( tst.keys() ) - ks
+                    if len(ds)>0:
+                        result.append( f"+ **Ubrukte felt:** {ds}" )
+                    if "resultat" in tst:
+                        result.append( "" )
+                        result.append( f"> {tst["resultat"]}" )
                     result.append( "" )
 
     with open(args.outfile, "w") as f:
