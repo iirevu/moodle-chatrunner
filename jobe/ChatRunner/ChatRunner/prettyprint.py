@@ -6,8 +6,8 @@ import argparse
 
 qKeys = {'question', 'answers'}
 ansKeys = { 'ans', 'feedback' }
-fbKeys = { "model", "fraction", "testfeedback", "otherfeedback" }
-testKeys = {'name', 'passed', 'mark', 'description', 'resultat'}
+fbKeys = { "model", "fraction", "testresults", "testfeedback", "otherfeedback", "tableHeader" }
+testKeys = {'name', 'passed', 'mark', 'description', 'resultat', "type", "decodeerror" }
 
 
 if __name__ == "__main__":
@@ -54,7 +54,11 @@ if __name__ == "__main__":
                 result.append( f"+ **fraction:** {fb["fraction"]:.2f}" )
                 result.append( f"+ **model:** {fb["model"]}" )
                 if fb.get( "otherfeedback", None):
-                    result.append( f"+ other feedback exists" )
+                    for ofb in fb["otherfeedback"]:
+                        if ofb.get( "type", None ) == "gpt_svar":
+                            result.append( "+ `gpt_svar` ignorert" )
+                        else:
+                            result.append( f"+ **other feedback** {ofb}" )
                 ks = set( fb.keys() ) - fbKeys
                 if len(ks)>0:
                         result.append( f"+ **Ubrukte felt:** {ks}" )
@@ -68,6 +72,10 @@ if __name__ == "__main__":
                         result.append( f"+ **passed:** {tst["passed"]}" )
                     if "mark" in tst:
                         result.append( f"+ **mark:** {tst["mark"]}" )
+                    if "type" in tst:
+                        result.append( f"+ **type:** {tst['type']}" )
+                    if "decodeerror" in tst:
+                        result.append( f"+ **feilmelding:** {tst["decodeerror"]}" )
                     ks = set( tst.keys() ) - testKeys
                     if len(ks)>0:
                         result.append( f"+ **Ubrukte felt:** {ks}" )
