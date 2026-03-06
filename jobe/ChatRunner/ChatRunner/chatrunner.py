@@ -8,6 +8,7 @@ function for ChatRunner.
 import subprocess, base64, json, os
 from .query import Test, queryAI
 from .helper import getfn
+from typing import List
 
 class Table:
     """Representation of a table with header and a list of rows.

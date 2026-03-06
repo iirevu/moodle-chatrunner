@@ -49,6 +49,86 @@ def queryAI(sandbox, prompt, ans=None, debug=False ):
    r.extend( dumpResponse( svar ) )
    return r
 
+class Test:
+   """
+   A `Test` object represents a single test assessed by the AI.
+   It is used as the main constituent element in the `TestResults`
+   class.
+
+   A `Test` may also contain the raw response from the LLM, in which
+   case it has name «gpt_svar».
+   """
+   def __init__(self, testName=None, content=None):
+      self.result = {"name": testName, "passed": False}
+      if content:
+          self.load( content )
+
+   def addResult(self, field_name, field_data):
+      """
+      Add resultdata. Data has a key (field_name) and value (field_data)
+      """
+      self.result.update({field_name: field_data})
+
+   def addResults(self, res_dict):
+      for k, v in res_dict.items():
+         self.addResult(k,v)
+
+   def pass_test(self, passed):
+      self.result["passed"] = passed
+   def testType(self):
+       return self.result.get("type","test")
+
+   def asdict(self):
+      return self.result
+   def __str__(self):
+      return json.dumps(self.result, indent=4)
+
+   def __repr__(self):
+      return json.dumps({"Testobject": self.result}, indent=4)
+
+   def load(self, str_repr):
+      try:
+         obj = json.loads(str_repr)
+         self.result = obj["Testobject"]
+      except:
+         self.result = {
+                 "name" : "nontest",
+                 "type" : "nontest",
+                 "content" : str_repr
+                 }
+      print( self )
+
+   def isTest(self):
+       """
+       Returns true if the object is a well-formed test, as opposed to containers
+       for raw LLM output or malformed output.
+       """
+       return self.testType() == "test"
+   def dump(self):
+      return self.__repr__()
+   def formatMarkdown(self):
+      """Return a string presenting the test result in Markdown."""
+      result = self.result
+      feedback = False
+      if result["passed"]:
+          header = f'## Passed: {result["name"]}\n'
+      elif "resultat" in result.keys():
+          header = f'## Failed: {result["name"]}\n'
+      else: return None
+      return ( header + f'\n{result["resultat"]}\n' )
+   def formatResult(self):
+      """Return a string presenting the test result in HTML."""
+      result = self.result
+      feedback = False
+      if result["passed"]:
+            color = "Lime"
+      elif "resultat" in result.keys():
+            color = "Red"
+      else: return None
+      return ( f'<h2 style="background-color:{color};">{result["name"]}</h2>'
+           + f'\n<p>{result["resultat"]} </p>' )
+
+
 def dumpSvardata(svar):
     """
     Create a Test object containing the feedback from LLM.
@@ -164,83 +244,4 @@ def chatRequest(sandbox,prompt,ans=None,debug=False):
     if debug:
         print( json.dumps( data, indent=2 ) )
     return requests.post(openai_url, headers=headers, json=data)
-
-class Test:
-   """
-   A `Test` object represents a single test assessed by the AI.
-   It is used as the main constituent element in the `TestResults`
-   class.
-
-   A `Test` may also contain the raw response from the LLM, in which
-   case it has name «gpt_svar».
-   """
-   def __init__(self, testName=None, content=None):
-      self.result = {"name": testName, "passed": False}
-      if content:
-          self.load( content )
-
-   def addResult(self, field_name, field_data):
-      """
-      Add resultdata. Data has a key (field_name) and value (field_data)
-      """
-      self.result.update({field_name: field_data})
-
-   def addResults(self, res_dict):
-      for k, v in res_dict.items():
-         self.addResult(k,v)
-
-   def pass_test(self, passed):
-      self.result["passed"] = passed
-   def testType(self):
-       return self.result.get("type","test")
-
-   def asdict(self):
-      return self.result
-   def __str__(self):
-      return json.dumps(self.result, indent=4)
-
-   def __repr__(self):
-      return json.dumps({"Testobject": self.result}, indent=4)
-
-   def load(self, str_repr):
-      try:
-         obj = json.loads(str_repr)
-         self.result = obj["Testobject"]
-      except:
-         self.result = {
-                 "name" : "nontest",
-                 "type" : "nontest",
-                 "content" : str_repr
-                 }
-      print( self )
-
-   def isTest(self):
-       """
-       Returns true if the object is a well-formed test, as opposed to containers
-       for raw LLM output or malformed output.
-       """
-       return self.testType() == "test"
-   def dump(self):
-      return self.__repr__()
-   def formatMarkdown(self):
-      """Return a string presenting the test result in Markdown."""
-      result = self.result
-      feedback = False
-      if result["passed"]:
-          header = f'## Passed: {result["name"]}\n'
-      elif "resultat" in result.keys():
-          header = f'## Failed: {result["name"]}\n'
-      else: return None
-      return ( header + f'\n{result["resultat"]}\n' )
-   def formatResult(self):
-      """Return a string presenting the test result in HTML."""
-      result = self.result
-      feedback = False
-      if result["passed"]:
-            color = "Lime"
-      elif "resultat" in result.keys():
-            color = "Red"
-      else: return None
-      return ( f'<h2 style="background-color:{color};">{result["name"]}</h2>'
-           + f'\n<p>{result["resultat"]} </p>' )
 
