@@ -129,7 +129,7 @@ class TestResults:
 
       self.resultstable = Table(resultstable,tableHeader)
    def getOtherOutput(self):
-       return [ x for x in self.testresults if not x.isTest() ]
+       return [ x.asdict() for x in self.testresults if not x.isTest() ]
 
    def mark(self):
       """Compute the grade `frac` from the testResult."""
