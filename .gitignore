@@ -20,3 +20,4 @@ chatgpt-*.json
 t
 test.*
 _test*
+venv
