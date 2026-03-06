@@ -80,7 +80,7 @@ class TestResults:
       elif ob is not None:
           if not isinstance(ob,list):
               raise Exception( "TestResult() - ob argument should be list of Test objects." )
-          if not all(isinstance(elem,Test) for elem in ob:
+          if not all(isinstance(elem,Test) for elem in ob):
               raise Exception( "TestResult() - all elements of ob should be Test objects." )
           self.testresults = ob
       else:
