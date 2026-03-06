@@ -9,8 +9,8 @@ if __name__ == "__main__":
         prog = 'ChatRunner.prettyprint',
         description = 'Pretty print AI feedback from TOML output',
         epilog = '')
-    parser.add_argument('outfile',help="Output file")
     parser.add_argument('file',help="Feedback file")
+    parser.add_argument('outfile',help="Output file")
     args = parser.parse_args()
 
     if args.file is None:
@@ -26,26 +26,29 @@ if __name__ == "__main__":
     print( "Questions", type(qs), len(qs) )
     result = [ "# ChatRunner test", "" ]
     for qno, q in enumerate(qs):
-        result.append( f"## Question {qno}" )
+        result.append( f"## Question {qno+1}" )
         result.append( "" )
-        result.append( "> " + q["question]" )
+        result.append( "> " + q["question"] )
         result.append( "" )
         for ano, a in enumerate( q["answers"] ):
-            result.append( f"### Answer no. {qno}-{rno}" )
+            result.append( f"### Answer no. {qno+1}-{ano+1}" )
             result.append( "" )
-            result.append( "> " + a["ans]" )
+            result.append( "> " + a["ans"] )
             result.append( "" )
             for fno, fb in enumerate( a["feedback"] ):
-                result.append( f"#### Feedback no. {qno}-{rno}-{fno}" )
+                result.append( f"#### Feedback no. {qno+1}-{ano+1}-{fno+1}" )
                 result.append( "" )
                 result.append( f"+ **fraction:** {fb["fraction"]:.2f}" )
                 result.append( f"+ **model:** {fb["model"]}" )
                 result.append( "" )
                 for tno, tst in enumerate( fb["testfeedback"] ):
-                    result.append( f"##### Test {fno}: {tst["name"]}" )
+                    result.append( f"##### Test {tno+1}: {tst["name"]}" )
                     result.append( "" )
-                    result.append( f"+ **passed:** {tst["passed"]}" )
-                    result.append( f"+ **mark:** {tst["mark"]}" )
+                    if "passed" in tst:
+                        result.append( f"+ **passed:** {tst["passed"]}" )
+                    if "mark" in tst:
+                        result.append( f"+ **mark:** {tst["mark"]}" )
+                    result.append( "" )
 
     with open(args.outfile, "w") as f:
         f.write("\n".join(result))
