@@ -1,7 +1,7 @@
 # (C) 2025-26: Jonas Julius Harang, Hans Georg Schaathun <hasc@ntnu.no>
 
 from typing import List
-import json
+import re, json
 
 class Table:
     """Representation of a table with header and a list of rows.
@@ -34,11 +34,11 @@ class Test:
    A `Test` may also contain the raw response from the LLM, in which
    case it has name «gpt_svar».
    """
-   def __init__(self, testName=None, content=None):
+   def __init__(self, testName=None, content=None, type="test"):
       if content:
-          self.result = ob
+          self.result = content
       else:
-          self.result = {"name": testName, "passed": False}
+          self.result = {"name": testName, "passed": False, "type" : type }
 
    def addResult(self, field_name, field_data):
       """
@@ -98,13 +98,13 @@ def dumpSvardata(svar):
     """
     Create a Test object containing the feedback from LLM.
     """
-    svardata = Test(testName="Raw GPT Response")
+    svardata = Test(testName="Raw GPT Response",type="rawresponse")
     svardata.addResult("rawresponse", json.dumps(svar))
     svardata.addResult("type", "rawresponse")
     return svardata
 def makeTest(test) -> Test:
     try:
-        ob = Test(testName=test.get( "testName", "Unnamed test" ))
+        ob = Test(testName=test.get( "testName", "Unnamed test" ),type="test")
     except Exception as e:
         print(test)
         raise(e)
@@ -202,21 +202,41 @@ class TestResults:
               if ob is not None:
                   raise Exception( 
                          "Either output or ob should be given, not both." )
-              ob = json.loads( output )
+              try:
+                  ob = json.loads( output )
+              except json.decoder.JSONDecodeError as e:
+                  print( "[TestResults] JSON decode error" )
+                  print( output )
+                  raise e
           elif ob is None:
               raise Exception( "One of output, ob, or raw should be given." )
-          self.rawresponse = Test( content=ob["rawresponse"] )
-          self.testresults = [ Test(content=x) for x in ob["testresults"] ]
+          try:
+              self.rawresponse = Test( content=ob["rawresponse"] )
+              self.testresults = [ Test(content=x) for x in ob["testresults"] ]
+          except KeyError as e:
+              print( "[TestResults] KeyError" )
+              print( ob )
+              raise e
       if debug:
           cnt = {}
           for test in self.testresults:
-              tp = test.result["type"]
+              try:
+                  tp = test.result["type"]
+              except KeyError as e:
+                  print( test.result )
+                  raise e
               cnt[tp] = cnt.get("tp",0) + 1
           print( cnt )
       self.numTests = len(self.testresults)
 
    def __iter__(self): return self.testresults.__iter__()
-   def debugPrintResults(self): return debugPrintResults(self.testresults)
+   def debugPrintResults(self): 
+       """Print a list of Test objects for debugging purposes."""
+       i = 1
+       for test in self:
+           print( f"==== test {i} ====" )
+           print(test)
+           i += 1
    def finalise(self,debug=False):
       """
       Finalise the TestResults object, running makeResultTable()
@@ -252,6 +272,7 @@ class TestResults:
       # self.tableRemap = tableRemap
       if self.debug: self.debugPrintResults()
 
+      idx = 1
       for test in self.testresults:
          row = []
          for column in self.tableHeader:
@@ -260,7 +281,9 @@ class TestResults:
             except:
                row = []
                break
-         if self.debug: print( i, row )
+         if self.debug: 
+             print( idx, row )
+             idx += 1
          if row != []:
             resultstable.append(row)
 
@@ -326,6 +349,7 @@ class TestResults:
       Return the contents of the TestResults as a string.
       """
       return json.dumps( self.asdict() )
+   def dump(self): return self.__repr__()
    def getCodeRunnerOutput(self,
                            graderstate=None,
                            other_lines=False ):

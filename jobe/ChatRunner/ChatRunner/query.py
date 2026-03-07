@@ -8,7 +8,7 @@ by the LLM, as well as the query routine `queryAI()`.  Other definitions
 should be considered internal.
 """
 
-import requests, re, json
+import requests, json
 from .helper import getfn
 from .TestResults import TestResults, Test
 

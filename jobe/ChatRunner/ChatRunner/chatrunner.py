@@ -13,15 +13,6 @@ from .TestResults import Table, TestResults, Test
 
 from typing import List
 
-
-def debugPrintResults(testResults):
-    """Print a list of Test objects for debugging purposes."""
-    i = 1
-    for test in testResults:
-        print( f"==== test {i} ====" )
-        print(test)
-        i += 1
-
 class GraderState:
     """The GraderState class wraps a graderstate object from Moodle.
     The constructor parses JSON from a string or creates an empty
@@ -115,7 +106,7 @@ class Engine:
             print( "== prompt ==" )
             print( prompt )
             print( "== END prompt ==" )
-            debugPrintResults(response)
+            response.debugPrintResults()
 
         testResults = TestResults(ob=response)
         testResults.finalise()
@@ -157,7 +148,7 @@ class NewEngine(Engine):
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.getPrompt(), debug=debug)
-        if debug: debugPrintResults(response)
+        if debug: response.debugPrintResults()
 
         testResults = TestResults(ob=response,debug=debug)
         testResults.finalise()
@@ -172,10 +163,11 @@ class DumpEngine(Engine):
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         response = queryAI(self.sandbox, self.getPrompt(), self.studans, debug=debug)
-        if debug: debugPrintResults(response)
+        if debug: response.debugPrintResults()
+
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.
-        output = "\n".join( [ x.dump() for x in response ] )
+        output = response.dump()
         testResults = TestResults(output,debug=debug)
         testResults.finalise()
         self.testResults = testResults
