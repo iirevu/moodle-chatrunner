@@ -344,7 +344,7 @@ class TestResults:
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
-               "rawresonse": self.getRawResponse(),
+               "rawresponse": self.getRawResponse(),
                "otherfeedback": ol,
                "tableHeader": self.tableHeader,
                "testfeedback": rl }
