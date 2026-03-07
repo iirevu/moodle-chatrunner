@@ -113,14 +113,13 @@ class Engine:
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         prompt = self.getPrompt()
-        response = queryAI(self.sandbox, prompt, self.studans, debug=debug)
+        testResults = queryAI(self.sandbox, prompt, self.studans, debug=debug)
         if debug: 
             print( "== prompt ==" )
             print( prompt )
             print( "== END prompt ==" )
-            response.debugPrintResults()
+            testResults.debugPrintResults()
 
-        testResults = TestResults(ob=response)
         testResults.finalise()
         self.testResults = testResults
         return testResults
@@ -151,10 +150,9 @@ class NewEngine(Engine):
 
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
-        response = queryAI(self.sandbox, self.getPrompt(), debug=debug)
+        testResults = queryAI(self.sandbox, self.getPrompt(), debug=debug)
         if debug: response.debugPrintResults()
 
-        testResults = TestResults(ob=response,debug=debug)
         testResults.finalise()
         self.testResults = testResults
         return testResults
