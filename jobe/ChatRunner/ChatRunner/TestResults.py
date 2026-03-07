@@ -64,27 +64,23 @@ class TestResults:
          self.results = { "failed":
               { "description": "CodeTester ran without loaded tests" } }
          self.testresults = None
-      if output is not None:
-          if not isinstance(output,str):
-              raise Exception( "TestResult() - output argument should be str." )
-          if ob is not None:
-              raise Exception( "Either output or ob should be given, not both." )
-          self.testresults = [ Test(content=line)
-                              for line in output.splitlines() ]
-      elif raw is not None:
+      if raw is not None:
           if not isinstance(raw,str):
               raise Exception( "TestResult() - raw data should be str." )
           self.rawresponse = dumpSvardata( raw )
           self.testresults = dumpResponse( raw )
-      elif ob is not None:
-          if not isinstance(ob,list):
-              raise Exception( "TestResult() - ob argument should be list of Test objects." )
-          if not all(isinstance(elem,Test) for elem in ob):
-              raise Exception( "TestResult() - all elements of ob should be Test objects." )
-          self.testresults = ob
       else:
-          raise Exception( "Either output or ob should be given." )
-
+          if output is not None:
+              if not isinstance(output,str):
+                  raise Exception( "TestResult() - output argument should be str." )
+              if ob is not None:
+                  raise Exception( 
+                         "Either output or ob should be given, not both." )
+              ob = json.loads( content )
+          elif ob is None:
+              raise Exception( "One of output, ob, or raw should be given." )
+          self.rawresponse = Test(content=ob["rawresponse"] 
+          self.testresults = [ Test(content=x) for x in ob["testresults"] ]
       if debug:
           cnt = {}
           for test in self.testresults:
@@ -202,8 +198,7 @@ class TestResults:
       """
       Return the contents of the TestResults as a string.
       """
-      contents = { "TestResultsObj": self.getFeedbackObjedt( other_lines=True ) }
-      return json.dumps(contents)
+      return json.dumps( self.asdict() )
    def getCodeRunnerOutput(self,
                            graderstate=None,
                            other_lines=False ):
@@ -228,7 +223,10 @@ class TestResults:
        return json.dumps( obj, ensure_ascii=False )
 
    def asdict(self):
-       return [ x.asdict() for x in self.testresults ]
+       return {
+         "rawresponse" : self.rawresponse.asdict(),
+         "testresults" : [ x.asdict() for x in self.testresults ]
+        }
    def phtml(self):
        """Return freeform feedback in HTML."""
        rl = [ test.formatResult() for test in self.testresults ]
@@ -239,6 +237,15 @@ class TestResults:
        rl = [ test.formatMarkdown() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
+   def getRawResponse(self,debug=None):
+        rl = [ test.asdict() for test in self.testresults ]
+        xs = [ x for x in rl if x["type"] == "rawresponse" ]
+        if len(xs) == 0:
+            print( self )
+            raise Exception( "No raw response" )
+        if len(xs) > 1:
+            raise Exception( "Multiple raw response entries" )
+        return( xs[0] )
 
 class Test:
    """
@@ -250,9 +257,10 @@ class Test:
    case it has name «gpt_svar».
    """
    def __init__(self, testName=None, content=None):
-      self.result = {"name": testName, "passed": False}
       if content:
-          self.load( content )
+          self.result = ob
+      else:
+          self.result = {"name": testName, "passed": False}
 
    def addResult(self, field_name, field_data):
       """
@@ -276,18 +284,6 @@ class Test:
 
    def __repr__(self):
       return json.dumps({"Test": self.result}, indent=4)
-
-   def load(self, str_repr):
-      try:
-         obj = json.loads(str_repr)
-         self.result = obj["Test"]
-      except:
-         self.result = {
-                 "name" : "nontest",
-                 "type" : "nontest",
-                 "content" : str_repr
-                 }
-      print( self )
 
    def isTest(self):
        """

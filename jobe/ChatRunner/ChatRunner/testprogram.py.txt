@@ -18,5 +18,4 @@ if sandboxparams is None:
 
 testResults = queryAI(sandboxparams, __prompt__, __student_answer__)
 
-for test in testResults:
-       print(test.dump())
+print(test.dump())
