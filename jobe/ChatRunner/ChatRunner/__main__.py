@@ -103,7 +103,10 @@ if __name__ == "__main__":
     # Read AI configuration from JSON or from arguments 
     if args.config:
         tomlconfig = helper.readobject( args.config )
-        cfg = tomlconfig["server"]
+        if "server" in tomlconfig:
+            cfg = tomlconfig["server"]
+        else:
+            cfg = tomlconfig
     else:
         cfg = {}
 
