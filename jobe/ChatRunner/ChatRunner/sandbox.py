@@ -1,3 +1,4 @@
+# (C) 2026: Hans Georg Schaathun <georg@schaathun.net>
 
 """
 This module provides the `runAnswer()` function which is used to run
