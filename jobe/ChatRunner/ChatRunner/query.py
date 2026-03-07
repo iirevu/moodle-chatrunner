@@ -3,9 +3,8 @@
 """
 Module handling the correspondence with the large language model LLM.
 
-It defines the `Test` class which represents an individual test defined
-by the LLM, as well as the query routine `queryAI()`.  Other definitions
-should be considered internal.
+The only function intended for export is `queryAI()`.
+Other definitions should be considered internal.
 """
 
 import requests, json
@@ -48,8 +47,6 @@ def queryAI(sandbox, prompt, ans=None, debug=False ):
 
    return TestResults( raw=svar )
 
-
-
 def extractAnswer(response,sandbox={},debug=False):
     """
     Extract the message content from the AI response.
@@ -73,7 +70,6 @@ def extractAnswer(response,sandbox={},debug=False):
        print( "== message content from AI ==" )
        print(svar)
     return svar
-
 
 def chatRequest(sandbox,prompt,ans=None,debug=False):
     """

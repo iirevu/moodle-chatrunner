@@ -3,6 +3,13 @@
 from typing import List
 import re, json
 
+"""
+Classes to manage feedback from LLM.  The LLM is expected to provide
+a list of tests, and each test is represented by the `Test` class.
+The `TestResults` class comprises a list of `Test` objects as well
+as the raw response from the LLM.
+"""
+
 class Table:
     """Representation of a table with header and a list of rows.
     It provides rendering in Markdown."""
