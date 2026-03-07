@@ -4,7 +4,10 @@ import toml
 import tomllib
 import argparse
 
-testKeys = ['name', 'passed', 'mark', 'description', 'resultat']
+qKeys = {'question', 'answers'}
+ansKeys = { 'ans', 'feedback' }
+fbKeys = { "model", "fraction", "testresults", "testfeedback", "otherfeedback", "tableHeader" }
+testKeys = {'name', 'passed', 'mark', 'description', 'resultat', "type", "decodeerror" }
 
 
 if __name__ == "__main__":
@@ -32,23 +35,33 @@ if __name__ == "__main__":
         result.append( f"## Question {qno+1}" )
         result.append( "" )
         result.append( "> " + q["question"] )
-        if len( q ) > 1:
-           result.append( "" )
-           result.append( f"Keys: {q.keys()}" )
+        ks = set( q.keys() ) - qKeys
+        if len(ks)>0:
+                        result.append( f"+ **Ubrukte felt:** {ks}" )
         result.append( "" )
         for ano, a in enumerate( q["answers"] ):
             result.append( f"### Answer no. {qno+1}-{ano+1}" )
             result.append( "" )
             result.append( "> " + a["ans"] )
             result.append( "" )
-            result.append( f"Keys: {a.keys()}" )
+            ks = set( a.keys() ) - ansKeys
+            if len(ks)>0:
+                        result.append( f"+ **Ubrukte felt:** {ks}" )
             result.append( "" )
             for fno, fb in enumerate( a["feedback"] ):
                 result.append( f"#### Feedback no. {qno+1}-{ano+1}-{fno+1}" )
                 result.append( "" )
                 result.append( f"+ **fraction:** {fb["fraction"]:.2f}" )
                 result.append( f"+ **model:** {fb["model"]}" )
-                result.append( f"+ **keys:** {fb.keys()}" )
+                if fb.get( "otherfeedback", None):
+                    for ofb in fb["otherfeedback"]:
+                        if ofb.get( "type", None ) == "gpt_svar":
+                            result.append( "+ `gpt_svar` ignorert" )
+                        else:
+                            result.append( f"+ **other feedback** {ofb}" )
+                ks = set( fb.keys() ) - fbKeys
+                if len(ks)>0:
+                        result.append( f"+ **Ubrukte felt:** {ks}" )
                 result.append( "" )
                 for tno, tst in enumerate( fb["testfeedback"] ):
                     result.append( f"##### Test {tno+1}: {tst["name"]}" )
@@ -59,10 +72,13 @@ if __name__ == "__main__":
                         result.append( f"+ **passed:** {tst["passed"]}" )
                     if "mark" in tst:
                         result.append( f"+ **mark:** {tst["mark"]}" )
-                    ks = set( tst.keys() )
-                    ds = set( tst.keys() ) - ks
-                    if len(ds)>0:
-                        result.append( f"+ **Ubrukte felt:** {ds}" )
+                    if "type" in tst:
+                        result.append( f"+ **type:** {tst['type']}" )
+                    if "decodeerror" in tst:
+                        result.append( f"+ **feilmelding:** {tst["decodeerror"]}" )
+                    ks = set( tst.keys() ) - testKeys
+                    if len(ks)>0:
+                        result.append( f"+ **Ubrukte felt:** {ks}" )
                     if "resultat" in tst:
                         result.append( "" )
                         result.append( f"> {tst["resultat"]}" )

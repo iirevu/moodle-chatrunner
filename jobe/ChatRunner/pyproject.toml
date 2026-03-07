@@ -12,7 +12,7 @@ authors = [
 description = 'Feedback from Large Language Models in Moodle'
 readme = "README.md"
 dependencies = [
-   "requests"
+   "requests", "toml"
    ]
 
 requires-python = ">=3.11"
