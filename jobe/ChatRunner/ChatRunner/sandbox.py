@@ -74,7 +74,9 @@ def runAnswer(problem,studans,literatur={},criteria="",gs="",sandbox=None,qid=0,
     if sandbox is None:
         raise Exception( "No sandbox received by runAnswer." )
 
-    eng = SandboxEngine(problem,studans,literatur,criteria=criteria,gs=gs,sandbox=sandbox,qid=qid,debug=debug)
+    eng = SandboxEngine(problem,studans,literatur,
+                        criteria=criteria,gs=gs,sandbox=sandbox,
+                        qid=qid,debug=debug)
     testResults = eng.queryAI()
     if debug: testResults.debugPrintResults()
     eng.advanceGraderstate( )
