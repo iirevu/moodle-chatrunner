@@ -151,7 +151,7 @@ class NewEngine(Engine):
     def queryAI(self,debug=None):
         if debug is None: debug = self.debug
         testResults = queryAI(self.sandbox, self.getPrompt(), debug=debug)
-        if debug: response.debugPrintResults()
+        if debug: testResults.debugPrintResults()
 
         testResults.finalise()
         self.testResults = testResults
