@@ -399,6 +399,6 @@ class TestResults:
        """
        Return the raw response given by the LLM.
        """
-       fb = res.getRawResponse().asdict()
+       fb = self.rawresponse.asdict()
        return( fb.get( "rawresponse" ) )
 
