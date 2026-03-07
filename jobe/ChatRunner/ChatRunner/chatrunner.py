@@ -3,6 +3,14 @@
 """
 This is the main library, defining the engine classes and auxiliary
 function for ChatRunner.
+
+The `Engine` class is the main API to manage queries to the LLM.
+Different subclasses exist,
++ `Engine` uses the original, naive prompt 
++ `NewEngine` makes better use of the API
++ `DumpEngine` tests the reparsing required in the sandbox
++ `SandboxEngine` (from `sandbox` module) tests the sandbox required
+  by `CodeRunner` in Moodle.
 """
 
 import subprocess, base64, json, os
@@ -65,6 +73,10 @@ class GraderState:
         return r
 
 class Engine:
+    """
+    The Engine class provides the API to process student responses
+    and get feedback from an LLM.  
+    """
     def __init__(self,problem,studans=None,
                  literatur={},criteria="",gs="",sandbox={},qid=0,
                  debug=False):
@@ -114,17 +126,10 @@ class Engine:
         return testResults
     def advanceGraderstate(self,debug=None):
         """
-        Advance the graderstate, adding the response from the AI.
+        Advance the graderstate, adding the raw response from the AI.
         """
-
-        if debug is None: debug = self.debug
-
         res = self.testResults
-
-        if debug:
-            print( "self.testResults is", type( res ) )
-
-        self.graderstate.addFeedback( res.getRawResponse().asdict() )
+        self.graderstate.addFeedback( res.getRawResponse() )
         return self.graderstate
     def getResult(self,debug=None):
         return self.testResults

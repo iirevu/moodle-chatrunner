@@ -344,7 +344,7 @@ class TestResults:
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
-               "rawresonse": self.getRawResponse().asdict(),
+               "rawresonse": self.getRawResponse(),
                "otherfeedback": ol,
                "tableHeader": self.tableHeader,
                "testfeedback": rl }
@@ -396,5 +396,9 @@ class TestResults:
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
    def getRawResponse(self,debug=None):
-        return( self.rawresponse )
+       """
+       Return the raw response given by the LLM.
+       """
+       fb = res.getRawResponse().asdict()
+       return( fb.get( "rawresponse" ) )
 
