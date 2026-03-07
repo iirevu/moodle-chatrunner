@@ -46,7 +46,7 @@ def queryAI(sandbox, prompt, ans=None, debug=False ):
        print( "queryAI() svar:", type(svar) )
        print( svar )
 
-   return TestResults( rawdata=svar )
+   return TestResults( raw=svar )
 
 
 

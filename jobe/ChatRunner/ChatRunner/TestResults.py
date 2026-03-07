@@ -1,6 +1,7 @@
 # (C) 2025-26: Jonas Julius Harang, Hans Georg Schaathun <hasc@ntnu.no>
 
 from typing import List
+import json
 
 class Table:
     """Representation of a table with header and a list of rows.
@@ -23,6 +24,131 @@ class Table:
         sep = "| " +  " | ".join( [ " :- " for _ in self.header ] ) + " |\n"
         l = [  "| " +  " | ".join( map(str,x) ) + " |" for x in self.contents ]
         return h + sep + "\n".join( l )
+
+class Test:
+   """
+   A `Test` object represents a single test assessed by the AI.
+   It is used as the main constituent element in the `TestResults`
+   class.
+
+   A `Test` may also contain the raw response from the LLM, in which
+   case it has name «gpt_svar».
+   """
+   def __init__(self, testName=None, content=None):
+      if content:
+          self.result = ob
+      else:
+          self.result = {"name": testName, "passed": False}
+
+   def addResult(self, field_name, field_data):
+      """
+      Add resultdata. Data has a key (field_name) and value (field_data)
+      """
+      self.result.update({field_name: field_data})
+
+   def addResults(self, res_dict):
+      for k, v in res_dict.items():
+         self.addResult(k,v)
+
+   def pass_test(self, passed):
+      self.result["passed"] = passed
+   def testType(self):
+       return self.result.get("type","test")
+
+   def asdict(self):
+      return self.result
+   def __str__(self):
+      return json.dumps(self.result, indent=4)
+
+   def __repr__(self):
+      return json.dumps({"Test": self.result}, indent=4)
+
+   def isTest(self):
+       """
+       Returns true if the object is a well-formed test, as opposed to containers
+       for raw LLM output or malformed output.
+       """
+       return self.testType() == "test"
+   def dump(self):
+      return self.__repr__()
+   def formatMarkdown(self):
+      """Return a string presenting the test result in Markdown."""
+      result = self.result
+      feedback = False
+      if result["passed"]:
+          header = f'## Passed: {result["name"]}\n'
+      elif "resultat" in result.keys():
+          header = f'## Failed: {result["name"]}\n'
+      else: return None
+      return ( header + f'\n{result["resultat"]}\n' )
+   def formatResult(self):
+      """Return a string presenting the test result in HTML."""
+      result = self.result
+      feedback = False
+      if result["passed"]:
+            color = "Lime"
+      elif "resultat" in result.keys():
+            color = "Red"
+      else: return None
+      return ( f'<h2 style="background-color:{color};">{result["name"]}</h2>'
+           + f'\n<p>{result["resultat"]} </p>' )
+
+
+def dumpSvardata(svar):
+    """
+    Create a Test object containing the feedback from LLM.
+    """
+    svardata = Test(testName="Raw GPT Response")
+    svardata.addResult("rawresponse", json.dumps(svar))
+    svardata.addResult("type", "rawresponse")
+    return svardata
+def makeTest(test) -> Test:
+    try:
+        ob = Test(testName=test.get( "testName", "Unnamed test" ))
+    except Exception as e:
+        print(test)
+        raise(e)
+    ob.addResult("mark", 1)
+    for k,v in test.items():
+        if k == 'iscorrect':
+            ob.pass_test(v)
+        elif k == "testName":
+            continue
+        else:
+            ob.addResult(k,v)
+    return ob
+
+def dumpResponse(svar,debug=False):
+    """
+    Parse JSON list from the LLM and create Test objects.
+    """
+
+    # Extract JSON list, stripping leading and trailing characters.
+    try:
+       svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
+    except Exception as e:
+        ob = Test(testName="No JSON list found in response string.")
+        ob.addResult( "rawfeedback", svar )
+        ob.addResult( "decodeerror", str(e) )
+        ob.addResult( "type", "malformed" )
+        if debug:
+            print( ob )
+        return [ ob ]
+
+    # Parse the JSON string
+    try:
+       testlist = json.loads(svar_fetched,strict=False)
+    except json.JSONDecodeError as e:
+        ob = Test(testName="Malformed JSON result")
+        ob.addResult( "rawfeedback", svar_fetched )
+        ob.addResult( "decodeerror", str(e) )
+        ob.addResult( "type", "malformed" )
+        if debug:
+            print( ob )
+        return [ ob ]
+
+    # Create Test objects and return
+    return [ makeTest(test) for test in testlist ]
 
 
 class TestResults:
@@ -79,7 +205,7 @@ class TestResults:
               ob = json.loads( content )
           elif ob is None:
               raise Exception( "One of output, ob, or raw should be given." )
-          self.rawresponse = Test(content=ob["rawresponse"] 
+          self.rawresponse = Test( content=ob["rawresponse"] )
           self.testresults = [ Test(content=x) for x in ob["testresults"] ]
       if debug:
           cnt = {}
@@ -247,127 +373,3 @@ class TestResults:
             raise Exception( "Multiple raw response entries" )
         return( xs[0] )
 
-class Test:
-   """
-   A `Test` object represents a single test assessed by the AI.
-   It is used as the main constituent element in the `TestResults`
-   class.
-
-   A `Test` may also contain the raw response from the LLM, in which
-   case it has name «gpt_svar».
-   """
-   def __init__(self, testName=None, content=None):
-      if content:
-          self.result = ob
-      else:
-          self.result = {"name": testName, "passed": False}
-
-   def addResult(self, field_name, field_data):
-      """
-      Add resultdata. Data has a key (field_name) and value (field_data)
-      """
-      self.result.update({field_name: field_data})
-
-   def addResults(self, res_dict):
-      for k, v in res_dict.items():
-         self.addResult(k,v)
-
-   def pass_test(self, passed):
-      self.result["passed"] = passed
-   def testType(self):
-       return self.result.get("type","test")
-
-   def asdict(self):
-      return self.result
-   def __str__(self):
-      return json.dumps(self.result, indent=4)
-
-   def __repr__(self):
-      return json.dumps({"Test": self.result}, indent=4)
-
-   def isTest(self):
-       """
-       Returns true if the object is a well-formed test, as opposed to containers
-       for raw LLM output or malformed output.
-       """
-       return self.testType() == "test"
-   def dump(self):
-      return self.__repr__()
-   def formatMarkdown(self):
-      """Return a string presenting the test result in Markdown."""
-      result = self.result
-      feedback = False
-      if result["passed"]:
-          header = f'## Passed: {result["name"]}\n'
-      elif "resultat" in result.keys():
-          header = f'## Failed: {result["name"]}\n'
-      else: return None
-      return ( header + f'\n{result["resultat"]}\n' )
-   def formatResult(self):
-      """Return a string presenting the test result in HTML."""
-      result = self.result
-      feedback = False
-      if result["passed"]:
-            color = "Lime"
-      elif "resultat" in result.keys():
-            color = "Red"
-      else: return None
-      return ( f'<h2 style="background-color:{color};">{result["name"]}</h2>'
-           + f'\n<p>{result["resultat"]} </p>' )
-
-
-def dumpSvardata(svar):
-    """
-    Create a Test object containing the feedback from LLM.
-    """
-    svardata = Test(testName="Raw GPT Response")
-    svardata.addResult("rawresponse", json.dumps(svar))
-    svardata.addResult("type", "rawresponse")
-    return svardata
-def makeTest(test) -> Test:
-    try:
-        ob = Test(testName=test.get( "testName", "Unnamed test" ))
-    except Exception as e:
-        print(test)
-        raise(e)
-    ob.addResult("mark", 1)
-    for k,v in test.items():
-        if k == 'iscorrect':
-            ob.pass_test(v)
-        elif k == "testName":
-            continue
-        else:
-            ob.addResult(k,v)
-    return ob
-
-def dumpResponse(svar,debug=False):
-    """
-    Parse JSON list from the LLM and create Test objects.
-    """
-
-    # Extract JSON list, stripping leading and trailing characters.
-    try:
-       svar_fetched = re.search(r"\[.*\]", svar, flags=re.DOTALL).group(0)
-    except Exception as e:
-        ob = Test(testName="No JSON list found in response string.")
-        ob.addResult( "rawfeedback", svar )
-        ob.addResult( "decodeerror", str(e) )
-        ob.addResult( "type", "malformed" )
-        if debug:
-            print( ob )
-        return [ ob ]
-
-    # Parse the JSON string
-    try:
-       testlist = json.loads(svar_fetched,strict=False)
-    except json.JSONDecodeError as e:
-        ob = Test(testName="Malformed JSON result")
-        ob.addResult( "rawfeedback", svar_fetched )
-        ob.addResult( "decodeerror", str(e) )
-        ob.addResult( "type", "malformed" )
-        if debug:
-            print( ob )
-        return [ ob ]
-
-    # Create Test objects and return
-    return [ makeTest(test) for test in testlist ]
