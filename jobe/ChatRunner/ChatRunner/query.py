@@ -56,11 +56,11 @@ class Test:
    class.
 
    A `Test` may also contain the raw response from the LLM, in which
-   case it has name «gpt_svar».
+   case it has type "rawresponse".
    """
    def __init__(self, testName=None, content=None):
-      self.result = {"name": testName, "passed": False}
-      if content:
+       self.result = {"name": testName, "passed": False, "type": None }
+       if content:
           self.load( content )
 
    def addResult(self, field_name, field_data):
@@ -133,9 +133,9 @@ def dumpSvardata(svar):
     """
     Create a Test object containing the feedback from LLM.
     """
-    svardata = Test(testName="svardata")
-    svardata.addResult("gpt_svar", json.dumps(svar))
-    svardata.addResult("type", "gpt_svar")
+    svardata = Test(testName="Raw GPT Response")
+    svardata.addResult("rawresponse", json.dumps(svar))
+    svardata.addResult("type", "rawresponse")
     return svardata
 def makeTest(test) -> Test:
     try:

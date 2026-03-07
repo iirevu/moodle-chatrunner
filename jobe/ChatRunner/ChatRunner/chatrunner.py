@@ -72,6 +72,8 @@ class TestResults:
               { "description": "CodeTester ran without loaded tests" } }
          self.testresults = None
       if output is not None:
+          if debug:
+              print( "[TestResult] init from output" )
           if not isinstance(output,str):
               raise Exception( "TestResult() - output argument should be str." )
           if ob is not None:
@@ -79,6 +81,8 @@ class TestResults:
           self.testresults = [ Test(content=line)
                               for line in output.splitlines() ]
       elif ob is not None:
+          if debug:
+              print( "[TestResult] init from list of Test objects" )
           if not isinstance(ob,list):
               raise Exception( "TestResult() - ob argument should be list of Test objects." )
           if not all(isinstance(elem,Test) for elem in ob):
@@ -87,6 +91,12 @@ class TestResults:
       else:
           raise Exception( "Either output or ob should be given." )
 
+      if debug:
+          cnt = {}
+          for test in self.testresults:
+              tp = test.result["type"]
+              cnt[tp] = cnt.get("tp",0) + 1
+          print( cnt )
       self.numTests = len(self.testresults)
 
    def debugPrintResults(self): return debugPrintResults(self.testresults)
@@ -151,7 +161,10 @@ class TestResults:
             total_marks += mark
          else:
             mark = 0
-         if test.result["passed"]:
+         if "passed" not in test.result:
+             print( 'No "passed" entry in test result.' )
+             print( test.result )
+         elif test.result["passed"]:
             obtained_marks += mark
       if total_marks != 0:
          self.frac = obtained_marks/total_marks
@@ -179,10 +192,12 @@ class TestResults:
        Return the test results as a `dict`.
        """
        rl = [ test.asdict() for test in self.testresults ]
-       rl = [ x for x in rl if not "gpt_svar" in x.keys() ]
+       rr = [ x for x in rl if x["type"] == "rawresponse" ]
+       rl = [ x for x in rl if not x["type"] == "rawresponse" ]
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
+               "rawresonse": rr[0],
                "otherfeedback": ol,
                "tableHeader": self.tableHeader,
                "testfeedback": rl }
@@ -193,7 +208,7 @@ class TestResults:
       """
       Return the contents of the TestResults as a string.
       """
-      contents = { "TestResultsObj": self.getFeedbackObjedt( other_lines=True ) }
+      contents = { "TestResultsObj": self.getFeedbackObject( other_lines=True ) }
       return json.dumps(contents)
    def getCodeRunnerOutput(self,
                            graderstate=None,
@@ -230,6 +245,15 @@ class TestResults:
        rl = [ test.formatMarkdown() for test in self.testresults ]
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
+   def getRawResponse(self,debug=None):
+        rl = [ test.asdict() for test in self.testresults ]
+        xs = [ x for x in rl if x["type"] == "rawresponse" ]
+        if len(xs) == 0:
+            print( self )
+            raise Exception( "No raw response" )
+        if len(xs) > 1:
+            raise Exception( "Multiple raw response entries" )
+        return( xs[0] )
 
 def debugPrintResults(testResults):
     """Print a list of Test objects for debugging purposes."""
@@ -349,12 +373,11 @@ class Engine:
 
         res = self.testResults
 
-        xs = [ test for test in res.testresults if test.result["name"] == "svardata" ]
-        if len(xs) == 0:
-            raise Exception( "No feedback" )
-        if len(xs) > 1:
-            raise Exception( "Multiple feedback entries" )
-        self.graderstate.addFeedback(xs[0].result["gpt_svar"])
+        if debug:
+            print( "self.testResults is", type( self.testResults ) )
+
+        xs = res.getRawResponse()
+        self.graderstate.addFeedback(xs.result["rawrespponse"])
         return self.graderstate
     def getResult(self,debug=None):
         return self.testResults
@@ -379,7 +402,7 @@ class NewEngine(Engine):
         response = queryAI(self.sandbox, self.getPrompt(), debug=debug)
         if debug: debugPrintResults(response)
 
-        testResults = TestResults(ob=response)
+        testResults = TestResults(ob=response,debug=debug)
         testResults.finalise()
         self.testResults = testResults
         return testResults
@@ -396,7 +419,7 @@ class DumpEngine(Engine):
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.
         output = "\n".join( [ x.dump() for x in response ] )
-        testResults = TestResults(output)
+        testResults = TestResults(output,debug=debug)
         testResults.finalise()
         self.testResults = testResults
         return testResults
