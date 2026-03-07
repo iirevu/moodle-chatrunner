@@ -8,7 +8,11 @@ function for ChatRunner.
 import subprocess, base64, json, os
 from .query import queryAI
 from .helper import getfn
+
 from .TestResults import Table, TestResults, Test
+
+from typing import List
+
 
 def debugPrintResults(testResults):
     """Print a list of Test objects for debugging purposes."""
@@ -126,12 +130,11 @@ class Engine:
 
         res = self.testResults
 
-        xs = [ test for test in res.testresults if test.result["name"] == "svardata" ]
-        if len(xs) == 0:
-            raise Exception( "No feedback" )
-        if len(xs) > 1:
-            raise Exception( "Multiple feedback entries" )
-        self.graderstate.addFeedback(xs[0].result["gpt_svar"])
+        if debug:
+            print( "self.testResults is", type( self.testResults ) )
+
+        xs = res.getRawResponse()
+        self.graderstate.addFeedback(xs.result["rawrespponse"])
         return self.graderstate
     def getResult(self,debug=None):
         return self.testResults
@@ -156,7 +159,7 @@ class NewEngine(Engine):
         response = queryAI(self.sandbox, self.getPrompt(), debug=debug)
         if debug: debugPrintResults(response)
 
-        testResults = TestResults(ob=response)
+        testResults = TestResults(ob=response,debug=debug)
         testResults.finalise()
         self.testResults = testResults
         return testResults
@@ -173,7 +176,7 @@ class DumpEngine(Engine):
         # Dump the result as a string and have `TestResults` reparse it,
         # in the way that is required for `subprocess` in `runAnswer()`.
         output = "\n".join( [ x.dump() for x in response ] )
-        testResults = TestResults(output)
+        testResults = TestResults(output,debug=debug)
         testResults.finalise()
         self.testResults = testResults
         return testResults

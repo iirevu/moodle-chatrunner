@@ -85,6 +85,12 @@ class TestResults:
       else:
           raise Exception( "Either output or ob should be given." )
 
+      if debug:
+          cnt = {}
+          for test in self.testresults:
+              tp = test.result["type"]
+              cnt[tp] = cnt.get("tp",0) + 1
+          print( cnt )
       self.numTests = len(self.testresults)
 
    def debugPrintResults(self): return debugPrintResults(self.testresults)
@@ -149,7 +155,10 @@ class TestResults:
             total_marks += mark
          else:
             mark = 0
-         if test.result["passed"]:
+         if "passed" not in test.result:
+             print( 'No "passed" entry in test result.' )
+             print( test.result )
+         elif test.result["passed"]:
             obtained_marks += mark
       if total_marks != 0:
          self.frac = obtained_marks/total_marks
@@ -177,10 +186,12 @@ class TestResults:
        Return the test results as a `dict`.
        """
        rl = [ test.asdict() for test in self.testresults ]
+       rr = [ x for x in rl if x["type"] == "rawresponse" ]
        rl = [ x for x in rl if not "gpt_svar" in x.keys() ]
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
+               "rawresonse": rr[0],
                "otherfeedback": ol,
                "tableHeader": self.tableHeader,
                "testfeedback": rl }
@@ -313,9 +324,9 @@ def dumpSvardata(svar):
     """
     Create a Test object containing the feedback from LLM.
     """
-    svardata = Test(testName="svardata")
-    svardata.addResult("gpt_svar", json.dumps(svar))
-    svardata.addResult("type", "gpt_svar")
+    svardata = Test(testName="Raw GPT Response")
+    svardata.addResult("rawresponse", json.dumps(svar))
+    svardata.addResult("type", "rawresponse")
     return svardata
 def makeTest(test) -> Test:
     try:

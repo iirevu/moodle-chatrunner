@@ -49,6 +49,7 @@ def queryAI(sandbox, prompt, ans=None, debug=False ):
    return TestResults( rawdata=svar )
 
 
+
 def extractAnswer(response,sandbox={},debug=False):
     """
     Extract the message content from the AI response.
