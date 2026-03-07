@@ -202,7 +202,7 @@ class TestResults:
               if ob is not None:
                   raise Exception( 
                          "Either output or ob should be given, not both." )
-              ob = json.loads( content )
+              ob = json.loads( output )
           elif ob is None:
               raise Exception( "One of output, ob, or raw should be given." )
           self.rawresponse = Test( content=ob["rawresponse"] )
@@ -215,6 +215,7 @@ class TestResults:
           print( cnt )
       self.numTests = len(self.testresults)
 
+   def __iter__(self): return self.testresults.__iter__()
    def debugPrintResults(self): return debugPrintResults(self.testresults)
    def finalise(self,debug=False):
       """
