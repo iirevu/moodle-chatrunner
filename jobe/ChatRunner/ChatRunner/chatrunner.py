@@ -122,10 +122,9 @@ class Engine:
         res = self.testResults
 
         if debug:
-            print( "self.testResults is", type( self.testResults ) )
+            print( "self.testResults is", type( res ) )
 
-        xs = res.getRawResponse()
-        self.graderstate.addFeedback(xs.result["rawrespponse"])
+        self.graderstate.addFeedback( res.getRawResponse().asdict() )
         return self.graderstate
     def getResult(self,debug=None):
         return self.testResults

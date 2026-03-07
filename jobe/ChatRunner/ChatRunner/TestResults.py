@@ -337,7 +337,7 @@ class TestResults:
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
-               "rawresonse": rr[0],
+               "rawresonse": self.getRawResponse().asdict(),
                "otherfeedback": ol,
                "tableHeader": self.tableHeader,
                "testfeedback": rl }
@@ -389,12 +389,5 @@ class TestResults:
        rl = [ x for x in rl if x is not None ]
        return "\n".join( rl )
    def getRawResponse(self,debug=None):
-        rl = [ test.asdict() for test in self.testresults ]
-        xs = [ x for x in rl if x["type"] == "rawresponse" ]
-        if len(xs) == 0:
-            print( self )
-            raise Exception( "No raw response" )
-        if len(xs) > 1:
-            raise Exception( "Multiple raw response entries" )
-        return( xs[0] )
+        return( self.rawresponse )
 
