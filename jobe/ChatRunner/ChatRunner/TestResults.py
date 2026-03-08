@@ -39,7 +39,7 @@ class Test:
    class.
 
    A `Test` may also contain the raw response from the LLM, in which
-   case it has name «gpt_svar».
+   case it has type `rawresponse`.
    """
    def __init__(self, testName=None, content=None, type="test"):
       if content:
@@ -339,8 +339,6 @@ class TestResults:
        Return the test results as a `dict`.
        """
        rl = [ test.asdict() for test in self.testresults ]
-       rr = [ x for x in rl if x["type"] == "rawresponse" ]
-       rl = [ x for x in rl if not "gpt_svar" in x.keys() ]
        ol = self.getOtherOutput()
        obj = { "fraction": self.frac,
                "testresults": self.resultstable.asList(),
