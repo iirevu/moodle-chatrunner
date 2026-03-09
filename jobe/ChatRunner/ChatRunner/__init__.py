@@ -7,4 +7,5 @@ It is intended for use from CodeRunner in Moodle, but can also be
 run in batch to test feedback quality of LLMs.
 """
 
+__version__ = "0.2.0"
 from .query import queryAI
