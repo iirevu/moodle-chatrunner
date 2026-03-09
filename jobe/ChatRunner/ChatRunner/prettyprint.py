@@ -6,7 +6,7 @@ import argparse
 
 qKeys = {'question', 'answers'}
 ansKeys = { 'ans', 'feedback' }
-fbKeys = { "model", "fraction", "testresults", "testfeedback", "otherfeedback", "tableHeader" }
+fbKeys = { "model", "fraction", "testresults", "testfeedback", "otherfeedback", "tableHeader", "rawresponse" }
 testKeys = {'name', 'passed', 'mark', 'description', 'resultat', "type", "decodeerror" }
 
 
