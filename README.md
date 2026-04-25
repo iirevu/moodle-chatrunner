@@ -14,6 +14,11 @@ features are used to pass student responses to the LLM.
 Under `jobe/ChatRunner` there is a python package to provide the
 API to call an LLM from CodeRunner.
 
+**Warning**
+Development of ChatRunner has been moved to https://github.com/iirevu/moodle-chatrunner.
+The testing framewokr in this repo has not been updated to use the most recent versions
+of ChatRunner.
+
 ## Authors
 
 + Jonas Julius Harang, idea and original prototype

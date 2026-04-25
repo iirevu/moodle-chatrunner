@@ -65,11 +65,13 @@ def extractAnswer(response,sandbox={},debug=False):
     if debug:
         print( "== complete «svar» from AI ==" )
         print(svar)
-    svar = svar["message"]["content"]
+    content = svar["message"]["content"]
+    if not content:
+        content = svar["message"]["reasoning_content"]
     if debug:
        print( "== message content from AI ==" )
-       print(svar)
-    return svar
+       print(content)
+    return content
 
 def chatRequest(sandbox,prompt,ans=None,debug=False):
     """

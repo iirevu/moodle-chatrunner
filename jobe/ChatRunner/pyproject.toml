@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ChatRunner"
-version = "0.1.0"
+dynamic = [ "version" ]
 authors = [
   { name='Hans Georg Schaathun', email="hasc@ntnu.no" },
   { name='Jonas Julius Harag' },
@@ -24,6 +24,9 @@ classifiers = [
 license = "GPL-3.0"
 license-files = ["LICENSE.txt"]
 keywords=[ 'elearning', 'artifical intelligence', 'large language models', 'automatedassessment' ]
+
+[tool.setuptools.dynamic]
+version = {attr = "ChatRunner.__version__"}
 
 [project.urls]
 Homepage = "https://github.com/iirevu/moodle-chatrunner"
